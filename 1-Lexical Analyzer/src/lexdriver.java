@@ -13,7 +13,6 @@ public class lexdriver {
 			token = lexAnalyzer.nextToken();
 			tokenList.add(token);
 		} while (token != null);
-		
 	}
 
 }
