@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class lexicalanalyzer {
@@ -10,10 +11,12 @@ public class lexicalanalyzer {
 	private MyTableModel table = new MyTableModel();
 	private static int line = 1;
 	private static int lineCounter = 0;
+	private final static ArrayList<String> reservedWords = new ArrayList<String>();
 	
 	public lexicalanalyzer(String file) {
 		try {
 			reader = new BufferedReader(new FileReader(file));
+			populateReservedWords();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -46,7 +49,16 @@ public class lexicalanalyzer {
 					// check for whitespace
 					if (Character.isWhitespace(lookup)) {
 						columnNumber = table.findColumn("whitespace");
-						} else {
+					// check to see if lookup is e
+					} else if (isE(lookup)) { 
+						columnNumber = table.findColumn("e");
+					// check to see if lookup is a letter (not e)
+					} else if (isLetterNotE(lookup)) {
+						columnNumber = table.findColumn("L");
+					// check to see if lookup is nonzero
+					} else if (isNonZero(lookup)) {
+						columnNumber = table.findColumn("N");
+					} else {
 						columnNumber = table.findColumn(Character.toString(lookup));
 						if (columnNumber == -1) {
 							token = new Token("Error","Error",line);
@@ -91,6 +103,11 @@ public class lexicalanalyzer {
 				
 				// returns token
 				String tokenName = (String) finalValue;
+				if (tokenName.equals("id")) {
+					if (reservedWords.contains(lexeme)) {
+						tokenName = lexeme;
+					}
+				}
 				token = new Token(tokenName,lexeme,line);				
 				System.out.println(token);
 			} else {
@@ -145,6 +162,52 @@ public class lexicalanalyzer {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public boolean isE(char c) {
+		if ((int) c == 101) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isLetterNotE(char c) {
+		if (((int) c >= 65 && (int) c <= 90) || ((int) c >= 97 && (int) c <= 122)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isNonZero(char c) {
+		if ((int) c >= 49 && (int) c <= 57) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void populateReservedWords() {
+		reservedWords.add("or");
+		reservedWords.add("and");
+		reservedWords.add("not");
+		reservedWords.add("integer");
+		reservedWords.add("float");
+		reservedWords.add("void");
+		reservedWords.add("class");
+		reservedWords.add("self");
+		reservedWords.add("isa");
+		reservedWords.add("while");
+		reservedWords.add("if");
+		reservedWords.add("then");
+		reservedWords.add("else");
+		reservedWords.add("read");
+		reservedWords.add("write");
+		reservedWords.add("return");
+		reservedWords.add("localvar");
+		reservedWords.add("constructor");
+		reservedWords.add("attribute");
+		reservedWords.add("function");
+		reservedWords.add("public");
+		reservedWords.add("private");
 	}
 	
 }
