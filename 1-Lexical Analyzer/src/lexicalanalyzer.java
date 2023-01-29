@@ -74,6 +74,24 @@ public class lexicalanalyzer {
 			// find next state of dfa
 			state = (int) table.getValueAt(state, columnNumber);
 			
+			// special case, check if value after . in float is a number
+			if (state == 40 || state == 41) {
+				try {
+					reader.mark(2);
+					char c1 = nextChar();
+					char c2 = nextChar();
+					if ((int) c1 == 46 && !(isNonZero(c2) || (int) c2 == 48)) {
+						state = 49;
+					} else {
+						
+					}
+					reader.reset();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 			// check to see if state is final state
 			Object finalValue = table.getValueAt(state, table.findColumn("final"));
 			if (Objects.nonNull(finalValue)) {
