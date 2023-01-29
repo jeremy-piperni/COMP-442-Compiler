@@ -3,7 +3,7 @@
 [lt, <, 3] [mult, *, 3] [not, not, 3] [opencubr, {, 3] [dot, ., 3] [void, void, 3] [then, then, 3] [attribute, attribute, 3]
 [gt, >, 4] [div, /, 4] [closecubr, }, 4] [colon, :, 4] [class, class, 4] [else, else, 4] [function, function, 4]
 [leq, <=, 5] [assign, =, 5] [opensqbr, [, 5] [returntype, =>, 5] [self, self, 5] [read, read, 5] [public, public, 5]
-[geq, >=, 6] [closesqbr, ], 6] [scopeop, ::, 6] [isa, isa, 7] [write, write, 7] [private, private, 7]
+[geq, >=, 6] [closesqbr, ], 6] [scopeop, ::, 6] [isa, isa, 6] [write, write, 6] [private, private, 6]
 [return, return, 7]
 [intnum, 0, 13]
 [intnum, 1, 14]

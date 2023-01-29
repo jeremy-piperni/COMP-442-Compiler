@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -8,16 +9,25 @@ import java.util.Objects;
 public class lexicalanalyzer {
 
 	private BufferedReader reader;
+	private FileWriter tokenWriter;
+	private FileWriter errorWriter;
 	private MyTableModel table = new MyTableModel();
 	private int line = 1;
 	private int lineCounter = 0;
-	private int blockCommentCounter = 0;
 	private final static ArrayList<String> reservedWords = new ArrayList<String>();
 	
 	public lexicalanalyzer(String file) {
 		try {
 			reader = new BufferedReader(new FileReader(file));
 			populateReservedWords();
+			String[] fileName1 = file.split("/");
+			String[] fileName2 = fileName1[1].split("\\.");
+			try {
+				tokenWriter = new FileWriter("Generated Outlex Files/" + fileName2[0] + ".outlextokens");
+				errorWriter = new FileWriter("Generated Outlex Files/" + fileName2[0] + ".outlexerrors");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -87,7 +97,6 @@ public class lexicalanalyzer {
 					}
 					reader.reset();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -98,6 +107,12 @@ public class lexicalanalyzer {
 				
 				// if at end of file, return null
 				if (finalValue.toString().equals("end")) {
+					try {
+						tokenWriter.close();
+						errorWriter.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					return null;
 				}
 				
@@ -127,7 +142,22 @@ public class lexicalanalyzer {
 					}
 				}
 				token = new Token(tokenName,lexeme,line);				
-				System.out.println(token);
+				try {
+					tokenWriter.write(token.toString());
+					tokenWriter.write(System.getProperty( "line.separator" ));
+					if (token.getType().equals("invalidchar")) {
+						errorWriter.write("Lexical error: Invalid character: \"" + token.getLexeme() +"\": line " + token.getLoc() + ".");
+						errorWriter.write(System.getProperty( "line.separator" ));
+					} else if (token.getType().equals("untermerr")) {
+						errorWriter.write("Lexical error: Unterminated comment: \"" + token.getLexeme() +"\": line " + token.getLoc() + ".");
+						errorWriter.write(System.getProperty( "line.separator" ));
+					} else if (token.getType().equals("invalidnum")) {
+						errorWriter.write("Lexical error: Invalid number: \"" + token.getLexeme() +"\": line " + token.getLoc() + ".");
+						errorWriter.write(System.getProperty( "line.separator" ));
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} else {
 				
 				// update lexeme when not in final state
