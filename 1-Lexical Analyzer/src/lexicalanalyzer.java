@@ -9,8 +9,9 @@ public class lexicalanalyzer {
 
 	private BufferedReader reader;
 	private MyTableModel table = new MyTableModel();
-	private static int line = 1;
-	private static int lineCounter = 0;
+	private int line = 1;
+	private int lineCounter = 0;
+	private int blockCommentCounter = 0;
 	private final static ArrayList<String> reservedWords = new ArrayList<String>();
 	
 	public lexicalanalyzer(String file) {
@@ -58,12 +59,11 @@ public class lexicalanalyzer {
 					// check to see if lookup is nonzero
 					} else if (isNonZero(lookup)) {
 						columnNumber = table.findColumn("N");
+					// check to see if lookup is invalid character
 					} else {
 						columnNumber = table.findColumn(Character.toString(lookup));
 						if (columnNumber == -1) {
-							token = new Token("Error","Error",line);
-							System.out.println(token);
-							return token;
+							columnNumber = table.findColumn("inv");
 						}
 					}
 				}
@@ -73,7 +73,7 @@ public class lexicalanalyzer {
 			
 			// find next state of dfa
 			state = (int) table.getValueAt(state, columnNumber);
-
+			
 			// check to see if state is final state
 			Object finalValue = table.getValueAt(state, table.findColumn("final"));
 			if (Objects.nonNull(finalValue)) {

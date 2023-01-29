@@ -1,14 +1,5 @@
-==	+	or	(	;	integer	while	localvar
-<>	-	and	)	,	float	if 	constructor
-<	*	not	{	.	void	then	attribute
->	/		}	:	class	else	function
-<=	=		[	=>	self	read	public
->=			]	::	isa	write	private
-						return	
-
-
-abc 	
-abc1
-a1bc	
-abc_1abc	
-abc1_abc
+12.3404
+003.00001
+200.29000
+3.0
+3.
