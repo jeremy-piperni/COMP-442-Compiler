@@ -2,7 +2,7 @@
 <>	-	and	)	,	float	if 	constructor
 <	*	not	{	.	void	then	attribute
 >	/		}	:	class	else	function
-<=	=		[	=>	self	read	public
+<=	=		[	=>	self	re_ad	public
 >=			]	::	isa	write	private
 						return	
 
@@ -10,11 +10,14 @@
 
 
 
-0
+0.0
 1
 10
 12
-123
+123_abc
+abc@1
+0.0e+0
+x.23
 12345
 	
 1.23	
@@ -30,7 +33,11 @@ abc1_abc
 
 // this is an inline comment
 
+hello
+
 /* this is a single line block comment */
+
+yo
 
 /* this is a 
 multiple line

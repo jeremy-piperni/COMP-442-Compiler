@@ -9,6 +9,7 @@ public class lexdriver {
 		
 		// run lexer on lexpositivegrading
 		Token token;
+		
 		do {
 			token = lexAnalyzer.nextToken();
 			//tokenList.add(token);
@@ -42,6 +43,7 @@ public class lexdriver {
 			token = lexAnalyzer.nextToken();
 		} while (token != null);
 		
+		System.out.println("Done!");
 	}
 
 }

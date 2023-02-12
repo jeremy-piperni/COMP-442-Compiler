@@ -56,7 +56,6 @@ public class lexicalanalyzer {
 				} else {
 					reader.mark(1);
 					lookup = nextChar();
-					
 					// check for whitespace
 					if (Character.isWhitespace(lookup)) {
 						columnNumber = table.findColumn("whitespace");
@@ -120,7 +119,7 @@ public class lexicalanalyzer {
 				if (!Character.isWhitespace(lookup)) {
 					lexeme = lexeme + lookup;
 				}
-				
+
 				// check to see if we must backtrack, delete last character of lexeme
 				Object backtrack = table.getValueAt(state, table.findColumn("backtrack"));
 				if (Objects.nonNull(backtrack)) {
@@ -206,6 +205,11 @@ public class lexicalanalyzer {
 			if ((c = reader.read()) == -1) {
 				return true;
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			reader.reset();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
