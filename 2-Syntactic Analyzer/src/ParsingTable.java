@@ -1,10 +1,11 @@
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
 public class ParsingTable {
 	public static void main(String args[]){
 	      JFrame frame = new JFrame();
-	      JTable table = new JTable(new MyTableModel());
+	      JTable table = new JTable(new MyParsingTableModel());
 	 
 	      frame.add(table);
 	      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -13,7 +14,14 @@ public class ParsingTable {
 	      frame.setVisible(true);
 	   }
 	
+}
+	
+class MyParsingTableModel extends AbstractTableModel {
+	
+	private static final long serialVersionUID = 1L;
+
 	String[] columnNames = {"name","$","private","public","dot","rpar","lpar","id","float","integer","semi","return","write","read","while","else","then","if","rcurbr","lcurbr","minus","plus","void","comma","geq","leq","gt","lt","neq","eq","isa","and","div","mult","colon","attribute","constructor","arrow","function","localvar","rsqbr","lsqbr","sr","not","floatlit","intlit","class","equal","or"};
+	String[] rowNames = {"name","START","ADDOP","APARAMS","APARAMSTAIL","ARITHEXPR","ARRAYSIZE","Flsqbr","ASSIGNOP","ASSIGNSTAT","CLASSDECL","CLASSDECLORFUNCDEF","EXPR","EXPR2","FACTOR","FACTOR2","FACTOR3","FACTOR4","FPARAMS","FPARAMSTAIL","FUNCBODY","FUNCDEF","FUNCHEAD","Ffunction","Fid2","Fsr","FUNCTIONCALL","FFUNCid","FFUNCid2","IDNEST","Fid3","INDICE","LOCALVARDECL","Flocalvar","Fid","Fcolon","FTYPE","LOCALVARDECLORSTMT","MEMBERDECL","MEMBERFUNCDECL","MEMBERVARDECL","MULTOP","OPTCLASSDECL2","RELEXPR","RELOP","REPTAPARAMS1","REPTCLASSDECL4","REPTFPARAMS3","REPTFPARAMS4","REPTFPARAMSTAIL4","REPTFUNCBODY1","REPTFUNCTIONCALL0","REPTIDNEST1","REPTLOCALVARDECL4","REPTMEMBERVARDECL4","REPTOPTCLASSDECL22","REPTSTART0","REPTSTATBLOCK1","REPTVARIABLE2","RETURNTYPE","RIGHTRECARITHEXPR","RIGHTRECTERM","SIGN","STATBLOCK","STATEMENT","STATEMENT2","STATEMENT3","STATEMENT4","TERM","TYPE","VARIABLE","FVARid","FVARid2","VISIBILITY"};
 	
 	Object[][] data = {
 			{"name","$","private","public","dot","rpar","lpar","id","float","integer","semi","return","write","read","while","else","then","if","rcurbr","lcurbr","minus","plus","void","comma","geq","leq","gt","lt","neq","eq","isa","and","div","mult","colon","attribute","constructor","arrow","function","localvar","rsqbr","lsqbr","sr","not","floatlit","intlit","class","equal","or"},
@@ -93,8 +101,6 @@ public class ParsingTable {
 		
 		};
 
-	
-
 
 	public int getRowCount() {
     	return data.length;
@@ -107,6 +113,15 @@ public class ParsingTable {
 	public int findColumn(String s) {
 		for (int i=0; i < columnNames.length;i++) {
 			if (s.equals(columnNames[i])) {
+				return i;
+		   	}
+	   	}
+	    return -1;
+	}
+	
+	public int findRow(String s) {
+		for (int i=0; i < rowNames.length;i++) {
+			if (s.equals(rowNames[i])) {
 				return i;
 		   	}
 	   	}

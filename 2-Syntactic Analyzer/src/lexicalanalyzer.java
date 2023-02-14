@@ -12,6 +12,7 @@ public class lexicalanalyzer {
 	private FileWriter tokenWriter;
 	private FileWriter errorWriter;
 	private MyTableModel table = new MyTableModel();
+	private String fileName;
 	private int line = 1;
 	private int lineCounter = 0;
 	private final static ArrayList<String> reservedWords = new ArrayList<String>();
@@ -20,6 +21,7 @@ public class lexicalanalyzer {
 		try {
 			reader = new BufferedReader(new FileReader(file));
 			populateReservedWords();
+			fileName = file;
 			String[] fileName1 = file.split("/");
 			String[] fileName2 = fileName1[1].split("\\.");
 			try {
@@ -112,7 +114,7 @@ public class lexicalanalyzer {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					return null;
+					return new Token("$","$",line);
 				}
 				
 				// update lexeme if not white space
@@ -260,6 +262,10 @@ public class lexicalanalyzer {
 		reservedWords.add("function");
 		reservedWords.add("public");
 		reservedWords.add("private");
+	}
+
+	public String getFileName() {
+		return fileName;
 	}
 	
 }
