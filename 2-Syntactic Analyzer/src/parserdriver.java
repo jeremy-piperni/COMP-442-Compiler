@@ -21,7 +21,7 @@ public class parserdriver {
 		parserBubble = new parser(lexAnalyzer);
 		parserBubble.parse();
 		
-		file = "Testing Source Files/testing.src";
+		file = "Testing Source Files/error-testing.src";
 		lexAnalyzer = new lexicalanalyzer(file);
 		
 		parserBubble = new parser(lexAnalyzer);
