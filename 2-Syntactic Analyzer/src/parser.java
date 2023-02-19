@@ -8,9 +8,11 @@ public class parser {
 	private lexicalanalyzer lex;
 	private Stack<String> stack = new Stack<String>();
 	private MyParsingTableModel parsingTable = new MyParsingTableModel();
+	private MyFirstFollowTableModel firstFollowTable = new MyFirstFollowTableModel();
 	private ArrayList<String> terminals = new ArrayList<>();
 	private FileWriter derivationWriter;
 	private FileWriter errorWriter;
+	private Token token;
 
 	public parser(lexicalanalyzer lexical) {
 		lex = lexical;
@@ -29,7 +31,6 @@ public class parser {
 		stack.push("$");
 		stack.push("START");
 		boolean error = false;
-		Token token;
 		
 		token = lex.nextToken();
 		while (!stack.peek().equals("$")) {
@@ -65,14 +66,14 @@ public class parser {
 					stack.pop();
 					token = lex.nextToken();
 				} else {
-					System.out.println("Error");
+					skipErrors();
 					error = true;
 				}
-				
 			// stack value is nonterminal
 			} else {
-				String val = (String) parsingTable.getValueAt(parsingTable.findRow(x), parsingTable.findColumn(token.getType()));
+				Object val = parsingTable.getValueAt(parsingTable.findRow(x), parsingTable.findColumn(token.getType()));
 				if (val instanceof String) {
+					val = (String) val;
 					stack.pop();
 					String newPush = (String) parsingTable.getValueAt(parsingTable.findRow(x), parsingTable.findColumn(token.getType()));
 					inverseRHSMultiplePush(newPush);
@@ -93,8 +94,9 @@ public class parser {
 					}
 					
 				} else {
-					System.out.println("Error");
+					
 					error = true;
+					skipErrors();
 				}
 			}
 			
@@ -110,7 +112,6 @@ public class parser {
 		
 		// check if error occurred
 		if (!token.getType().equals("$") || error == true) {
-			System.out.println("Error");
 			return false;
 		} else {
 			return true;
@@ -150,5 +151,26 @@ public class parser {
 	    
 	    s.push(x);
 	} 
+	
+	public void skipErrors() {
+		try {
+			errorWriter.write("Error at line: " + token.getLoc());
+			errorWriter.write(System.getProperty( "line.separator" ));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(token.getType() + " " + stack.peek());
+		if (firstFollowTable.findRow(stack.peek()) == -1 && !token.getType().equals("$")) {
+			token = lex.nextToken();
+		} else if (token.getType().equals("$") || firstFollowTable.isInFollow(token,stack.peek())) {
+			stack.pop();
+		} else {
+			while ((!firstFollowTable.isInFirst(token, stack.peek()) &&
+					!firstFollowTable.isInFollow(token, stack.peek())) &&
+					!token.getType().equals("$")) {
+				token = lex.nextToken();	
+			}
+		}
+	}
 	
 }
