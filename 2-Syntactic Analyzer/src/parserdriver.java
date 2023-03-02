@@ -6,26 +6,26 @@ public class parserdriver {
 		String file = "Testing Source Files/good-testing.src";
 		lexicalanalyzer lexAnalyzer = new lexicalanalyzer(file);
 		
-		parser parserBubble = new parser(lexAnalyzer);
-		parserBubble.parse();
+		parser parser = new parser(lexAnalyzer);
+		parser.parse();
 		
 		file = "Testing Source Files/example-bubblesort.src";
 		lexAnalyzer = new lexicalanalyzer(file);
 		
-		parserBubble = new parser(lexAnalyzer);
-		parserBubble.parse();
+		parser = new parser(lexAnalyzer);
+		parser.parse();
 		
 		file = "Testing Source Files/example-polynomial.src";
 		lexAnalyzer = new lexicalanalyzer(file);
 		
-		parserBubble = new parser(lexAnalyzer);
-		parserBubble.parse();
+		parser = new parser(lexAnalyzer);
+		parser.parse();
 		
 		file = "Testing Source Files/error-testing.src";
 		lexAnalyzer = new lexicalanalyzer(file);
 		
-		parserBubble = new parser(lexAnalyzer);
-		parserBubble.parse();
+		parser = new parser(lexAnalyzer);
+		parser.parse();
 		
 	}
 

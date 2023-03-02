@@ -1,26 +1,26 @@
-// /+++ function bubbleSort(arr: integer[][],size: integer) => void 
-// {}
+/+++ function bubbleSort(arr: integer[][],size: integer) => void 
+{}
 
-//function bubbleSort(arr: integer[][]error, size: integer) => void 
-//{}
+function bubbleSort(arr: integer[][]error, size: integer) => void 
+{}
 
-//function bubbleSort(arr: integer[][],error size: integer) => void 
-//{}
+function bubbleSort(arr: integer[][],error size: integer) => void 
+{}
 
-//function error bubbleSort(arr: integer[][],size: integer) => void 
-//{}
+function error bubbleSort(arr: integer[][],size: integer) => void 
+{}
 
-//function bubbleSort(arr: + integer[][],size: integer) => void 
-//{}
+function bubbleSort(arr: + integer[][],size: integer) => void 
+{}
 
-//function bubbleSort(arr: integer[][],size: 89) => void 
-//{}
+function bubbleSort(arr: integer[][],size: 89) => void 
+{}
 
-//function bubbleSort(arr: integer[][],size: integer) => void error
-//{}
+function bubbleSort(arr: integer[][],size: integer) => void error
+{}
 
-//function bubbleSort(78 float < arr: integer[][],size: integer) => void
-//{}
+function bubbleSort(78 float < arr: integer[][],size: integer) => void
+{}
 
 class LINEAR isa / POLYNOMIAL {
   private < attribute a: float;
@@ -29,5 +29,5 @@ class LINEAR isa / POLYNOMIAL {
   public  function evaluate: (x: - float) => + float;
 };
 
-//function bubbleSort(arr: integer[][],size: integer) => void
-//{
+function bubbleSort(arr: integer[][],size: integer) => void
+{

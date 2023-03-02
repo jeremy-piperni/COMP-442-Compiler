@@ -154,12 +154,11 @@ public class parser {
 	
 	public void skipErrors() {
 		try {
-			errorWriter.write("Error at line: " + token.getLoc());
+			errorWriter.write("Syntax Error for token type: " + token.getType() + ", lexeme: '" + token.getLexeme() + "', at line: " + token.getLoc());
 			errorWriter.write(System.getProperty( "line.separator" ));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(token.getType() + " " + stack.peek());
 		if (firstFollowTable.findRow(stack.peek()) == -1 && !token.getType().equals("$")) {
 			token = lex.nextToken();
 		} else if (token.getType().equals("$") || firstFollowTable.isInFollow(token,stack.peek())) {

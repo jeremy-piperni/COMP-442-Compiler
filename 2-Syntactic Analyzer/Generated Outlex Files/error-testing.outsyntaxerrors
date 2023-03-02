@@ -1,0 +1,17 @@
+Syntax Error for token type: div, lexeme: '/', at line: 1
+Syntax Error for token type: id, lexeme: 'error', at line: 4
+Syntax Error for token type: id, lexeme: 'size', at line: 7
+Syntax Error for token type: id, lexeme: 'bubbleSort', at line: 10
+Syntax Error for token type: plus, lexeme: '+', at line: 13
+Syntax Error for token type: intlit, lexeme: '89', at line: 16
+Syntax Error for token type: rpar, lexeme: ')', at line: 16
+Syntax Error for token type: id, lexeme: 'error', at line: 19
+Syntax Error for token type: intlit, lexeme: '78', at line: 22
+Syntax Error for token type: div, lexeme: '/', at line: 25
+Syntax Error for token type: lt, lexeme: '<', at line: 26
+Syntax Error for token type: float, lexeme: 'float', at line: 27
+Syntax Error for token type: id, lexeme: 'id', at line: 28
+Syntax Error for token type: minus, lexeme: '-', at line: 29
+Syntax Error for token type: plus, lexeme: '+', at line: 29
+Syntax Error for token type: $, lexeme: '$', at line: 33
+Syntax Error for token type: $, lexeme: '$', at line: 33
