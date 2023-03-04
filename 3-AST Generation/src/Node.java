@@ -62,15 +62,53 @@ public class Node {
 	}
 	
 	public static void printTree(Node x) {
-		System.out.println(x.lexeme);
+		System.out.print(x);
 		if (x.leftChild != null) {
 			Node now = x.leftChild;
-			System.out.println("|");
-			System.out.print(now.lexeme + " ");
+			System.out.println();
+			System.out.print("|" + " ");
 			while (now.rightSibling != null) {
 				now = now.rightSibling;
-				System.out.print(now.lexeme + " ");
+				System.out.print("|" + " ");
+			}
+			System.out.println("");
+			now = now.leftMostSibling;
+			while (now != null) {
+				printTree(now);
+				System.out.print(" ");
+				now = now.rightSibling;
 			}
 		}
+	}
+	
+	private static int depthCounter = 0;
+	public static void printTree2(Node x) {
+		System.out.print(x);
+		if (x.leftChild != null) {
+			depthCounter++;
+			Node now = x.leftChild;
+			System.out.println();
+			for (int i = 0; i < depthCounter; i++) {
+				System.out.print("| ");
+			}
+			printTree2(now);
+			depthCounter--;
+		}
+		if (x.rightSibling != null) {
+			System.out.println();
+			for (int i = 0; i < depthCounter; i++) {
+				System.out.print("| ");
+			}
+			Node now2 = x.rightSibling;
+			printTree2(now2);
+		}
+	}
+	
+	public String toString() {
+		return lexeme;
+	}
+
+	public String getType() {
+		return type;
 	}
 }

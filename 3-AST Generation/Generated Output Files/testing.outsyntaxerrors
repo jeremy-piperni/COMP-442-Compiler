@@ -1,0 +1,3 @@
+Syntax Error for token type: id, lexeme: 'test', at line: 3
+Syntax Error for token type: id, lexeme: 'array', at line: 5
+Syntax Error for token type: rcurbr, lexeme: '}', at line: 7

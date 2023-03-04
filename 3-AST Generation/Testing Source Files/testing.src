@@ -1,0 +1,13 @@
+class QUADRATIC isa POLYNOMIAL {
+	function printArray:(arr: integer[2], size: float[6][4][1], hello: id) => void;
+	constructor test:(hello: float);
+	private attribute a: float;
+	private array arr: integer[2]; 
+	
+};
+/*
+function printArray(arr: integer[2], size: float[6][4][1], hello: id) => void 
+	{
+
+	} 
+*/
