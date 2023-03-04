@@ -78,7 +78,12 @@ public class parser {
 				case "H1":H1(); break;
 				case "H2":H2(); break;
 				case "I":I(); break;
-				case "J":J(); break;
+				case "J1":J1(); break;
+				case "J2":J2(); break;
+				case "K":K(); break;
+				case "L":L(); break;
+				case "M":M(); break;
+				case "N":N(); break;
 				}
 				stack.pop();
 			} else if (parsingTable.findColumn(x) != -1) {
@@ -280,8 +285,58 @@ public class parser {
 		semStack.push(AST.makeFamilyMemberVarDecl(memberVarDecl,kid1,kid2,kid3));
 	}
 	
-	public void J() {
-		
+	public void J1() {
+		Node memberDecl = AST.makeNodeMemberDecl();
+		Node kid1,kid2;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		semStack.push(AST.makeFamilyMemberDecl1(memberDecl,kid1,kid2));
+	}
+	
+	public void J2() {
+		Node memberDecl = AST.makeNodeMemberDecl();
+		Node kid1;
+		kid1 = semStack.pop();
+		semStack.push(AST.makeFamilyMemberDecl2(memberDecl,kid1));
+	}
+	
+	public void K() {
+		Node memberDeclList = AST.makeNodeMemberDeclList();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyMemberDeclList(memberDeclList,children));
+	}
+	
+	public void L() {
+		Node inheritanceListTail = AST.makeNodeInheritanceListTail();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyInheritanceListTail(inheritanceListTail,children));
+	}
+	
+	public void M() {
+		Node inheritanceList = AST.makeNodeInheritanceList();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyInheritanceList(inheritanceList,children));
+	}
+	
+	public void N() {
+		Node classDecl = AST.makeNodeClassDecl();
+		Node kid1,kid2,kid3;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		kid3 = semStack.pop();
+		semStack.push(AST.makeFamilyClassDecl(classDecl,kid1,kid2,kid3));
 	}
 	
 }

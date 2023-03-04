@@ -51,7 +51,7 @@ public class Node {
 		}
 		return this;
 	}
-	
+	/*
 	public static void printSiblings(Node x) {
 		Node now = x.leftMostSibling;
 		System.out.print(now.lexeme + " ");
@@ -60,7 +60,7 @@ public class Node {
 			System.out.print(now.lexeme + " ");
 		}
 	}
-	
+	/*
 	public static void printTree(Node x) {
 		System.out.print(x);
 		if (x.leftChild != null) {
@@ -79,7 +79,7 @@ public class Node {
 				now = now.rightSibling;
 			}
 		}
-	}
+	}*/
 	
 	private static int depthCounter = 0;
 	public static void printTree2(Node x) {

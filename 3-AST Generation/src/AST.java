@@ -42,6 +42,26 @@ public class AST {
 		return new Node("MEMBERVARDECL","MemberVarDecl");
 	}
 	
+	public Node makeNodeMemberDecl() {
+		return new Node("MEMBERDECL","MemberDecl");
+	}
+	
+	public Node makeNodeMemberDeclList() {
+		return new Node("MEMBERDECLLIST","MemberDeclList");
+	}
+	
+	public Node makeNodeInheritanceListTail() {
+		return new Node("INHERITANCELISTTAIL","InheritanceListTail");
+	}
+	
+	public Node makeNodeInheritanceList() {
+		return new Node("INHERITANCELIST","InheritanceList");
+	}
+	
+	public Node makeNodeClassDecl() {
+		return new Node("CLASSDECL","ClassDecl");
+	}
+	
 	public Node makeFamily(Node op,Node kid1,Node kid2) {
 		return (op.adoptChildren(kid1.makeSiblings(kid2)));
 	}
@@ -79,6 +99,42 @@ public class AST {
 	}
 	
 	public Node makeFamilyMemberVarDecl(Node op, Node kid1, Node kid2, Node kid3) {
+		return (op.adoptChildren(kid3.makeSiblings(kid2).makeSiblings(kid1)));
+	}
+	
+	public Node makeFamilyMemberDecl1(Node op, Node kid1, Node kid2) {
+		return (op.adoptChildren(kid2.makeSiblings(kid1)));
+	}
+	
+	public Node makeFamilyMemberDecl2(Node op, Node kid1) {
+		return (op.adoptChildren(kid1));
+	}
+	
+	public Node makeFamilyMemberDeclList(Node op, ArrayList<Node> children) {
+		while (!children.isEmpty()) {
+			op.adoptChildren(children.get(children.size() - 1));
+			children.remove(children.size() - 1);
+		}
+		return op;
+	}
+	
+	public Node makeFamilyInheritanceListTail(Node op, ArrayList<Node> children) {
+		while (!children.isEmpty()) {
+			op.adoptChildren(children.get(children.size() - 1));
+			children.remove(children.size() - 1);
+		}
+		return op;
+	}
+	
+	public Node makeFamilyInheritanceList(Node op, ArrayList<Node> children) {
+		while (!children.isEmpty()) {
+			op.adoptChildren(children.get(children.size() - 1));
+			children.remove(children.size() - 1);
+		}
+		return op;
+	}
+	
+	public Node makeFamilyClassDecl(Node op, Node kid1, Node kid2, Node kid3) {
 		return (op.adoptChildren(kid3.makeSiblings(kid2).makeSiblings(kid1)));
 	}
 	

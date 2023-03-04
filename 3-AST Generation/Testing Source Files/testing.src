@@ -1,8 +1,8 @@
-class QUADRATIC isa POLYNOMIAL {
+class QUADRATIC isa POLYNOMIAL, CUBIC, SOMETHING {
 	function printArray:(arr: integer[2], size: float[6][4][1], hello: id) => void;
 	constructor test:(hello: float);
 	private attribute a: float;
-	private array arr: integer[2]; 
+	private attribute arr: integer[2]; 
 	
 };
 /*
