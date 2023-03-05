@@ -14,8 +14,16 @@ function printArray(arr: integer[2], size: float[6][4][1], hello: id) => void
 	{
 		//hello(0).yo = yo(5*6).hello.no(2<5+3)*2;
 		//write(2<=var[3].cool(2).sup*7);
-		hello();
-		yo = 2;
+		//hello();
+		//yo = 2;
+		//while(2>=3/4){
+		//hello = yo[6][5];
+    		//go(6*5);
+		//};
+		//write(2);
+		if (5==2) 
+		then {go();} 
+		else {no();};
 	} 
 
 /*

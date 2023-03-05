@@ -162,8 +162,16 @@ public class AST {
 		return new Node("FUNCTIONCALL","FunctionCall");
 	}
 	
-	public Node makeFamily(Node op,Node kid1,Node kid2) {
-		return (op.adoptChildren(kid1.makeSiblings(kid2)));
+	public Node makeNodeStatBlock() {
+		return new Node("STATBLOCK","StatBlock");
+	}
+	
+	public Node makeIfNode(Token token) {
+		return new Node("IF",token.getLexeme());
+	}
+	
+	public Node makeWhileNode(Token token) {
+		return new Node("WHILE",token.getLexeme());
 	}
 	
 	public Node makeFamilyArraySize(Node op, ArrayList<Node> children) {
@@ -362,4 +370,19 @@ public class AST {
 		return (op.adoptChildren(kid3.makeSiblings(kid2).makeSiblings(kid1)));
 	}
 	
+	public Node makeFamilyStatBlock(Node op, ArrayList<Node> children) {
+		while (!children.isEmpty()) {
+			op.adoptChildren(children.get(children.size() - 1));
+			children.remove(children.size() - 1);
+		}
+		return op;
+	}
+	
+	public Node makeFamilyWhile(Node op, Node kid1, Node kid2) {
+		return (op.adoptChildren(kid2.makeSiblings(kid1)));
+	}
+	
+	public Node makeFamilyIf(Node op, Node kid1, Node kid2, Node kid3) {
+		return (op.adoptChildren(kid3.makeSiblings(kid2).makeSiblings(kid1)));
+	}
 }

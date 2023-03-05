@@ -122,8 +122,8 @@ LOCALVARDECLORSTMT -> STATEMENT  .
 // REPTSTART0 -> CLASSDECLORFUNCDEF REPTSTART0  . 
 // REPTSTART0 ->  . 
 
-REPTSTATBLOCK1 -> STATEMENT REPTSTATBLOCK1  . 
-REPTSTATBLOCK1 ->  . 
+// REPTSTATBLOCK1 -> STATEMENT REPTSTATBLOCK1  . 
+// REPTSTATBLOCK1 ->  . 
 
 // REPTVARIABLE2 -> INDICE REPTVARIABLE2  . 
 // REPTVARIABLE2 ->  . 
@@ -140,12 +140,12 @@ REPTSTATBLOCK1 ->  .
 // SIGN -> plus #T  . 
 // SIGN -> minus #T  .  
 
-STATBLOCK -> lcurbr REPTSTATBLOCK1 rcurbr  . 
-STATBLOCK -> STATEMENT  . 
-STATBLOCK ->  . 
+// STATBLOCK -> lcurbr #B REPTSTATBLOCK1 #AU rcurbr  . 
+// STATBLOCK -> STATEMENT  . 
+// STATBLOCK -> #AH2 . 
  
-STATEMENT -> if lpar RELEXPR rpar then STATBLOCK else STATBLOCK semi  . 
-STATEMENT -> while lpar RELEXPR rpar STATBLOCK semi  . 
+// STATEMENT -> if #AX lpar RELEXPR rpar then STATBLOCK else STATBLOCK semi #AY #AH1 . 
+// STATEMENT -> while #AV lpar RELEXPR rpar STATBLOCK semi #AW #AH1  . 
 // STATEMENT -> read #AL lpar #B VARIABLE #AM #AR rpar semi #AN #AH1  . 
 // STATEMENT -> write #AD lpar EXPR #AA rpar semi #AF #AH1 . 
 // STATEMENT -> return #AE lpar EXPR #AA rpar semi #AG #AH1  .

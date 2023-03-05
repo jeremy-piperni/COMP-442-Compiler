@@ -64,7 +64,6 @@ public class parser {
 				prevToken = token;
 				token = lex.nextToken();
 				
-			// check if stack value is terminal 
 			} else if (x.charAt(0) == '#') {
 				String str = x.substring(1);
 				switch(str) {
@@ -106,6 +105,7 @@ public class parser {
 				case "AF":AF(); break;
 				case "AG":AG(); break;
 				case "AH1":AH1(); break;
+				case "AH2":AH2(); break;
 				case "AI":AI(); break;
 				case "AJ":AJ(); break;
 				case "AK":AK(); break;
@@ -119,8 +119,15 @@ public class parser {
 				case "AS":AS(); break;
 				case "AT":AT(); break;
 				case "AC2":AC2(); break;
+				case "AU":AU(); break;
+				case "AV":AV(); break;
+				case "AW":AW(); break;
+				case "AX":AX(); break;
+				case "AY":AY(); break;
 				}
 				stack.pop();
+				
+			// check if stack value is terminal 
 			} else if (parsingTable.findColumn(x) != -1) {
 				if (x.equals(token.getType())) {
 					terminals.add(x);
@@ -637,6 +644,45 @@ public class parser {
 	
 	public void AC2() {
 		semStack.push(AST.makeNodeAParams());
+	}
+	
+	public void AU() {
+		Node statBlock = AST.makeNodeStatBlock();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyStatBlock(statBlock,children));
+	}
+	
+	public void AV() {
+		semStack.push(AST.makeWhileNode(prevToken));
+	}
+	
+	public void AH2() {
+		semStack.push(AST.makeNodeStatement());
+	}
+	
+	public void AW() {
+		Node kid1,kid2,parent;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		parent = semStack.pop();
+		semStack.push(AST.makeFamilyWhile(parent,kid1,kid2));
+	}
+	
+	public void AX() {
+		semStack.push(AST.makeIfNode(prevToken));
+	}
+	
+	public void AY() {
+		Node kid1,kid2,kid3,parent;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		kid3 = semStack.pop();
+		parent = semStack.pop();
+		semStack.push(AST.makeFamilyIf(parent,kid1,kid2,kid3));
 	}
 	
 }
