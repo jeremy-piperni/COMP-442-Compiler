@@ -22,14 +22,14 @@ class MyFirstFollowTableModel extends AbstractTableModel{
 	
 	String[] columnNames = {"NONTERMINAL","FIRST","FOLLOW"};
 	String[] rowNames = {"NONTERMINAL","START","Flsqbr","ASSIGNSTAT","CLASSDECL","EXPR2","FACTOR2","FACTOR3",
-			"FACTOR4","FUNCDEF","FUNCBODY","FUNCHEAD","Ffunction","Fid2","Fsr","FFUNCid","FFUNCid2","FUNCTIONCALL",
+			"FACTOR4","FACTOR1","FUNCDEF","FUNCBODY","FUNCHEAD","Ffunction","Fid2","Fsr","FFUNCid","FFUNCid2","FUNCTIONCALL",
 			"Fid3","Flocalvar","Fid","Fcolon","FTYPE","LOCALVARDECL","MEMBERFUNCDECL","FPARAMS","MEMBERVARDECL",
 			"OPTCLASSDECL2","ARITHEXPR","RELOP","APARAMSTAIL","REPTAPARAMS1","MEMBERDECL","REPTCLASSDECL4",
 			"REPTFPARAMS3","FPARAMSTAIL","REPTFPARAMS4","REPTFPARAMSTAIL4","LOCALVARDECLORSTMT","REPTFUNCBODY1",
 			"IDNEST","REPTFUNCTIONCALL0","REPTIDNEST1","REPTLOCALVARDECL4","ARRAYSIZE","REPTMEMBERVARDECL4",
 			"REPTOPTCLASSDECL22","CLASSDECLORFUNCDEF","REPTSTART0","INDICE","RETURNTYPE","ADDOP","RIGHTRECARITHEXPR",
-			"MULTOP","SIGN","REPTSTATBLOCK1","RELEXPR","STATBLOCK","STATEMENT2","STATEMENT3","STATEMENT4",
-			"STATEMENT","ASSIGNOP","EXPR","TERM","FACTOR","RIGHTRECTERM","TYPE","FVARid","REPTVARIABLE2",
+			"MULTOP","SIGN","REPTSTATBLOCK1","STATEMENT","RELEXPR","STATBLOCK","STATEMENT2","STATEMENT3","STATEMENT4",
+			"STATEMENT1","ASSIGNOP","EXPR","TERM","FACTOR","RIGHTRECTERM","TYPE","FVARid","REPTVARIABLE2",
 			"APARAMS","FVARid2","VARIABLE","VISIBILITY"};
 	
 	Object[][] data = {
@@ -42,6 +42,7 @@ class MyFirstFollowTableModel extends AbstractTableModel{
 			{"FACTOR2","lpar dot lsqbr &epsilon","rsqbr eq neq lt gt leq geq mult div and plus minus or comma rpar semi"},
 			{"FACTOR3","dot &epsilon","rsqbr eq neq lt gt leq geq mult div and plus minus or comma rpar semi"},
 			{"FACTOR4","dot &epsilon","rsqbr eq neq lt gt leq geq mult div and plus minus or comma rpar semi"},
+			{"FACTOR1","id","rsqbr eq neq lt gt leq geq mult div and plus minus or comma rpar semi"},
 			{"FUNCDEF","function","class function"},
 			{"FUNCBODY","lcurbr","class function"},
 			{"FUNCHEAD","function","lcurbr"},
@@ -89,12 +90,13 @@ class MyFirstFollowTableModel extends AbstractTableModel{
 			{"MULTOP","mult div and","intlit floatlit lpar not id plus minus"},
 			{"SIGN","plus minus","intlit floatlit lpar not id plus minus"},
 			{"REPTSTATBLOCK1","if while read write return id &epsilon","rcurbr"},
+			{"STATEMENT","if while read write return id","else semi localvar if while read write return id rcurbr"},
 			{"RELEXPR","intlit floatlit lpar not id plus minus","rpar"},
 			{"STATBLOCK","lcurbr if while read write return id &epsilon","else semi"},
 			{"STATEMENT2","lpar dot semi lsqbr equal","else semi localvar if while read write return id rcurbr"},
 			{"STATEMENT3","dot semi equal","else semi localvar if while read write return id rcurbr"},
 			{"STATEMENT4","dot semi equal","else semi localvar if while read write return id rcurbr"},
-			{"STATEMENT","if while read write return id","else semi localvar if while read write return id rcurbr"},
+			{"STATEMENT1","id","else semi localvar if while read write return id rcurbr"},
 			{"ASSIGNOP","equal","intlit floatlit lpar not id plus minus"},
 			{"EXPR","intlit floatlit lpar not id plus minus","comma rpar semi"},
 			{"TERM","intlit floatlit lpar not id plus minus","rsqbr eq neq lt gt leq geq plus minus or comma rpar semi"},

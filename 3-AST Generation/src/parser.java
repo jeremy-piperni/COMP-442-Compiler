@@ -84,6 +84,41 @@ public class parser {
 				case "L":L(); break;
 				case "M":M(); break;
 				case "N":N(); break;
+				case "O1":O1(); break;
+				case "O2":O2(); break;
+				case "O3":O3(); break;
+				case "P":P(); break;
+				case "Q":Q(); break;
+				case "R":R(); break;
+				case "S":S(); break;
+				case "T":T(); break;
+				case "U":U(); break;
+				case "V":V(); break;
+				case "W":W(); break;
+				case "X":X(); break;
+				case "Y":Y(); break;
+				case "Z":Z(); break;
+				case "AA":AA(); break;
+				case "AB":AB(); break;
+				case "AC":AC(); break;
+				case "AD":AD(); break;
+				case "AE":AE(); break;
+				case "AF":AF(); break;
+				case "AG":AG(); break;
+				case "AH1":AH1(); break;
+				case "AI":AI(); break;
+				case "AJ":AJ(); break;
+				case "AK":AK(); break;
+				case "AL":AL(); break;
+				case "AM":AM(); break;
+				case "AN":AN(); break;
+				case "AO":AO(); break;
+				case "AP":AP(); break;
+				case "AQ":AQ(); break;
+				case "AR":AR(); break;
+				case "AS":AS(); break;
+				case "AT":AT(); break;
+				case "AC2":AC2(); break;
 				}
 				stack.pop();
 			} else if (parsingTable.findColumn(x) != -1) {
@@ -138,11 +173,18 @@ public class parser {
 		}
 		
 		// TEMPORARY PRINT SEMANTIC STACK
+		
 		while (!semStack.empty()) {
 			Node.printTree2(semStack.peek());
 			System.out.println();
 			semStack.pop();
 		}
+		
+		/*
+		while (!semStack.empty()) {
+			System.out.println(semStack.peek());
+			semStack.pop();
+		}*/
 		
 		// check if error occurred
 		if (!token.getType().equals("$") || error == true) {
@@ -337,6 +379,264 @@ public class parser {
 		kid2 = semStack.pop();
 		kid3 = semStack.pop();
 		semStack.push(AST.makeFamilyClassDecl(classDecl,kid1,kid2,kid3));
+	}
+	
+	public void O1() {
+		Node funcHead = AST.makeNodeFuncHead();
+		Node kid1,kid2,kid3;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		kid3 = semStack.pop();
+		semStack.push(AST.makeFamilyFuncHead1(funcHead,kid1,kid2,kid3));
+	}
+	
+	public void O2() {
+		Node funcHead = AST.makeNodeFuncHead();
+		Node kid1,kid2,kid3,kid4;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		kid3 = semStack.pop();
+		kid4 = semStack.pop();
+		semStack.push(AST.makeFamilyFuncHead2(funcHead,kid1,kid2,kid3,kid4));
+	}
+	
+	public void O3() {
+		Node funcHead = AST.makeNodeFuncHead();
+		Node kid1,kid2;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		semStack.push(AST.makeFamilyFuncHead3(funcHead,kid1,kid2));
+	}
+	
+	public void P() {
+		semStack.push(AST.makeAddOpNode(prevToken));
+	}
+	
+	public void Q() {
+		semStack.push(AST.makeMultOpNode(prevToken));
+	}
+	
+	public void R() {
+		semStack.push(AST.makeRelOpNode(prevToken));
+	}
+	
+	public void S() {
+		semStack.push(AST.makeNotNode(prevToken));
+	}
+	
+	public void T() {
+		semStack.push(AST.makeSignNode(prevToken));
+	}
+	
+	public void U() {
+		Node localVarDecl = AST.makeNodeLocalVarDecl();
+		Node kid1,kid2,kid3;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		kid3 = semStack.pop();
+		semStack.push(AST.makeFamilyLocalVarDecl(localVarDecl,kid1,kid2,kid3));
+	}
+	
+	public void V() {
+		Node kid1,parent;
+		kid1 = semStack.pop();
+		parent = semStack.pop();
+		semStack.push(AST.makeFamilyNot(parent,kid1));
+	}
+	
+	public void W() {
+		Node kid1,parent;
+		kid1 = semStack.pop();
+		parent = semStack.pop();
+		semStack.push(AST.makeFamilySign(parent,kid1));
+	}
+	
+	public void X() {
+		Node kid1,kid2,parent;
+		kid1 = semStack.pop();
+		parent = semStack.pop();
+		kid2 = semStack.pop();
+		semStack.push(AST.makeFamilyMultOp(parent,kid1,kid2));
+	}
+	
+	public void Y() {
+		Node kid1,kid2,parent;
+		kid1 = semStack.pop();
+		parent = semStack.pop();
+		kid2 = semStack.pop();
+		semStack.push(AST.makeFamilyAddOp(parent,kid1,kid2));
+	}
+	
+	public void Z() {
+		Node relExpr = AST.makeNodeRelExpr();
+		Node kid1,kid2,kid3;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		kid3 = semStack.pop();
+		semStack.push(AST.makeFamilyRelExpr(relExpr,kid1,kid2,kid3));
+	}
+	
+	public void AA() {
+		Node expr = AST.makeNodeExpr();
+		Node kid1;
+		kid1 = semStack.pop();
+		semStack.push(AST.makeFamilyExpr(expr,kid1));
+	}
+	
+	public void AB() {
+		Node exprTailList = AST.makeNodeExprTailList();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyExprTailList(exprTailList,children));
+	}
+	
+	public void AC() {
+		Node aParams = AST.makeNodeAParams();
+		Node kid1,kid2;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		semStack.push(AST.makeFamilyAParams(aParams,kid1,kid2));
+	}
+	
+	public void AD() {
+		semStack.push(AST.makeWriteNode(prevToken));
+	}
+	
+	public void AE() {
+		semStack.push(AST.makeReturnNode(prevToken));
+	}
+	
+	public void AF() {
+		Node kid1,parent;
+		kid1 = semStack.pop();
+		parent = semStack.pop();
+		semStack.push(AST.makeFamilyWrite(parent,kid1));
+	}
+	
+	public void AG() {
+		Node kid1,parent;
+		kid1 = semStack.pop();
+		parent = semStack.pop();
+		semStack.push(AST.makeFamilyReturn(parent,kid1));
+	}
+	
+	public void AH1() {
+		Node statement = AST.makeNodeStatement();
+		Node kid1;
+		kid1 = semStack.pop();
+		semStack.push(AST.makeFamilyStatement(statement,kid1));
+	}
+	
+	public void AI() {
+		Node funcBody = AST.makeNodeFuncBody();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyFuncBody(funcBody,children));
+	}
+	
+	public void AJ() {
+		Node funcDef = AST.makeNodeFuncDef();
+		Node kid1,kid2;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		semStack.push(AST.makeFamilyFuncDef(funcDef,kid1,kid2));
+	}
+	
+	public void AK() {
+		Node prog = AST.makeNodeProg();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyProg(prog,children));
+	}
+	
+	public void AL() {
+		semStack.push(AST.makeReadNode(prevToken));
+	}
+	
+	public void AM() {
+		Node idNest = AST.makeNodeIdNest();
+		Node kid1,kid2;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyIdNest(idNest,children));
+		semStack.push(kid2);
+		semStack.push(kid1);
+	}
+	
+	public void AN() {
+		Node kid1,parent;
+		kid1 = semStack.pop();
+		parent = semStack.pop();
+		semStack.push(AST.makeFamilyRead(parent,kid1));
+	}
+	
+	public void AO() {
+		Node indice = AST.makeNodeIndice();
+		ArrayList<Node> children = new ArrayList<>();
+		while (semStack.peek().getType() != null) {
+			children.add(semStack.pop());
+		}
+		semStack.pop();
+		semStack.push(AST.makeFamilyIndice(indice,children));
+	}
+	
+	public void AP() {
+		Node aExpr = AST.makeNodeAExpr();
+		Node kid1;
+		kid1 = semStack.pop();
+		semStack.push(AST.makeFamilyAExpr(aExpr,kid1));
+	}
+	
+	public void AQ() {
+		Node idNestTemp = AST.makeNodeIdNestTemp();
+		Node kid1,kid2;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		semStack.push(AST.makeFamilyIdNestTemp(idNestTemp,kid1,kid2));
+	}
+	
+	public void AR() {
+		Node variable = AST.makeNodeVariable();
+		Node kid1,kid2,kid3;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		kid3 = semStack.pop();
+		semStack.push(AST.makeFamilyVariable(variable,kid1,kid2,kid3));
+	}
+	
+	public void AS() {
+		Node assignStat = AST.makeNodeAssignStat();
+		Node kid1,kid2;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		semStack.push(AST.makeFamilyAssignStat(assignStat,kid1,kid2));
+	}
+	
+	public void AT() {
+		Node functionCall = AST.makeNodeFunctionCall();
+		Node kid1,kid2,kid3;
+		kid1 = semStack.pop();
+		kid2 = semStack.pop();
+		kid3 = semStack.pop();
+		semStack.push(AST.makeFamilyFunctionCall(functionCall,kid1,kid2,kid3));
+	}
+	
+	public void AC2() {
+		semStack.push(AST.makeNodeAParams());
 	}
 	
 }

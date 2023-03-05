@@ -1,110 +1,99 @@
-START -> REPTSTART0  .
+// START -> #B REPTSTART0 #AK .
 
-ADDOP -> plus  . 
-ADDOP -> minus  . 
-ADDOP -> or  . 
+// ADDOP -> plus #P  . 
+// ADDOP -> minus #P  . 
+// ADDOP -> or #P . 
 
-APARAMS -> EXPR REPTAPARAMS1  . 
-APARAMS ->  . 
+// APARAMS -> EXPR #AA #B REPTAPARAMS1 #AB #AC . 
+// APARAMS ->  #AC2 . 
 
-APARAMSTAIL -> comma EXPR  . 
+// APARAMSTAIL -> comma EXPR #AA  . 
 
-ARITHEXPR -> TERM RIGHTRECARITHEXPR  . 
+// ARITHEXPR -> TERM RIGHTRECARITHEXPR  . 
 
 -- ARRAYSIZE -> lsqbr Flsqbr .
 -- Flsqbr -> intlit #A rsqbr .
 -- Flsqbr -> rsqbr .
 
-ASSIGNOP -> equal  . 
-
-ASSIGNSTAT -> VARIABLE ASSIGNOP EXPR  . 
+// ASSIGNOP -> equal  . 
 
 -- CLASSDECL -> class id #A #B OPTCLASSDECL2 #M lcurbr #B REPTCLASSDECL4 #K rcurbr semi #N . 
 
-CLASSDECLORFUNCDEF -> CLASSDECL  . 
-CLASSDECLORFUNCDEF -> FUNCDEF  . 
+// CLASSDECLORFUNCDEF -> CLASSDECL  . 
+// CLASSDECLORFUNCDEF -> FUNCDEF  . 
 
-EXPR -> FACTOR RIGHTRECTERM RIGHTRECARITHEXPR EXPR2 .
-EXPR2 -> RELOP ARITHEXPR  .
-EXPR2 -> .
+// EXPR -> FACTOR RIGHTRECTERM RIGHTRECARITHEXPR EXPR2 .
+// EXPR2 -> RELOP ARITHEXPR #Z  .
+// EXPR2 -> .
 
-FACTOR -> intlit  . 
-FACTOR -> floatlit  . 
-FACTOR -> lpar ARITHEXPR rpar  . 
-FACTOR -> not FACTOR  . 
-FACTOR -> SIGN FACTOR  . 
-FACTOR -> id FACTOR2 .
-FACTOR2 -> REPTVARIABLE2 FACTOR3 .
-FACTOR3 -> dot FACTOR .
-FACTOR3 -> .
-FACTOR2 -> lpar APARAMS rpar FACTOR4 .
-FACTOR4 -> dot FACTOR .
-FACTOR4 -> .
+-- FACTOR -> intlit #A . 
+-- FACTOR -> floatlit #A . 
+// FACTOR -> lpar ARITHEXPR rpar  . 
+// FACTOR -> not #S FACTOR #V . 
+// FACTOR -> SIGN FACTOR #W  . 
+// FACTOR -> #B FACTOR1 .
+// FACTOR1 -> id #A FACTOR2 .
+// FACTOR2 -> #B REPTVARIABLE2 #AO FACTOR3 .
+// FACTOR3 -> dot #AQ FACTOR1 .
+// FACTOR3 -> #AM #AR .
+// FACTOR2 -> lpar APARAMS rpar FACTOR4 .
+// FACTOR4 -> dot #AQ FACTOR1 .
+// FACTOR4 -> #AM #AT .
 
 -- FPARAMS -> id #A colon TYPE #G #B REPTFPARAMS3 #C #B REPTFPARAMS4 #E #F . 
 -- FPARAMS ->  . 
 
 -- FPARAMSTAIL -> comma id #A colon TYPE #G #B REPTFPARAMSTAIL4 #C #D . 
 
-FUNCBODY -> lcurbr REPTFUNCBODY1 rcurbr  . 
+// FUNCBODY -> lcurbr #B REPTFUNCBODY1 #AI rcurbr . 
 
-FUNCDEF -> FUNCHEAD FUNCBODY  . 
+// FUNCDEF -> FUNCHEAD FUNCBODY #AJ . 
 
-FUNCHEAD -> function Ffunction .
-Ffunction -> id Fid2 .
-Fid2 -> lpar FPARAMS rpar arrow RETURNTYPE .
-Fid2 -> sr Fsr .
-Fsr -> id lpar FPARAMS rpar arrow RETURNTYPE .
-Fsr -> constructor lpar FPARAMS rpar .
+-- FUNCHEAD -> function Ffunction .
+-- Ffunction -> id #A Fid2 .
+-- Fid2 -> lpar FPARAMS rpar arrow RETURNTYPE #G #O1 .
+-- Fid2 -> sr Fsr .
+-- Fsr -> id #A lpar FPARAMS rpar arrow RETURNTYPE #G #O2 .
+-- Fsr -> constructor lpar FPARAMS rpar #O3 .
 
-FUNCTIONCALL -> id FFUNCid .
-FFUNCid -> lpar APARAMS rpar FFUNCid2 .
-FFUNCid -> REPTIDNEST1 dot FUNCTIONCALL.
-FFUNCid2 -> dot FUNCTIONCALL.
-FFUNCid2 -> .
+// INDICE -> lsqbr ARITHEXPR rsqbr  . 
 
-IDNEST -> id Fid3 .
-Fid3 -> REPTIDNEST1 dot .
-Fid3 -> lpar APARAMS rpar dot .
+// LOCALVARDECL -> localvar Flocalvar .
+// Flocalvar -> id #A Fid .
+// Fid -> colon Fcolon .
+// Fcolon -> TYPE #G FTYPE .
+-- FTYPE -> #B REPTLOCALVARDECL4 #C semi #U .
+// FTYPE -> lpar APARAMS rpar semi #U.
 
-INDICE -> lsqbr ARITHEXPR rsqbr  . 
-
-LOCALVARDECL -> localvar Flocalvar .
-Flocalvar -> id Fid .
-Fid -> colon Fcolon .
-Fcolon -> TYPE FTYPE .
--- FTYPE -> #B REPTLOCALVARDECL4 #C semi .
-FTYPE -> lpar APARAMS rpar semi .
-
-LOCALVARDECLORSTMT -> LOCALVARDECL  . 
+// LOCALVARDECLORSTMT -> LOCALVARDECL  . 
 LOCALVARDECLORSTMT -> STATEMENT  . 
 
-MEMBERDECL -> MEMBERFUNCDECL  . 
-MEMBERDECL -> MEMBERVARDECL  . 
+// MEMBERDECL -> MEMBERFUNCDECL  . 
+// MEMBERDECL -> MEMBERVARDECL  . 
 
 -- MEMBERFUNCDECL -> function id #A colon lpar FPARAMS rpar arrow RETURNTYPE #G semi #H1 . 
 -- MEMBERFUNCDECL -> constructor colon lpar FPARAMS rpar semi #H2 . 
 
 -- MEMBERVARDECL -> attribute id #A colon TYPE #G #B REPTMEMBERVARDECL4 #C semi #I  . 
 
-MULTOP -> mult  . 
-MULTOP -> div  . 
-MULTOP -> and  . 
+// MULTOP -> mult #Q . 
+// MULTOP -> div #Q . 
+// MULTOP -> and #Q . 
 
 -- OPTCLASSDECL2 -> isa id #A #B REPTOPTCLASSDECL22 #L  . 
 -- OPTCLASSDECL2 ->  . 
 
-RELEXPR -> ARITHEXPR RELOP ARITHEXPR  . 
+// RELEXPR -> ARITHEXPR RELOP ARITHEXPR #Z  . 
 
-RELOP -> eq  . 
-RELOP -> neq  . 
-RELOP -> lt  . 
-RELOP -> gt  . 
-RELOP -> leq  . 
-RELOP -> geq  . 
+-- RELOP -> eq #R . 
+-- RELOP -> neq #R . 
+-- RELOP -> lt #R . 
+-- RELOP -> gt #R  . 
+-- RELOP -> leq #R . 
+-- RELOP -> geq #R  . 
 
-REPTAPARAMS1 -> APARAMSTAIL REPTAPARAMS1  . 
-REPTAPARAMS1 ->  . 
+// REPTAPARAMS1 -> APARAMSTAIL REPTAPARAMS1  . 
+// REPTAPARAMS1 ->  . 
 
 -- REPTCLASSDECL4 -> VISIBILITY MEMBERDECL #J1or2 REPTCLASSDECL4  . 
 -- REPTCLASSDECL4 ->  . 
@@ -118,14 +107,8 @@ REPTAPARAMS1 ->  .
 -- REPTFPARAMSTAIL4 -> ARRAYSIZE REPTFPARAMSTAIL4  . 
 -- REPTFPARAMSTAIL4 ->  . 
 
-REPTFUNCBODY1 -> LOCALVARDECLORSTMT REPTFUNCBODY1  . 
-REPTFUNCBODY1 ->  . 
-
-REPTFUNCTIONCALL0 -> IDNEST REPTFUNCTIONCALL0  . 
-REPTFUNCTIONCALL0 ->  . 
-
-REPTIDNEST1 -> INDICE REPTIDNEST1  . 
-REPTIDNEST1 ->  . 
+// REPTFUNCBODY1 -> LOCALVARDECLORSTMT REPTFUNCBODY1  . 
+// REPTFUNCBODY1 ->  . 
 
 -- REPTLOCALVARDECL4 -> ARRAYSIZE REPTLOCALVARDECL4  . 
 -- REPTLOCALVARDECL4 ->  . 
@@ -136,26 +119,26 @@ REPTIDNEST1 ->  .
 -- REPTOPTCLASSDECL22 -> comma id #A REPTOPTCLASSDECL22  . 
 -- REPTOPTCLASSDECL22 ->  . 
 
-REPTSTART0 -> CLASSDECLORFUNCDEF REPTSTART0  . 
-REPTSTART0 ->  . 
+// REPTSTART0 -> CLASSDECLORFUNCDEF REPTSTART0  . 
+// REPTSTART0 ->  . 
 
 REPTSTATBLOCK1 -> STATEMENT REPTSTATBLOCK1  . 
 REPTSTATBLOCK1 ->  . 
 
-REPTVARIABLE2 -> INDICE REPTVARIABLE2  . 
-REPTVARIABLE2 ->  . 
+// REPTVARIABLE2 -> INDICE REPTVARIABLE2  . 
+// REPTVARIABLE2 ->  . 
 
 -- RETURNTYPE -> TYPE  . 
 -- RETURNTYPE -> void  . 
 
-RIGHTRECARITHEXPR ->  . 
-RIGHTRECARITHEXPR -> ADDOP TERM RIGHTRECARITHEXPR  . 
+// RIGHTRECARITHEXPR ->  . 
+// RIGHTRECARITHEXPR -> ADDOP TERM #Y RIGHTRECARITHEXPR  . 
 
-RIGHTRECTERM ->  . 
-RIGHTRECTERM -> MULTOP FACTOR RIGHTRECTERM  . 
+// RIGHTRECTERM ->  . 
+// RIGHTRECTERM -> MULTOP FACTOR #X RIGHTRECTERM  . 
 
-SIGN -> plus  . 
-SIGN -> minus  .  
+// SIGN -> plus #T  . 
+// SIGN -> minus #T  .  
 
 STATBLOCK -> lcurbr REPTSTATBLOCK1 rcurbr  . 
 STATBLOCK -> STATEMENT  . 
@@ -163,31 +146,47 @@ STATBLOCK ->  .
  
 STATEMENT -> if lpar RELEXPR rpar then STATBLOCK else STATBLOCK semi  . 
 STATEMENT -> while lpar RELEXPR rpar STATBLOCK semi  . 
-STATEMENT -> read lpar VARIABLE rpar semi  . 
-STATEMENT -> write lpar EXPR rpar semi  . 
-STATEMENT -> return lpar EXPR rpar semi  . 
-STATEMENT -> id STATEMENT2 .
-STATEMENT2 -> REPTVARIABLE2 STATEMENT3 .
-STATEMENT3 -> dot STATEMENT .
-STATEMENT3 -> semi .
-STATEMENT3 -> ASSIGNOP EXPR semi .
-STATEMENT2 -> lpar APARAMS rpar STATEMENT4 .
-STATEMENT4 -> dot STATEMENT .
-STATEMENT4 -> semi .
-STATEMENT4 -> ASSIGNOP EXPR semi . 
+// STATEMENT -> read #AL lpar #B VARIABLE #AM #AR rpar semi #AN #AH1  . 
+// STATEMENT -> write #AD lpar EXPR #AA rpar semi #AF #AH1 . 
+// STATEMENT -> return #AE lpar EXPR #AA rpar semi #AG #AH1  .
+// STATEMENT -> #B STATEMENT1 .
+// STATEMENT1 -> id #A STATEMENT2 .
+// STATEMENT2 -> #B REPTVARIABLE2 #AO STATEMENT3 .
+// STATEMENT3 -> dot #AQ STATEMENT1 .
+?? STATEMENT3 -> semi .
+// STATEMENT3 -> #AM #AR ASSIGNOP EXPR #AA semi #AS #AH1 .
+// STATEMENT2 -> lpar APARAMS rpar STATEMENT4 .
+// STATEMENT4 -> dot #AQ STATEMENT1 .
+// STATEMENT4 -> #AM semi #AT #AH1 .
+?? STATEMENT4 -> ASSIGNOP EXPR semi . 
 
-TERM -> FACTOR RIGHTRECTERM  . 
+// TERM -> FACTOR RIGHTRECTERM  . 
 
 -- TYPE -> integer   . 
 -- TYPE -> float   . 
 -- TYPE -> id  . 
 
-VARIABLE -> id FVARid .
-FVARid -> REPTVARIABLE2 FVARid2. 
-FVARid -> lpar APARAMS rpar dot VARIABLE .
-FVARid2 -> dot VARIABLE .
-FVARid2 -> .
+// VARIABLE -> id #A FVARid .
+// FVARid -> #B REPTVARIABLE2 #AO FVARid2. 
+// FVARid -> lpar APARAMS rpar dot #AQ VARIABLE .
+// FVARid2 -> dot #AQ VARIABLE .
+// FVARid2 ->  .
 
 -- VISIBILITY -> public #A  . 
 -- VISIBILITY -> private #A  . 
 -- VISIBILITY ->  . 
+
+Removed
+ASSIGNSTAT -> VARIABLE ASSIGNOP EXPR  . 
+IDNEST -> id Fid3 .
+Fid3 -> REPTIDNEST1 dot .
+Fid3 -> lpar APARAMS rpar dot .
+REPTFUNCTIONCALL0 -> IDNEST REPTFUNCTIONCALL0  . 
+REPTFUNCTIONCALL0 ->  . 
+FUNCTIONCALL -> id #A FFUNCid .
+FFUNCid -> lpar APARAMS rpar FFUNCid2 .
+FFUNCid -> REPTIDNEST1 dot #AQ FUNCTIONCALL.
+FFUNCid2 -> dot #AQ FUNCTIONCALL.
+FFUNCid2 -> .
+REPTIDNEST1 -> INDICE REPTIDNEST1  . 
+REPTIDNEST1 ->  . 

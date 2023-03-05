@@ -1,13 +1,28 @@
-class QUADRATIC isa POLYNOMIAL, CUBIC, SOMETHING {
+/*class QUADRATIC isa POLYNOMIAL, CUBIC, SOMETHING {
 	function printArray:(arr: integer[2], size: float[6][4][1], hello: id) => void;
 	constructor test:(hello: float);
 	private attribute a: float;
 	private attribute arr: integer[2]; 
 	
+};*/
+
+class QUADRATIC {
+	private attribute a: float[3];
 };
-/*
+
 function printArray(arr: integer[2], size: float[6][4][1], hello: id) => void 
+	{
+		//hello(0).yo = yo(5*6).hello.no(2<5+3)*2;
+		//write(2<=var[3].cool(2).sup*7);
+		hello();
+		yo = 2;
+	} 
+
+/*
+function printArray::evaluate(arr: integer[2], size: float[6][4][1], hello: id) => void 
 	{
 
 	} 
+
+function printArray::constructor(arr: integer[2], size: float[6][4][1], hello: id)
 */
