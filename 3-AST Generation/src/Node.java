@@ -20,8 +20,8 @@ public class Node {
 	
 	public Node makeSiblings(Node y) {
 		Node xsibs = this;
-		while (xsibs.rightSibling != null) {
-			xsibs = xsibs.rightSibling;
+		while (xsibs.getRightSibling() != null) {
+			xsibs = xsibs.getRightSibling();
 		}
 		
 		Node ysibs = y.leftMostSibling;
@@ -29,8 +29,8 @@ public class Node {
 		
 		ysibs.leftMostSibling = xsibs.leftMostSibling;
 		ysibs.parent = xsibs.parent;
-		while (ysibs.rightSibling != null) {
-			ysibs = ysibs.rightSibling;
+		while (ysibs.getRightSibling() != null) {
+			ysibs = ysibs.getRightSibling();
 			ysibs.leftMostSibling = xsibs.leftMostSibling;
 			ysibs.parent = xsibs.parent;
 		}
@@ -38,55 +38,26 @@ public class Node {
 	}
 	
 	public Node adoptChildren(Node y) {
-		if (this.leftChild != null) {
-			this.leftChild.makeSiblings(y);
+		if (this.getLeftChild() != null) {
+			this.getLeftChild().makeSiblings(y);
 		} else {
 			Node ysibs;
 			ysibs = y.leftMostSibling;
 			this.leftChild = ysibs;
 			while (ysibs != null) {
 				ysibs.parent = this;
-				ysibs = ysibs.rightSibling;
+				ysibs = ysibs.getRightSibling();
 			}
 		}
 		return this;
 	}
-	/*
-	public static void printSiblings(Node x) {
-		Node now = x.leftMostSibling;
-		System.out.print(now.lexeme + " ");
-		while (now.rightSibling != null) {
-			now = now.rightSibling;
-			System.out.print(now.lexeme + " ");
-		}
-	}
-	/*
-	public static void printTree(Node x) {
-		System.out.print(x);
-		if (x.leftChild != null) {
-			Node now = x.leftChild;
-			System.out.println();
-			System.out.print("|" + " ");
-			while (now.rightSibling != null) {
-				now = now.rightSibling;
-				System.out.print("|" + " ");
-			}
-			System.out.println("");
-			now = now.leftMostSibling;
-			while (now != null) {
-				printTree(now);
-				System.out.print(" ");
-				now = now.rightSibling;
-			}
-		}
-	}*/
 	
 	private static int depthCounter = 0;
 	public static void printTree2(Node x) {
 		System.out.print(x);
-		if (x.leftChild != null) {
+		if (x.getLeftChild() != null) {
 			depthCounter++;
-			Node now = x.leftChild;
+			Node now = x.getLeftChild();
 			System.out.println();
 			for (int i = 0; i < depthCounter; i++) {
 				System.out.print("| ");
@@ -94,21 +65,35 @@ public class Node {
 			printTree2(now);
 			depthCounter--;
 		}
-		if (x.rightSibling != null) {
+		if (x.getRightSibling() != null) {
 			System.out.println();
 			for (int i = 0; i < depthCounter; i++) {
 				System.out.print("| ");
 			}
-			Node now2 = x.rightSibling;
+			Node now2 = x.getRightSibling();
 			printTree2(now2);
 		}
 	}
 	
 	public String toString() {
-		return lexeme;
+		return type;
 	}
 
 	public String getType() {
 		return type;
 	}
+
+	public Node getLeftChild() {
+		return leftChild;
+	}
+
+	public Node getRightSibling() {
+		return rightSibling;
+	}
 }
+
+/*public class ArraySizeNode extends Node {
+	public void accept(Visitor v) {
+		v.arraySize();
+	}
+}*/

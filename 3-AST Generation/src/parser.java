@@ -13,6 +13,7 @@ public class parser {
 	private ArrayList<String> terminals = new ArrayList<>();
 	private FileWriter derivationWriter;
 	private FileWriter errorWriter;
+	private FileWriter ASTWriter;
 	private Token token;
 	private Token prevToken;
 	private Stack<Node> semStack = new Stack<Node>();
@@ -26,6 +27,7 @@ public class parser {
 		try {
 			derivationWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outderivation");
 			errorWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outsyntaxerrors");
+			ASTWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outast");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -63,7 +65,8 @@ public class parser {
 			} else if (token.getType().equals("invalidchar") || token.getType().equals("inlinecmt") || token.getType().equals("blockcmt") || token.getType().equals("untermerr") || token.getType().equals("invalidnum")) {
 				prevToken = token;
 				token = lex.nextToken();
-				
+			
+			// check if semantic rule, fire correct semantic function
 			} else if (x.charAt(0) == '#') {
 				String str = x.substring(1);
 				switch(str) {
@@ -124,6 +127,8 @@ public class parser {
 				case "AW":AW(); break;
 				case "AX":AX(); break;
 				case "AY":AY(); break;
+				case "AZ":AZ(); break;
+				case "BA":BA(); break;
 				}
 				stack.pop();
 				
@@ -171,27 +176,25 @@ public class parser {
 			
 		}
 		
+		// print semantic stack
+		while (!semStack.empty()) {
+			printTree(semStack.peek());
+			try {
+				ASTWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			semStack.pop();
+		}
+		
 		// close writers
 		try {
 			derivationWriter.close();
 			errorWriter.close();
+			ASTWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		// TEMPORARY PRINT SEMANTIC STACK
-		
-		while (!semStack.empty()) {
-			Node.printTree2(semStack.peek());
-			System.out.println();
-			semStack.pop();
-		}
-		
-		/*
-		while (!semStack.empty()) {
-			System.out.println(semStack.peek());
-			semStack.pop();
-		}*/
 		
 		// check if error occurred
 		if (!token.getType().equals("$") || error == true) {
@@ -257,6 +260,49 @@ public class parser {
 		}
 	}
 	
+	private int depthCounter = 0;
+	public void printTree(Node x) {
+		try {
+			ASTWriter.write(x.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (x.getLeftChild() != null) {
+			depthCounter++;
+			Node now = x.getLeftChild();
+			try {
+				ASTWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			for (int i = 0; i < depthCounter; i++) {
+				try {
+					ASTWriter.write("| ");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			printTree(now);
+			depthCounter--;
+		}
+		if (x.getRightSibling() != null) {
+			try {
+				ASTWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			for (int i = 0; i < depthCounter; i++) {
+				try {
+					ASTWriter.write("| ");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			Node now2 = x.getRightSibling();
+			printTree(now2);
+		}
+	}
+	
 	// START OF SEMANTIC FUNCTIONS
 	public void A() {
 		semStack.push(AST.makeNode(prevToken));
@@ -268,6 +314,7 @@ public class parser {
 	
 	public void C() {
 		Node arraySize = AST.makeNodeArraySize();
+		// Node arraySize = new ArraySizeNode();
 		ArrayList<Node> children = new ArrayList<>();
 		while (semStack.peek().getType() != null) {
 			children.add(semStack.pop());
@@ -683,6 +730,14 @@ public class parser {
 		kid3 = semStack.pop();
 		parent = semStack.pop();
 		semStack.push(AST.makeFamilyIf(parent,kid1,kid2,kid3));
+	}
+	
+	public void AZ() {
+		semStack.push(AST.makeNodeFParams());
+	}
+	
+	public void BA() {
+		semStack.push(AST.makeNodeEmptyArraySize());
 	}
 	
 }

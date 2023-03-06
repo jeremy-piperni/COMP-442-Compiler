@@ -1,0 +1,39 @@
+class POLYNOMIAL {
+  public function evaluate: (x: float) => float;
+};
+
+class LINEAR isa POLYNOMIAL {
+  private attribute a: float;
+  private attribute b: float;
+  public constructor: (A: float, B: float);
+  public function evaluate: (x: float) => float;
+};
+
+class QUADRATIC isa POLYNOMIAL, CUBIC, SOMETHING {
+  private attribute a: float;
+  private attribute b: float;
+  private attribute c: float;
+  public constructor: (A: float, B: float, C: float);
+  private function evaluate: (x: float) => float;
+};
+
+
+class Test1 {
+  private attribute a: float;
+};
+
+class Test2 {
+  public attribute a: float;
+  public attribute a: float;
+};
+
+class Test3 {
+  public function evaluate: (x: float) => float;
+  public function evaluate: (x: float) => float;
+};
+
+class Test4 isa Test2, Test3 {
+  private function evaluate: (x: float) => float;
+};
+
+class Test4 { };

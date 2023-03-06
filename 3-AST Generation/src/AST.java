@@ -22,6 +22,10 @@ public class AST {
 		return new Node("ARRAYSIZE","ArraySize");
 	}
 	
+	public Node makeNodeEmptyArraySize() {
+		return new Node("EMPTYARRAYSIZE","EmptyArraySize");
+	}
+	
 	public Node makeNodeFParamsTail() {
 		return new Node("FPARAMSTAIL","FParamsTail");
 	}
