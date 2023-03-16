@@ -18,5 +18,12 @@ public class SymbolLocalVarParamEntry extends SymbolTableEntry {
 		return null;
 	}
 	
+	public String getType() {
+		return type;
+	}
+	
+	public String getName() {
+		return name;
+	}
 	
 }

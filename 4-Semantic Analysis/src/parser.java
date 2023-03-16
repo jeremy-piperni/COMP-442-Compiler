@@ -184,7 +184,11 @@ public class parser {
 				e.printStackTrace();
 			}
 			SymbolTableCreationVisitor Visitor1 = new SymbolTableCreationVisitor();
+			PopulateFParamsVisitor Visitor2 = new PopulateFParamsVisitor();
+			MemberFuncVisitor Visitor3 = new MemberFuncVisitor();
 			semStack.peek().accept(Visitor1);
+			semStack.peek().accept(Visitor2);
+			semStack.peek().accept(Visitor3);
 			semStack.peek().getSymbolTable().Print();
 			
 		}

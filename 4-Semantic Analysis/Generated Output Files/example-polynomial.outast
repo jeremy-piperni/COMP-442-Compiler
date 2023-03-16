@@ -375,7 +375,6 @@ PROG
 | | | | id
 | | | | type
 | | | | ARRAYSIZE
-| | | | | EMPTYARRAYSIZE
 | | | STATEMENT
 | | | | ASSIGNSTAT
 | | | | | VARIABLE

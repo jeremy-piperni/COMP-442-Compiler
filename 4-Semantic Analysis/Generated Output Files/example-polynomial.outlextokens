@@ -311,8 +311,6 @@
 [id, counter, 63]
 [colon, :, 63]
 [integer, integer, 63]
-[lsqbr, [, 63]
-[rsqbr, ], 63]
 [semi, ;, 63]
 [id, counter, 65]
 [equal, =, 65]

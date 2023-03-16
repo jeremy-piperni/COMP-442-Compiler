@@ -14,7 +14,18 @@ public class SymbolMemberFunctionDeclEntry extends SymbolTableEntry {
 	}
 	
 	public void Print() {
-		System.out.println("function    | " + id + "          | (" + parameters + "):" + returnType + "     | " + visibility);
+		System.out.print("function    | " + id + "          | (");
+		PrintParameters();
+		System.out.println("):" + returnType + "     | " + visibility);
+	}
+	
+	public void PrintParameters() {
+		for (int i = 0; i < parameters.size(); i++) {
+			System.out.print(parameters.get(i));
+			if (i != parameters.size() - 1) {
+				System.out.print(",");
+			}
+		}
 	}
 
 	public void setSymTable(SymbolTable symTable) {
@@ -23,6 +34,10 @@ public class SymbolMemberFunctionDeclEntry extends SymbolTableEntry {
 	
 	public SymbolTable getSymTable() {
 		return symTable;
+	}
+	
+	public void addParameter(String parameter) {
+		parameters.add(parameter);
 	}
 	
 }

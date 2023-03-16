@@ -18,14 +18,29 @@ public class SymbolFreeFunctionEntry extends SymbolTableEntry {
 	}
 	
 	public void Print() {
-		System.out.println("function    | " + name + "          | (" + parameters + "):" + returnType);
+		System.out.print("function    | " + name + "          | (");
+		PrintParameters();
+		System.out.println("):" + returnType);
 	}
 
+	public void PrintParameters() {
+		for (int i = 0; i < parameters.size(); i++) {
+			System.out.print(parameters.get(i));
+			if (i != parameters.size() - 1) {
+				System.out.print(",");
+			}
+		}
+	}
+	
 	public void setSymTable(SymbolTable symTable) {
 		this.symTable = symTable;
 	}
 	
 	public SymbolTable getSymTable() {
 		return symTable;
+	}
+	
+	public void addParameter(String parameter) {
+		parameters.add(parameter);
 	}
 }

@@ -28,5 +28,5 @@ public class SymbolClassDataEntry extends SymbolTableEntry {
 	public SymbolTable getSymTable() {
 		return null;
 	}
-	
+
 }
