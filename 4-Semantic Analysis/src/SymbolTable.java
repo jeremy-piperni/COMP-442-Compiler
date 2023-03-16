@@ -18,7 +18,9 @@ public class SymbolTable {
 			for (int i = 0; i < symEntries.size(); i++) {
 				System.out.print("| ");
 				symEntries.get(i).Print();
-				symEntries.get(i).getSymTable().Print();
+				if (symEntries.get(i).getSymTable() != null) {
+					symEntries.get(i).getSymTable().Print();
+				}	
 			}
 			System.out.println("======================================================================");
 		} else if (scope == 1) {
@@ -28,9 +30,23 @@ public class SymbolTable {
 			for (int i = 0; i < symEntries.size(); i++) {
 				System.out.print("|    | ");
 				symEntries.get(i).Print();
-				symEntries.get(i).getSymTable().Print();
+				if (symEntries.get(i).getSymTable() != null) {
+					symEntries.get(i).getSymTable().Print();
+				}	
 			}
 			System.out.println("|    =================================================================");
+		} else {
+			System.out.println("|    |    ===========================================================");
+			System.out.println("|    |    | table: " + name);
+			System.out.println("|    |    ===========================================================");
+			for (int i = 0; i < symEntries.size(); i++) {
+				System.out.print("|    |    | ");
+				symEntries.get(i).Print();
+				if (symEntries.get(i).getSymTable() != null) {
+					symEntries.get(i).getSymTable().Print();
+				}	
+			}
+			System.out.println("|    |    ===========================================================");
 		}
 		
 	}

@@ -247,7 +247,6 @@ public class lexicalanalyzer {
 		reservedWords.add("float");
 		reservedWords.add("void");
 		reservedWords.add("class");
-		reservedWords.add("self");
 		reservedWords.add("isa");
 		reservedWords.add("while");
 		reservedWords.add("if");

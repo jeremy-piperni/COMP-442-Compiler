@@ -1,11 +1,12 @@
-1. |X| Global Symbol table
+1. |X| Global symbol table
 2. |X| Class symbol table
-3. ||
+3.1 |X| Class data member
+3.2 |X| Function's local variable, parameters
 4.1 |X| Free functions
-4.2 ||
+4.2 |X| Member functions
 5. ||
 6. ||
-7. ||
+7. |X| Print of symbol table
 8. ||
 9. ||
 10. ||

@@ -210,6 +210,48 @@ PROG
 | | | | | | type
 | | | | | | ARRAYSIZE
 | | FUNCBODY
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | | IDNESTTEMP
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | | IDNESTTEMP
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | | IDNESTTEMP
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
 | FUNCDEF
 | | FUNCHEAD
 | | | id
@@ -223,6 +265,34 @@ PROG
 | | | | | | type
 | | | | | | ARRAYSIZE
 | | FUNCBODY
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | | IDNESTTEMP
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | | IDNESTTEMP
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
 | FUNCDEF
 | | FUNCHEAD
 | | | id
@@ -305,6 +375,7 @@ PROG
 | | | | id
 | | | | type
 | | | | ARRAYSIZE
+| | | | | EMPTYARRAYSIZE
 | | | STATEMENT
 | | | | ASSIGNSTAT
 | | | | | VARIABLE
