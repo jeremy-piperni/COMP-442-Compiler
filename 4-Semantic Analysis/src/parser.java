@@ -175,16 +175,19 @@ public class parser {
 			
 		}
 		
-		// print semantic stack
-		while (!semStack.empty()) {
+		// print semantic stack, call visitors
+		if (semStack.size() == 1) {
 			printTree(semStack.peek());
 			try {
 				ASTWriter.write(System.getProperty( "line.separator" ));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			semStack.pop();
+			SymbolTableCreationVisitor Visitor1 = new SymbolTableCreationVisitor();
+			semStack.peek().accept(Visitor1);
+			
 		}
+		
 		
 		// close writers
 		try {

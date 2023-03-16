@@ -9,11 +9,11 @@ public class semanticanalyzerdriver {
 		parser parser = new parser(lexAnalyzer);
 		parser.parse();
 		
-		file = "Testing Source Files/example-polynomial.src";
-		lexAnalyzer = new lexicalanalyzer(file);
+		//file = "Testing Source Files/example-polynomial.src";
+		//lexAnalyzer = new lexicalanalyzer(file);
 		
-		parser = new parser(lexAnalyzer);
-		parser.parse();
+		//parser = new parser(lexAnalyzer);
+		//parser.parse();
 		
 	}
 
