@@ -1,0 +1,16 @@
+1. |X| Global Symbol table
+2. |X| Class symbol table
+3. ||
+4.1 |X| Free functions
+4.2 ||
+5. ||
+6. ||
+7. ||
+8. ||
+9. ||
+10. ||
+11. ||
+12. ||
+13. ||
+14. ||
+15. ||

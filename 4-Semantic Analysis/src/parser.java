@@ -185,6 +185,7 @@ public class parser {
 			}
 			SymbolTableCreationVisitor Visitor1 = new SymbolTableCreationVisitor();
 			semStack.peek().accept(Visitor1);
+			semStack.peek().getSymbolTable().Print();
 			
 		}
 		
@@ -269,6 +270,7 @@ public class parser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		x.findChildren();
 		if (x.getLeftChild() != null) {
 			depthCounter++;
 			Node now = x.getLeftChild();

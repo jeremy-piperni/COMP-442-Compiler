@@ -7,6 +7,8 @@ public class Node {
 	private Node rightSibling;
 	private Node leftChild;
 	private ArrayList<Node> children = new ArrayList<>();
+	private SymbolTable symTable;
+	private SymbolTableEntry symEntry;
 	
 	public Node() {
 		token = new Token(null,null,0);
@@ -14,7 +16,7 @@ public class Node {
 	
 	public void accept(Visitor visitor) {
 			visitor.visit(this);
-	};
+	}
 	
 	public Node(Token token) {
 		this.token = token;
@@ -98,6 +100,10 @@ public class Node {
 		return rightSibling;
 	}
 	
+	public Node getParent() {
+		return parent;
+	}
+	
 	public void findChildren() {
 		if (this.leftChild != null) {
 			Node temp = this.leftChild;
@@ -111,6 +117,22 @@ public class Node {
 	
 	public ArrayList<Node> getChildren() {
 		return children;
+	}
+
+	public SymbolTable getSymbolTable() {
+		return symTable;
+	}
+	
+	public void setSymTable(SymbolTable symTable) {
+		this.symTable = symTable;
+	}
+
+	public SymbolTableEntry getSymEntry() {
+		return symEntry;
+	}
+
+	public void setSymEntry(SymbolTableEntry symEntry) {
+		this.symEntry = symEntry;
 	}
 }
 
@@ -128,7 +150,6 @@ class ArraySizeNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -151,7 +172,6 @@ class FParamsTailNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -165,7 +185,6 @@ class FParamsTailListNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -179,7 +198,6 @@ class FParamsNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -193,7 +211,6 @@ class MemberFuncDeclNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -207,7 +224,6 @@ class MemberVarDeclNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -221,7 +237,6 @@ class MemberDeclNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -235,7 +250,6 @@ class MemberDeclListNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -249,7 +263,6 @@ class InheritanceListTailNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -263,7 +276,6 @@ class InheritanceListNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -277,7 +289,6 @@ class ClassDeclNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -291,7 +302,6 @@ class FuncHeadNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -305,7 +315,6 @@ class AddOpNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -319,7 +328,6 @@ class MultOpNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -333,7 +341,6 @@ class RelOpNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -347,7 +354,6 @@ class NotNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -361,7 +367,6 @@ class SignNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -375,7 +380,6 @@ class LocalVarDeclNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -389,7 +393,6 @@ class RelExprNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -403,7 +406,6 @@ class ExprNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -417,7 +419,6 @@ class ExprTailListNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -431,7 +432,6 @@ class AParamsNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -445,7 +445,6 @@ class WriteNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -459,7 +458,6 @@ class ReturnNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -473,7 +471,6 @@ class StatementNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -487,7 +484,6 @@ class FuncBodyNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -501,7 +497,6 @@ class FuncDefNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -515,7 +510,6 @@ class ProgNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -529,7 +523,6 @@ class ReadNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -543,7 +536,6 @@ class VariableNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -557,7 +549,6 @@ class IndiceNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -571,7 +562,6 @@ class IdNestNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -585,7 +575,6 @@ class IdNestTempNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -599,7 +588,6 @@ class AssignStatNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -613,7 +601,6 @@ class FunctionCallNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -627,7 +614,6 @@ class StatBlockNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -641,7 +627,6 @@ class IfNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
@@ -655,7 +640,6 @@ class WhileNode extends Node {
 		super(token);
 	}
 	public void accept(Visitor visitor) {
-		this.findChildren();
 		ArrayList<Node> childList = this.getChildren();
 		visitor.visit(this);
 		for (int i = 0; i < childList.size(); i++) {
