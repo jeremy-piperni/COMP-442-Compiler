@@ -173,7 +173,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 		} else {
 			String name2 = "constructor";
 			SymbolTable table = new SymbolTable(name + "::" + name2,1);
-			node.setSymEntry(new SymbolMemberFunctionDefEntry(name,null));
+			node.setSymEntry(new SymbolMemberFunctionDefEntry(name,""));
 			node.setSymTable(table);
 			node.getSymEntry().setSymTable(table);
 			Node parent = node.getParent();

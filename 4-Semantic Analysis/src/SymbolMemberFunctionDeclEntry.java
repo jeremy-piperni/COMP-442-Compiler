@@ -40,4 +40,20 @@ public class SymbolMemberFunctionDeclEntry extends SymbolTableEntry {
 		parameters.add(parameter);
 	}
 	
+	public ArrayList<String> getParameters() {
+		return parameters;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	
+	public String getReturnType() {
+		return returnType;
+	}
+	
+	public void setReturnType(String returnType) {
+		this.returnType = returnType;
+	}
+	
 }

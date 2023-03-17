@@ -18,5 +18,9 @@ public class SymbolClassEntry extends SymbolTableEntry {
 	public SymbolTable getSymTable() {
 		return symTable;
 	}
+	
+	public String getName() {
+		return name;
+	}
 
 }
