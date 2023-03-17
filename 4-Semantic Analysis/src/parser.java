@@ -14,6 +14,7 @@ public class parser {
 	private FileWriter derivationWriter;
 	private FileWriter errorWriter;
 	private FileWriter ASTWriter;
+	private FileWriter semanticErrorWriter;
 	private Token token;
 	private Token prevToken;
 	private Stack<Node> semStack = new Stack<Node>();
@@ -28,6 +29,7 @@ public class parser {
 			derivationWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outderivation");
 			errorWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outsyntaxerrors");
 			ASTWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outast");
+			semanticErrorWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outsemanticerrors");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -185,7 +187,7 @@ public class parser {
 			}
 			SymbolTableCreationVisitor Visitor1 = new SymbolTableCreationVisitor();
 			PopulateFParamsVisitor Visitor2 = new PopulateFParamsVisitor();
-			MemberFuncVisitor Visitor3 = new MemberFuncVisitor();
+			MemberFuncVisitor Visitor3 = new MemberFuncVisitor(semanticErrorWriter);
 			semStack.peek().accept(Visitor1);
 			semStack.peek().accept(Visitor2);
 			semStack.peek().accept(Visitor3);
@@ -199,6 +201,7 @@ public class parser {
 			derivationWriter.close();
 			errorWriter.close();
 			ASTWriter.close();
+			semanticErrorWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

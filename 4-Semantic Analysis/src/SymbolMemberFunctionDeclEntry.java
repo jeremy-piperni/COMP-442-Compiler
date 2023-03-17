@@ -6,11 +6,14 @@ public class SymbolMemberFunctionDeclEntry extends SymbolTableEntry {
 	private String visibility;
 	private String returnType;
 	private SymbolTable symTable;
+	private boolean matched = false;
+	private int line;
 	
-	public SymbolMemberFunctionDeclEntry(String id, String visibility, String returnType) {
+	public SymbolMemberFunctionDeclEntry(String id, String visibility, String returnType, int line) {
 		this.id = id;
 		this.visibility = visibility;
 		this.returnType = returnType;
+		this.line = line;
 	}
 	
 	public void Print() {
@@ -54,6 +57,18 @@ public class SymbolMemberFunctionDeclEntry extends SymbolTableEntry {
 	
 	public void setReturnType(String returnType) {
 		this.returnType = returnType;
+	}
+	
+	public void match() {
+		this.matched = true;
+	}
+	
+	public boolean getMatched() {
+		return matched;
+	}
+	
+	public int getLine() {
+		return line;
 	}
 	
 }

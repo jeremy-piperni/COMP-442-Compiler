@@ -91,6 +91,10 @@ public class Node {
 	public String getLexeme() {
 		return token.getLexeme();
 	}
+	
+	public int getLoc() {
+		return token.getLoc();
+	}
 
 	public Node getLeftChild() {
 		return leftChild;

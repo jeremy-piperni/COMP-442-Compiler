@@ -4,14 +4,16 @@ public class SymbolMemberFunctionDefEntry extends SymbolTableEntry {
 	private String returnType;
 	private SymbolTable symTable;
 	private boolean deleted = false;
+	private int line;
 	
-	public SymbolMemberFunctionDefEntry(String name, String returnType) {
+	public SymbolMemberFunctionDefEntry(String name, String returnType, int line) {
 		this.name = name;
 		this.returnType = returnType;
+		this.line = line;
 	}
 	
 	public void Print() {
-		System.out.println("member function   | " + name + "     => " + returnType);
+		System.out.println("function   | " + name + "     => " + returnType);
 	}
 
 	public void setSymTable(SymbolTable symTable) {
@@ -36,6 +38,10 @@ public class SymbolMemberFunctionDefEntry extends SymbolTableEntry {
 	
 	public String getReturnType() {
 		return returnType;
+	}
+	
+	public int getLine() {
+		return line;
 	}
 	
 }

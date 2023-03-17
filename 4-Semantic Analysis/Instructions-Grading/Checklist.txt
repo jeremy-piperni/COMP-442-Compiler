@@ -5,7 +5,8 @@
 4.1 |X| Free functions
 4.2 |X| Member functions
 5. ||
-6. ||
+6.1 |X| Undeclared member function definition
+6.2 |X| Undefined member function declaration
 7. || Print of symbol table
 8. ||
 9. ||

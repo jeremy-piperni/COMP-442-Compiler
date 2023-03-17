@@ -1,7 +1,13 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MemberFuncVisitor implements Visitor {
+	FileWriter errorWriter;
+	public MemberFuncVisitor(FileWriter error) {
+		this.errorWriter = error;
+	}
+	
 	public void visit(Node node) {}
 	public void visit(EpsilonNode node) {}
 	public void visit(ArraySizeNode node) {}
@@ -107,6 +113,7 @@ public class MemberFuncVisitor implements Visitor {
 											membFuncDecl.getSymTable().getSymEntries().add(defEntries.get(m));
 											membFuncDecl.getSymTable().setName(className + "::" + membFuncDecl.getId());				
 										}
+										membFuncDecl.match();
 										membFuncDeclCount--;
 										membFuncDefTemp.delete();
 									}
@@ -127,7 +134,38 @@ public class MemberFuncVisitor implements Visitor {
 				}
 			}
 		}
-		System.out.println(membFuncDeclCount);
+		
+		//Error detection 6.2
+		if (membFuncDeclCount > 0) {
+			for (int i = 0; i < classes.size(); i++) {
+				SymbolTable table =	classes.get(i).getSymbolTable();
+				ArrayList<SymbolTableEntry> entries = table.getSymEntries();
+				for (int j = 0; j < entries.size(); j++) {
+					if (entries.get(j) instanceof SymbolMemberFunctionDeclEntry) {
+						if (!((SymbolMemberFunctionDeclEntry)entries.get(j)).getMatched()) {
+							try {
+								errorWriter.write("ERROR 6.2:  Undefined member function declaration at line: " + ((SymbolMemberFunctionDeclEntry)entries.get(j)).getLine());
+								errorWriter.write(System.getProperty( "line.separator" ));
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+			}
+		}
+		//Error detection 6.1
+		ArrayList<SymbolTableEntry> entries = node.getSymbolTable().getSymEntries();
+		for (int i = 0; i < entries.size(); i++) {
+			if (entries.get(i) instanceof SymbolMemberFunctionDefEntry) {
+				try {
+					errorWriter.write("ERROR 6.1:  Undeclared member function definition at line: " + ((SymbolMemberFunctionDefEntry)entries.get(i)).getLine());
+					errorWriter.write(System.getProperty( "line.separator" ));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	public void visit(ReadNode node) {}
 	public void visit(VariableNode node) {}

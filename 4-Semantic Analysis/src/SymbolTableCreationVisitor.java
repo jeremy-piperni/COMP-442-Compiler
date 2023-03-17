@@ -77,8 +77,9 @@ public class SymbolTableCreationVisitor implements Visitor {
 			Node memberFuncDecl = node.getChildren().get(1);
 			if (memberFuncDecl.getChildren().size() == 1) {
 				id = "constructor";
+				int line = memberFuncDecl.getChildren().get(0).getChildren().get(0).getLoc();
 				SymbolTable table = new SymbolTable(id,2);
-				node.setSymEntry(new SymbolMemberFunctionDeclEntry(id,visibility,type));
+				node.setSymEntry(new SymbolMemberFunctionDeclEntry(id,visibility,type,line));
 				node.setSymTable(table);
 				node.getSymEntry().setSymTable(table);
 				Node parent = node.getParent().getParent();
@@ -86,8 +87,9 @@ public class SymbolTableCreationVisitor implements Visitor {
 			} else {
 				id = memberFuncDecl.getChildren().get(0).getLexeme();
 				type = memberFuncDecl.getChildren().get(2).getLexeme();
+				int line = memberFuncDecl.getChildren().get(2).getLoc();
 				SymbolTable table = new SymbolTable(id,2);
-				node.setSymEntry(new SymbolMemberFunctionDeclEntry(id,visibility,type));
+				node.setSymEntry(new SymbolMemberFunctionDeclEntry(id,visibility,type,line));
 				node.setSymTable(table);
 				node.getSymEntry().setSymTable(table);
 				Node parent = node.getParent().getParent();
@@ -164,8 +166,9 @@ public class SymbolTableCreationVisitor implements Visitor {
 		} else if (funcHead.getChildren().size() == 4) {
 			String type = funcHead.getChildren().get(3).getLexeme();
 			String name2 = funcHead.getChildren().get(1).getLexeme();
+			int line = funcHead.getChildren().get(0).getLoc();
 			SymbolTable table = new SymbolTable(name + "::" + name2,1);
-			node.setSymEntry(new SymbolMemberFunctionDefEntry(name,type));
+			node.setSymEntry(new SymbolMemberFunctionDefEntry(name,type,line));
 			node.setSymTable(table);
 			node.getSymEntry().setSymTable(table);
 			Node parent = node.getParent();
@@ -173,7 +176,8 @@ public class SymbolTableCreationVisitor implements Visitor {
 		} else {
 			String name2 = "constructor";
 			SymbolTable table = new SymbolTable(name + "::" + name2,1);
-			node.setSymEntry(new SymbolMemberFunctionDefEntry(name,""));
+			int line = funcHead.getChildren().get(0).getLoc();
+			node.setSymEntry(new SymbolMemberFunctionDefEntry(name,"",line));
 			node.setSymTable(table);
 			node.getSymEntry().setSymTable(table);
 			Node parent = node.getParent();
