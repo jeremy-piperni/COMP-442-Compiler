@@ -30,11 +30,6 @@ PROG
 | | | | id
 | | | | type
 | | | | ARRAYSIZE
-| | | LOCALVARDECL
-| | | | id
-| | | | type
-| | | | ARRAYSIZE
-| | | | | EMPTYARRAYSIZE
 | | | STATEMENT
 | | | | ASSIGNSTAT
 | | | | | VARIABLE

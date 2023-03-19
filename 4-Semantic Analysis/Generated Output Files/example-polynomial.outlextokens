@@ -129,7 +129,7 @@
 [lcurbr, {, 23]
 [return, return, 24]
 [lpar, (, 24]
-[intlit, 0, 24]
+[floatlit, 0.0, 24]
 [rpar, ), 24]
 [semi, ;, 24]
 [rcurbr, }, 25]

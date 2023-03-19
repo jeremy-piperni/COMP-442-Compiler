@@ -127,8 +127,9 @@ public class SemanticErrorVisitor2 implements Visitor {
 		boolean errorFound = false;
 		String exprType = "";
 		findTerminals(node,terminals);
+		int line = 0;
 		if (terminals.size() > 0) {
-			int line = terminals.get(0).getLoc();
+			line = terminals.get(0).getLoc();
 			for (int i = 0; i < terminals.size(); i++) {
 				if (terminals.get(i).getType().equals("id")) {
 					String lexeme = terminals.get(i).getLexeme();
@@ -233,12 +234,12 @@ public class SemanticErrorVisitor2 implements Visitor {
 			
 		}
 		
-		// 10.2 Type error in assignment statement
 		if (!errorFound) {
+			// 10.2 Type error in assignment statement
 			if (node.getParent().getType().equals("ASSIGNSTAT")) {
 				Node variable = node.getParent().getLeftChild();
 				String variableLexeme = variable.getChildren().get(1).getLexeme();
-				int line = variable.getChildren().get(1).getLoc();
+				line = variable.getChildren().get(1).getLoc();
 				Node function = node;
 				while (!function.getParent().getType().equals("FUNCDEF")) {
 					function = function.getParent();
@@ -254,7 +255,6 @@ public class SemanticErrorVisitor2 implements Visitor {
 						variableType = variableType.replaceAll("\\[\\d+\\]", "");
 						variableType = variableType.replaceAll("\\[", "").replaceAll("\\]", "");
 						if (!variableType.equals(exprType)) {
-							System.out.println(variableType + ", " + exprType);
 							try {
 								errorWriter.write("ERROR 10.2:  Type error in assignment statement at line: " + line);
 								errorWriter.write(System.getProperty( "line.separator" ));
@@ -276,6 +276,29 @@ public class SemanticErrorVisitor2 implements Visitor {
 						}
 					}
 				}
+				
+			// 10.3 Type error in return statement
+			} else if (node.getParent().getType().equals("RETURN")) {
+				Node function = node;
+				String returnType = "";
+				while (!function.getParent().getType().equals("FUNCDEF")) {
+					function = function.getParent();
+				}
+				function = function.getParent();
+				if (function.getSymEntry() instanceof SymbolFreeFunctionEntry) {
+					returnType = ((SymbolFreeFunctionEntry)function.getSymEntry()).getReturnType();
+				} else {
+					returnType = ((SymbolMemberFunctionDefEntry)function.getSymEntry()).getReturnType();
+				}
+				if (!returnType.equals(exprType)) {
+					try {
+						errorWriter.write("ERROR 10.3:  Type error in return statement at line: " + line);
+						errorWriter.write(System.getProperty( "line.separator" ));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				
 			}
 		}
 

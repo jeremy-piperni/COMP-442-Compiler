@@ -17,13 +17,18 @@ class LINEAR isa POLYNOMIAL {
 };
 
 class QUADRATIC isa POLYNOMIAL {
-	private attribute a: float;                                         // 8.5
-	private attribute b: float;                                         // 8.5
+	private attribute a: float;                                         
+	private attribute b: float;                                         
 	private attribute c: float;
 	
 	public constructor: (A: float, B: float, C: float);
 	public function evaluate: (x: float) => float;                      // 9.3
 };
+
+class newClass isa LINEAR {
+	private attribute a: float;                                         // 8.5
+	private attribute b: integer;                                       // 8.5
+}; 
 
 class C isa E {
 	private attribute a: integer; 
@@ -125,8 +130,8 @@ function main() => void
   while(counter <= 10)
   {
     write(counter);
-    write(f1.evaluate(counter));
-    write(f2.evaluate(counter));
+    write(f1.evaluate(counter));                                           // 11.3
+    write(f2.evaluate(counter));                                           // 11.3
   };
 }
 

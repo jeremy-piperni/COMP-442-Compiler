@@ -117,7 +117,7 @@ PROG
 | | | STATEMENT
 | | | | RETURN
 | | | | | EXPR
-| | | | | | intlit
+| | | | | | floatlit
 | FUNCDEF
 | | FUNCHEAD
 | | | id

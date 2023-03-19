@@ -23,7 +23,7 @@
 9.2 |X| WARNING Overloaded member function
 9.3 || WARNING Overriden member function
 10.1 |X| Type error in expression
-10.2 || Type error in assignment statement
+10.2 |X| Type error in assignment statement
 10.3 || Type error in return statement
 11.1 |X| Undeclared local variable
 11.2.1, 11.2.3 |X| Undeclared data member
