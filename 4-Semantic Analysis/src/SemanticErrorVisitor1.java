@@ -22,20 +22,38 @@ public class SemanticErrorVisitor1 implements Visitor {
 	public void visit(InheritanceListTailNode node) {}
 	public void visit(InheritanceListNode node) {}
 	public void visit(ClassDeclNode node) {
-		// 8.3 Multiply declared data member in class
 		ArrayList<SymbolClassDataEntry> data = new ArrayList<>();
+		ArrayList<SymbolMemberFunctionDeclEntry> functions = new ArrayList<>();
 		for (int i = 0; i < node.getSymbolTable().getSymEntries().size(); i++) {
 			if (node.getSymbolTable().getSymEntries().get(i) instanceof SymbolClassDataEntry) {
 				if (((SymbolClassDataEntry)node.getSymbolTable().getSymEntries().get(i)).getName().equals("data")) {
 					data.add((SymbolClassDataEntry) node.getSymbolTable().getSymEntries().get(i));
 				}
+			} else {
+				functions.add((SymbolMemberFunctionDeclEntry) node.getSymbolTable().getSymEntries().get(i));
 			}
 		}
+		
+		// 8.3 Multiply declared data member in class
 		for (int i = 0; i < data.size(); i++) {
 			for (int j = i + 1; j < data.size(); j++) {
 				if (data.get(i).getId().equals(data.get(j).getId())) {
 					try {
 						errorWriter.write("ERROR 8.3:  Multiply declared data member in class at line: " + data.get(j).getLine());
+						errorWriter.write(System.getProperty( "line.separator" ));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		
+		// 9.2 Overloaded member function
+		for (int i = 0; i < functions.size(); i++) {
+			for (int j = i + 1; j < functions.size(); j++) {
+				if (functions.get(i).getId().equals(functions.get(j).getId())) {
+					try {
+						errorWriter.write("WARNING 9.2:  Overloaded member function at line: " + functions.get(j).getLine());
 						errorWriter.write(System.getProperty( "line.separator" ));
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -60,7 +78,27 @@ public class SemanticErrorVisitor1 implements Visitor {
 	public void visit(StatementNode node) {}
 	public void visit(FuncBodyNode node) {}
 	public void visit(FuncDefNode node) {
-		
+		// 8.4 Multiply declared identifier in function
+		ArrayList<SymbolLocalVarParamEntry> localVars = new ArrayList<>();
+		for (int i = 0; i < node.getSymbolTable().getSymEntries().size(); i++) {
+			if (node.getSymbolTable().getSymEntries().get(i) instanceof SymbolLocalVarParamEntry) {
+				if (((SymbolLocalVarParamEntry)node.getSymbolTable().getSymEntries().get(i)).getName().equals("local")) {
+					localVars.add((SymbolLocalVarParamEntry)node.getSymbolTable().getSymEntries().get(i));
+				}
+			}
+		}
+		for (int i = 0; i < localVars.size(); i++) {
+			for (int j = i + 1; j < localVars.size(); j++) {
+				if (localVars.get(i).getId().equals(localVars.get(j).getId())) {
+					try {
+						errorWriter.write("ERROR 8.4:  Multiply declared identifier in function at line: " + localVars.get(j).getLine());
+						errorWriter.write(System.getProperty( "line.separator" ));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 	public void visit(ProgNode node) {
 		ArrayList<SymbolClassEntry> classes = new ArrayList<>();
@@ -90,7 +128,7 @@ public class SemanticErrorVisitor1 implements Visitor {
 		// 8.2 Multiply declared free function, 9.1 Overloaded free function
 		for (int i = 0; i < functions.size(); i++) {
 			for (int j = i + 1; j < functions.size(); j++) {
-				if (functions.get(i).getName().equals(functions.get(j).getName()) && functions.get(i).getReturnType().equals(functions.get(j).getReturnType())) {
+				if (functions.get(i).getName().equals(functions.get(j).getName())) {
 					ArrayList<String> parameters1 = functions.get(i).getParameters();
 					ArrayList<String> parameters2 = functions.get(j).getParameters();
 					if (parameters1.size() != parameters2.size()) {

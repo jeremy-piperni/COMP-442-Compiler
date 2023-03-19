@@ -16,8 +16,12 @@
 8.1 |X| Multiply declared class
 8.2 |X| Multiply declared free function
 8.3 |X| Multiply declared data member in class
-8.4 || Multiply declared identifier in function
+8.4 |X| Multiply declared identifier in function
+8.5 || WARNING Shadowed inherited data member
+8.6 || WARNING Local variable in a member function shadows a data member of its class
 9.1 |X| WARNING Overloaded free function 
+9.2 |X| WARNING Overloaded member function
+9.3 || WARNING Overriden member function
 10. ||
 11. ||
 12. ||

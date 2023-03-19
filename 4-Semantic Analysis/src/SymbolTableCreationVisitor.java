@@ -9,6 +9,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 		String name = "param";
 		String id = node.getChildren().get(0).getLexeme();
 		String type = node.getChildren().get(1).getLexeme();
+		int line = node.getChildren().get(0).getLoc();
 		int size;
 		if (node.getChildren().get(2).getChildren() != null) {
 			size = node.getChildren().get(2).getChildren().size();
@@ -21,7 +22,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 			}
 		}
 		Node parent = node.getParent().getParent().getParent().getParent();
-		node.setSymEntry(new SymbolLocalVarParamEntry(name,id,type));
+		node.setSymEntry(new SymbolLocalVarParamEntry(name,id,type,line));
 		parent.getSymbolTable().getSymEntries().add(node.getSymEntry());
 
 	}
@@ -31,6 +32,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 			String name = "param";
 			String id = node.getChildren().get(0).getLexeme();
 			String type = node.getChildren().get(1).getLexeme();
+			int line = node.getChildren().get(0).getLoc();
 			int size;
 			if (node.getChildren().get(2).getChildren() != null) {
 				size = node.getChildren().get(2).getChildren().size();
@@ -43,7 +45,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 				}
 			}
 			Node parent = node.getParent().getParent();
-			node.setSymEntry(new SymbolLocalVarParamEntry(name,id,type));
+			node.setSymEntry(new SymbolLocalVarParamEntry(name,id,type,line));
 			parent.getSymbolTable().getSymEntries().add(node.getSymEntry());
 		}
 	}
@@ -131,6 +133,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 		String name = "local";
 		String id = node.getChildren().get(0).getLexeme();
 		String type = node.getChildren().get(1).getLexeme();
+		int line = node.getChildren().get(0).getLoc();
 		int size;
 		if (node.getChildren().get(2).getChildren() != null && node.getChildren().get(2).getType() == "ARRAYSIZE") {
 			size = node.getChildren().get(2).getChildren().size();
@@ -142,7 +145,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 				type = type + "[" + value + "]";
 			}
 		}
-		node.setSymEntry(new SymbolLocalVarParamEntry(name,id,type));
+		node.setSymEntry(new SymbolLocalVarParamEntry(name,id,type,line));
 		Node parent = node.getParent().getParent();
 		parent.getSymbolTable().getSymEntries().add(node.getSymEntry());
 	}
