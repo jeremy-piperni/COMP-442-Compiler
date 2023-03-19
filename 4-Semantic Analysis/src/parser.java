@@ -189,10 +189,12 @@ public class parser {
 			PopulateFParamsVisitor Visitor2 = new PopulateFParamsVisitor();
 			MemberFuncVisitor Visitor3 = new MemberFuncVisitor(semanticErrorWriter);
 			SemanticErrorVisitor1 Visitor4 = new SemanticErrorVisitor1(semanticErrorWriter);
+			SemanticErrorVisitor2 Visitor5 = new SemanticErrorVisitor2(semanticErrorWriter);
 			semStack.peek().accept(Visitor1);
 			semStack.peek().accept(Visitor2);
 			semStack.peek().accept(Visitor3);
 			semStack.peek().accept(Visitor4);
+			semStack.peek().accept(Visitor5);
 			semStack.peek().getSymbolTable().Print();
 			
 		}

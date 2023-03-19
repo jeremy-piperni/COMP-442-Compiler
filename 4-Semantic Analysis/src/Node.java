@@ -9,6 +9,7 @@ public class Node {
 	private ArrayList<Node> children = new ArrayList<>();
 	private SymbolTable symTable;
 	private SymbolTableEntry symEntry;
+	private String expressionType;
 	
 	public Node() {
 		token = new Token(null,null,0);
@@ -137,6 +138,14 @@ public class Node {
 
 	public void setSymEntry(SymbolTableEntry symEntry) {
 		this.symEntry = symEntry;
+	}
+	
+	public void setExpressionType(String type) {
+		expressionType = type;
+	}
+	
+	public String getExpressionType() {
+		return expressionType;
 	}
 }
 

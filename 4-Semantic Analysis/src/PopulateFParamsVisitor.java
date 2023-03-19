@@ -59,7 +59,7 @@ public class PopulateFParamsVisitor implements Visitor {
 				}
 				for (int i = 0; i < stringEntries.length; i++) {
 					((SymbolFreeFunctionEntry)node.getSymEntry()).addParameter(stringEntries[i]);;
-					node.getSymbolTable().getSymEntries().remove(stringEntries.length - 1 - i);
+					//node.getSymbolTable().getSymEntries().remove(stringEntries.length - 1 - i);
 				}
 			}
 		} 

@@ -43,5 +43,9 @@ public class SymbolClassDataEntry extends SymbolTableEntry {
 	public int getLine() {
 		return line;
 	}
+	
+	public String getType() {
+		return type;
+	}
 
 }

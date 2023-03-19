@@ -107,7 +107,10 @@ public class SemanticErrorVisitor1 implements Visitor {
 			if (node.getSymbolTable().getSymEntries().get(i) instanceof SymbolClassEntry) {
 				classes.add((SymbolClassEntry) node.getSymbolTable().getSymEntries().get(i));
 			} else {
-				functions.add((SymbolFreeFunctionEntry) node.getSymbolTable().getSymEntries().get(i));
+				if (node.getSymbolTable().getSymEntries().get(i) instanceof SymbolFreeFunctionEntry) {
+					functions.add((SymbolFreeFunctionEntry) node.getSymbolTable().getSymEntries().get(i));
+				}
+				
 			}
 		}
 		

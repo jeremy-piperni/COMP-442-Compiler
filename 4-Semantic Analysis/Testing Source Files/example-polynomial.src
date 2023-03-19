@@ -19,7 +19,6 @@ class QUADRATIC isa POLYNOMIAL {
 };
 
 // ====== member function implementations ====== //  
-
 function POLYNOMIAL::evaluate(x: float) => float
 {
   return (0);
@@ -72,7 +71,6 @@ function main() => void
     write(f2.evaluate(counter));
   };
 }
-
 /*
     classes
     --------------------------------------
