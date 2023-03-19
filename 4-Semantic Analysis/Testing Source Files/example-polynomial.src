@@ -72,6 +72,7 @@ function main() => void
     write(f2.evaluate(counter));
   };
 }
+
 /*
     classes
     --------------------------------------

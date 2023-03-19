@@ -188,9 +188,11 @@ public class parser {
 			SymbolTableCreationVisitor Visitor1 = new SymbolTableCreationVisitor();
 			PopulateFParamsVisitor Visitor2 = new PopulateFParamsVisitor();
 			MemberFuncVisitor Visitor3 = new MemberFuncVisitor(semanticErrorWriter);
+			SemanticErrorVisitor1 Visitor4 = new SemanticErrorVisitor1(semanticErrorWriter);
 			semStack.peek().accept(Visitor1);
 			semStack.peek().accept(Visitor2);
 			semStack.peek().accept(Visitor3);
+			semStack.peek().accept(Visitor4);
 			semStack.peek().getSymbolTable().Print();
 			
 		}

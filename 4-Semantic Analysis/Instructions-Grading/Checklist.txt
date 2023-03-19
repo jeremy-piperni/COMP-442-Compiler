@@ -1,15 +1,23 @@
-1. |X| Global symbol table
-2. |X| Class symbol table
-3.1 |X| Class data member
-3.2 |X| Function's local variable, parameters
-4.1 |X| Free functions
-4.2 |X| Member functions
-5. ||
+1.1 |X| Global symbol table is created
+2.1 |X| Symbol table is created for classes
+2.2 |X| Symbol table entry for a class is created in the global symbol table
+2.3 |X| Global symbol table entry for a class contains a reference to the local symbol table for the class
+3.1 |X| Class symbol table contains an entry for a class data member
+3.2 |X| Functions symbol table contains an entry for a function's local variable, including parameters of the function
+4.1 |X| Symbol table is created for a free function
+4.2 |X| Symbol table entry for a free function is created in the global symbol table
+4.3 |X| Global symbol table entry for a free function contains a reference to the local symbol table for the free function
+4.4 |X| Symbol table is created for a member function
+4.5 |X| Class symbol table entry for a member function is created in the global symbol table
+4.6 |X| Class symbol table entry for a member function contains a reference to the local symbol table for the member function
 6.1 |X| Undeclared member function definition
 6.2 |X| Undefined member function declaration
 7. || Print of symbol table
-8. ||
-9. ||
+8.1 |X| Multiply declared class
+8.2 |X| Multiply declared free function
+8.3 |X| Multiply declared data member in class
+8.4 || Multiply declared identifier in function
+9.1 |X| WARNING Overloaded free function 
 10. ||
 11. ||
 12. ||

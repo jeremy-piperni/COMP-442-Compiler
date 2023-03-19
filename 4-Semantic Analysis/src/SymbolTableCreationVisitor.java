@@ -55,6 +55,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 		String type = "";
 		String name = "";
 		if (node.getChildren().get(1).getType() == "MEMBERVARDECL") {
+			int line = node.getChildren().get(0).getLoc();
 			Node memberVarDecl = node.getChildren().get(1);
 			name = "data";
 			id = memberVarDecl.getChildren().get(0).getLexeme();
@@ -71,7 +72,7 @@ public class SymbolTableCreationVisitor implements Visitor {
 				}
 			}
 			Node parent = node.getParent().getParent();
-			node.setSymEntry(new SymbolClassDataEntry(name,id,type,visibility));
+			node.setSymEntry(new SymbolClassDataEntry(name,id,type,visibility,line));
 			parent.getSymbolTable().getSymEntries().add(node.getSymEntry());
 		} else {
 			Node memberFuncDecl = node.getChildren().get(1);
@@ -102,19 +103,20 @@ public class SymbolTableCreationVisitor implements Visitor {
 	public void visit(InheritanceListNode node) {}
 	public void visit(ClassDeclNode node) {
 		String name = node.getChildren().get(0).getLexeme();
+		int line = node.getChildren().get(0).getLoc();
 		SymbolTable table = new SymbolTable(name,1);
-		node.setSymEntry(new SymbolClassEntry(name));
+		node.setSymEntry(new SymbolClassEntry(name,line));
 		node.setSymTable(table);
 		node.getSymEntry().setSymTable(table);
 		Node parent = node.getParent();
 		parent.getSymbolTable().getSymEntries().add(node.getSymEntry());
 		if (node.getChildren().get(1).getChildren().size() != 0) {
 			ArrayList<Node> children = node.getChildren().get(1).getChildren();
-			node.getSymbolTable().getSymEntries().add(new SymbolClassDataEntry("inherit", children.get(0).getLexeme()));
+			node.getSymbolTable().getSymEntries().add(new SymbolClassDataEntry("inherit",children.get(0).getLexeme(),line));
 			if (children.get(1).getChildren().size() != 0) {
 				children = children.get(1).getChildren();
 				for (int i = 0; i < children.size(); i++) {
-					node.getSymbolTable().getSymEntries().add(new SymbolClassDataEntry("inherit", children.get(i).getLexeme()));
+					node.getSymbolTable().getSymEntries().add(new SymbolClassDataEntry("inherit",children.get(i).getLexeme(),line));
 				}
 			}
 		}
@@ -157,8 +159,9 @@ public class SymbolTableCreationVisitor implements Visitor {
 		String name = funcHead.getChildren().get(0).getLexeme();
 		if (funcHead.getChildren().size() == 3) {
 			String type = funcHead.getChildren().get(2).getLexeme();
+			int line = funcHead.getChildren().get(2).getLoc();
 			SymbolTable table = new SymbolTable("::" + name,1);
-			node.setSymEntry(new SymbolFreeFunctionEntry(name,type));
+			node.setSymEntry(new SymbolFreeFunctionEntry(name,type,line));
 			node.setSymTable(table);
 			node.getSymEntry().setSymTable(table);
 			Node parent = node.getParent();

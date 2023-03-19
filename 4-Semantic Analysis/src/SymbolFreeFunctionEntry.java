@@ -5,10 +5,12 @@ public class SymbolFreeFunctionEntry extends SymbolTableEntry {
 	private ArrayList<String> parameters = new ArrayList<>();
 	private String returnType;
 	private SymbolTable symTable;
+	private int line;
 	
-	public SymbolFreeFunctionEntry(String name, String type) {
+	public SymbolFreeFunctionEntry(String name, String type, int line) {
 		this.name = name;
 		this.returnType = type;
+		this.line = line;
 	}
 	
 	public SymbolFreeFunctionEntry(String name, ArrayList<String> parameters, String type) {
@@ -40,7 +42,23 @@ public class SymbolFreeFunctionEntry extends SymbolTableEntry {
 		return symTable;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public String getReturnType() {
+		return returnType;
+	}
+	
 	public void addParameter(String parameter) {
 		parameters.add(parameter);
+	}
+	
+	public ArrayList<String> getParameters() {
+		return parameters;
+	}
+	
+	public int getLine() {
+		return line;
 	}
 }

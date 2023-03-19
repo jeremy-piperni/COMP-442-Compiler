@@ -2,9 +2,11 @@
 public class SymbolClassEntry extends SymbolTableEntry {
 	private String name;
 	private SymbolTable symTable;
+	private int line;
 	
-	public SymbolClassEntry(String name) {
+	public SymbolClassEntry(String name, int line) {
 		this.name = name;
+		this.line = line;
 	}
 	
 	public void Print() {
@@ -21,6 +23,10 @@ public class SymbolClassEntry extends SymbolTableEntry {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public int getLine() {
+		return line;
 	}
 
 }
