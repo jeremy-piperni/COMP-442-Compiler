@@ -1,0 +1,19 @@
+ERROR 6.2:  Undefined member function declaration at line: 7
+ERROR 6.2:  Undefined member function declaration at line: 9
+ERROR 6.1:  Undeclared member function definition at line: 18
+ERROR 8.1:  Multiply declared class at line: 13
+WARNING 9.1:  Overloaded free function at line: 56
+ERROR 8.2:  Multiply declared free function at line: 58
+WARNING 9.1:  Overloaded free function at line: 58
+ERROR 8.3:  Multiply declared data member in class at line: 4
+WARNING 9.2:  Overloaded member function at line: 7
+ERROR 8.4:  Multiply declared identifier in function at line: 32
+ERROR 11.5:  Undeclared class at line: 38
+ERROR 10.2:  Type error in assignment statement at line: 41
+ERROR 10.1:  Type error in expression at line: 43
+ERROR 11.1:  Undeclared variable/data member at line: 45
+ERROR 11.1:  Undeclared variable/data member at line: 47
+ERROR 10.2:  Type error in assignment statement at line: 49
+ERROR 11.3:  Undeclared member function at line: 49
+ERROR 11.4:  Undeclared/Undefined free function at line: 51
+ERROR 10.3:  Type error in return statement at line: 53

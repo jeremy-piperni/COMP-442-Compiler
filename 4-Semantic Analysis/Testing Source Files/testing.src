@@ -1,0 +1,59 @@
+class POLYNOMIAL {
+  private attribute b: float;
+  // 8.3
+  private attribute b: integer;  
+ 
+  public function evaluate: (x: float) => float;
+  public function evaluate: (x: integer) => float;
+  // 6.2
+  public function noevaluate: (x: integer) => integer;
+};
+
+// 8.1
+class POLYNOMIAL {                                                     
+
+};
+
+// 6.1
+function QUADRATIC::build2(A: float) => QUADRATIC      
+  {
+
+  }
+
+function POLYNOMIAL::evaluate(x: float) => float
+  {
+    return (0.0);
+  }
+
+function f(i: integer) => void 
+{
+  localvar counter: integer;
+  // 8.4
+  localvar counter: float;
+  localvar f1: POLYNOMIAL;
+  localvar a: integer;
+  localvar b: float;
+  localvar c: integer;
+  // 11.5
+  localvar s: K;  
+
+  // 10.2
+  a = 2.4;
+  // 10.1
+  c = b * a + 2;
+  // 11.1
+  d = c; 
+  // 11.2
+  f1.d = 1;
+  // 11.3
+  a = f1.f();
+  // 11.4
+  undefined();       
+  // 10.3
+  return(counter);
+}     
+// 9.1
+function f(i: float) => void {}    
+// 8.2                                             
+function f(i: integer) => void {}
+ 

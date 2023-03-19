@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SymbolTable {
@@ -10,43 +12,106 @@ public class SymbolTable {
 		this.scope = scope;
 	}
 	
-	public void Print() {
+	public void Print(FileWriter symbolTableWriter) {
 		if (scope == 0) {
-			System.out.println("======================================================================");
-			System.out.println("| table: " + name);
-			System.out.println("======================================================================");
+			try {
+				symbolTableWriter.write("==========================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+				symbolTableWriter.write("| table: " + name);
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+				symbolTableWriter.write("==========================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println("======================================================================");
+			//System.out.println("| table: " + name);
+			//System.out.println("======================================================================");
 			for (int i = 0; i < symEntries.size(); i++) {
-				System.out.print("| ");
-				symEntries.get(i).Print();
+				try {
+					symbolTableWriter.write("| ");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				//System.out.print("| ");
+				symEntries.get(i).Print(symbolTableWriter);
 				if (symEntries.get(i).getSymTable() != null) {
-					symEntries.get(i).getSymTable().Print();
+					symEntries.get(i).getSymTable().Print(symbolTableWriter);
 				}	
 			}
-			System.out.println("======================================================================");
+			try {
+				symbolTableWriter.write("==========================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println("======================================================================");
 		} else if (scope == 1) {
-			System.out.println("|    =================================================================");
-			System.out.println("|    | table: " + name);
-			System.out.println("|    =================================================================");
+			try {
+				symbolTableWriter.write("|    =====================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+				symbolTableWriter.write("|    | table: " + name);
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+				symbolTableWriter.write("|    =====================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println("|    =================================================================");
+			//System.out.println("|    | table: " + name);
+			//System.out.println("|    =================================================================");
 			for (int i = 0; i < symEntries.size(); i++) {
-				System.out.print("|    | ");
-				symEntries.get(i).Print();
+				try {
+					symbolTableWriter.write("|    | ");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				//System.out.print("|    | ");
+				symEntries.get(i).Print(symbolTableWriter);
 				if (symEntries.get(i).getSymTable() != null) {
-					symEntries.get(i).getSymTable().Print();
+					symEntries.get(i).getSymTable().Print(symbolTableWriter);
 				}	
 			}
-			System.out.println("|    =================================================================");
+			try {
+				symbolTableWriter.write("|    =====================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println("|    =================================================================");
 		} else {
-			System.out.println("|    |    ===========================================================");
-			System.out.println("|    |    | table: " + name);
-			System.out.println("|    |    ===========================================================");
+			try {
+				symbolTableWriter.write("|    |    ================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+				symbolTableWriter.write("|    |    | table: " + name);
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+				symbolTableWriter.write("|    |    ================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println("|    |    ===========================================================");
+			//System.out.println("|    |    | table: " + name);
+			//System.out.println("|    |    ===========================================================");
 			for (int i = 0; i < symEntries.size(); i++) {
-				System.out.print("|    |    | ");
-				symEntries.get(i).Print();
+				try {
+					symbolTableWriter.write("|    |    | ");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				//System.out.print("|    |    | ");
+				symEntries.get(i).Print(symbolTableWriter);
 				if (symEntries.get(i).getSymTable() != null) {
-					symEntries.get(i).getSymTable().Print();
+					symEntries.get(i).getSymTable().Print(symbolTableWriter);
 				}	
 			}
-			System.out.println("|    |    ===========================================================");
+			try {
+				symbolTableWriter.write("|    |    ================================================================================");
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println("|    |    ===========================================================");
 		}
 		
 	}

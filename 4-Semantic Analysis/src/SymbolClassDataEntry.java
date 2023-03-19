@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class SymbolClassDataEntry extends SymbolTableEntry {
 	private String name;
@@ -20,11 +22,23 @@ public class SymbolClassDataEntry extends SymbolTableEntry {
 		this.line = line;
 	}
 	
-	public void Print() {
+	public void Print(FileWriter symbolTableWriter) {
 		if (type == null) {
-			System.out.println(name + "   | " + id);
+			try {
+				symbolTableWriter.write(name + "   | " + id);
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println(name + "   | " + id);
 		} else {
-			System.out.println(name + "   | " + id + "     | " + type + "          | " + visibility);
+			try {
+				symbolTableWriter.write(name + "   | " + id + "     | " + type + "          | " + visibility);
+				symbolTableWriter.write(System.getProperty( "line.separator" ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println(name + "   | " + id + "     | " + type + "          | " + visibility);
 		}
 	}
 	

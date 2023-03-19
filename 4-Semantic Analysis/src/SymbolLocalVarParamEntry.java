@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class SymbolLocalVarParamEntry extends SymbolTableEntry {
 	private String name;
@@ -12,8 +14,14 @@ public class SymbolLocalVarParamEntry extends SymbolTableEntry {
 		this.line = line;
 	}
 	
-	public void Print() {
-		System.out.println(name + "     | " + id + "     | " + type);
+	public void Print(FileWriter symbolTableWriter) {
+		try {
+			symbolTableWriter.write(name + "     | " + id + "     | " + type);
+			symbolTableWriter.write(System.getProperty( "line.separator" ));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(name + "     | " + id + "     | " + type);
 	}
 	
 	public SymbolTable getSymTable() {

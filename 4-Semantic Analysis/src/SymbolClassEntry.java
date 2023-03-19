@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class SymbolClassEntry extends SymbolTableEntry {
 	private String name;
@@ -9,8 +11,14 @@ public class SymbolClassEntry extends SymbolTableEntry {
 		this.line = line;
 	}
 	
-	public void Print() {
-		System.out.println("class     | " + name);
+	public void Print(FileWriter symbolTableWriter) {
+		try {
+			symbolTableWriter.write("class     | " + name);
+			symbolTableWriter.write(System.getProperty( "line.separator" ));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("class     | " + name);
 	}
 
 	public void setSymTable(SymbolTable symTable) {

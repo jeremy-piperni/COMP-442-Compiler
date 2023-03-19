@@ -265,7 +265,14 @@ public class SemanticErrorVisitor2 implements Visitor {
 					}
 				}
 				if (!found) {
-					if (node.getParent().getLeftChild().getLeftChild().getLeftChild().getChildren().size() != 0) {
+					if (node.getParent().getLeftChild().getLeftChild().getChildren().size() == 0) {
+						try {
+							errorWriter.write("ERROR 11.1:  Undeclared variable/data member at line: " + line);
+							errorWriter.write(System.getProperty( "line.separator" ));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else if (node.getParent().getLeftChild().getLeftChild().getLeftChild().getChildren().size() != 0) {
 						if (!node.getParent().getLeftChild().getLeftChild().getLeftChild().getChildren().get(0).getLexeme().equals("self")) {
 							try {
 								errorWriter.write("ERROR 11.1:  Undeclared variable/data member at line: " + line);

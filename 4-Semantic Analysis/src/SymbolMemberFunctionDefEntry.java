@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class SymbolMemberFunctionDefEntry extends SymbolTableEntry {
 	private String name;
@@ -12,8 +14,14 @@ public class SymbolMemberFunctionDefEntry extends SymbolTableEntry {
 		this.line = line;
 	}
 	
-	public void Print() {
-		System.out.println("function   | " + name + "     => " + returnType);
+	public void Print(FileWriter symbolTableWriter) {
+		try {
+			symbolTableWriter.write("function   | " + name + "     => " + returnType);
+			symbolTableWriter.write(System.getProperty( "line.separator" ));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("function   | " + name + "     => " + returnType);
 	}
 
 	public void setSymTable(SymbolTable symTable) {

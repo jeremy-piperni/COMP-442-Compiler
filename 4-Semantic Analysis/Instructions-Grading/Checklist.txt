@@ -12,7 +12,7 @@
 4.6 |X| Class symbol table entry for a member function contains a reference to the local symbol table for the member function
 6.1 |X| Undeclared member function definition
 6.2 |X| Undefined member function declaration
-7. || Print of symbol table
+7. |X| Print of symbol table
 8.1 |X| Multiply declared class
 8.2 |X| Multiply declared free function
 8.3 |X| Multiply declared data member in class
@@ -29,7 +29,7 @@
 11.2.1, 11.2.3 |X| Undeclared data member
 11.3 |X| Undeclared member function
 11.4 |X| Undeclared/undefined free function
-11.5 || Undeclared class
+11.5 |X| Undeclared class
 12.1 || Function call with wrong number of parameters
 12.2 || Function call with wrong type of parameters
 13.1 || Use of array with wrong number of dimensions

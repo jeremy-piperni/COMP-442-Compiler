@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SymbolMemberFunctionDeclEntry extends SymbolTableEntry {
@@ -16,17 +18,38 @@ public class SymbolMemberFunctionDeclEntry extends SymbolTableEntry {
 		this.line = line;
 	}
 	
-	public void Print() {
-		System.out.print("function    | " + id + "          | (");
-		PrintParameters();
-		System.out.println("):" + returnType + "     | " + visibility);
+	public void Print(FileWriter symbolTableWriter) {
+		try {
+			symbolTableWriter.write("function    | " + id + "          | (");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//System.out.print("function    | " + id + "          | (");
+		PrintParameters(symbolTableWriter);
+		try {
+			symbolTableWriter.write("):" + returnType + "     | " + visibility);
+			symbolTableWriter.write(System.getProperty( "line.separator" ));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("):" + returnType + "     | " + visibility);
 	}
 	
-	public void PrintParameters() {
+	public void PrintParameters(FileWriter symbolTableWriter) {
 		for (int i = 0; i < parameters.size(); i++) {
-			System.out.print(parameters.get(i));
+			try {
+				symbolTableWriter.write(parameters.get(i));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.print(parameters.get(i));
 			if (i != parameters.size() - 1) {
-				System.out.print(",");
+				try {
+					symbolTableWriter.write(",");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				//System.out.print(",");
 			}
 		}
 	}

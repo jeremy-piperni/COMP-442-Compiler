@@ -136,24 +136,27 @@ public class MemberFuncVisitor implements Visitor {
 		}
 		
 		//Error detection 6.2
-		if (membFuncDeclCount > 0) {
-			for (int i = 0; i < classes.size(); i++) {
-				SymbolTable table =	classes.get(i).getSymbolTable();
-				ArrayList<SymbolTableEntry> entries = table.getSymEntries();
-				for (int j = 0; j < entries.size(); j++) {
-					if (entries.get(j) instanceof SymbolMemberFunctionDeclEntry) {
-						if (!((SymbolMemberFunctionDeclEntry)entries.get(j)).getMatched()) {
-							try {
-								errorWriter.write("ERROR 6.2:  Undefined member function declaration at line: " + ((SymbolMemberFunctionDeclEntry)entries.get(j)).getLine());
-								errorWriter.write(System.getProperty( "line.separator" ));
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+		ArrayList<SymbolClassEntry> newClasses = new ArrayList<>();
+		for (int i = 0; i < node.getSymbolTable().getSymEntries().size(); i++) {
+			if (node.getSymbolTable().getSymEntries().get(i) instanceof SymbolClassEntry) {
+				newClasses.add((SymbolClassEntry)node.getSymbolTable().getSymEntries().get(i));
+			}
+		}
+		for (int i = 0; i < newClasses.size(); i++) {
+			for (int j = 0; j < newClasses.get(i).getSymTable().getSymEntries().size(); j++) {
+				if (newClasses.get(i).getSymTable().getSymEntries().get(j) instanceof SymbolMemberFunctionDeclEntry) {
+					if (!((SymbolMemberFunctionDeclEntry)newClasses.get(i).getSymTable().getSymEntries().get(j)).getMatched()) {
+						try {
+							errorWriter.write("ERROR 6.2:  Undefined member function declaration at line: " + ((SymbolMemberFunctionDeclEntry)newClasses.get(i).getSymTable().getSymEntries().get(j)).getLine());
+							errorWriter.write(System.getProperty( "line.separator" ));
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
 					}
 				}
 			}
 		}
+
 		//Error detection 6.1
 		ArrayList<SymbolTableEntry> entries = node.getSymbolTable().getSymEntries();
 		for (int i = 0; i < entries.size(); i++) {
