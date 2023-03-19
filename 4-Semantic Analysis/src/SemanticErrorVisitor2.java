@@ -103,7 +103,7 @@ public class SemanticErrorVisitor2 implements Visitor {
 				if (!ifNoTypeError) {
 					if (expressionTypes.contains(null)) {
 						try {
-							errorWriter.write("ERROR 11.2:  Undeclared variable/data member at line: " + line);
+							errorWriter.write("ERROR 11.1:  Undeclared variable/data member at line: " + line);
 							errorWriter.write(System.getProperty( "line.separator" ));
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -197,7 +197,7 @@ public class SemanticErrorVisitor2 implements Visitor {
 			if (!ifNoTypeError) {
 				if (expressionTypes.contains(null)) {
 					try {
-						errorWriter.write("ERROR 11.2:  Undeclared variable/data member at line: " + line);
+						errorWriter.write("ERROR 11.1:  Undeclared variable/data member at line: " + line);
 						errorWriter.write(System.getProperty( "line.separator" ));
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -268,7 +268,7 @@ public class SemanticErrorVisitor2 implements Visitor {
 					if (node.getParent().getLeftChild().getLeftChild().getLeftChild().getChildren().size() != 0) {
 						if (!node.getParent().getLeftChild().getLeftChild().getLeftChild().getChildren().get(0).getLexeme().equals("self")) {
 							try {
-								errorWriter.write("ERROR 11.2:  Undeclared variable/data member at line: " + line);
+								errorWriter.write("ERROR 11.1:  Undeclared variable/data member at line: " + line);
 								errorWriter.write(System.getProperty( "line.separator" ));
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -310,7 +310,47 @@ public class SemanticErrorVisitor2 implements Visitor {
 	public void visit(ReturnNode node) {}
 	public void visit(StatementNode node) {}
 	public void visit(FuncBodyNode node) {}
-	public void visit(FuncDefNode node) {}
+	public void visit(FuncDefNode node) {
+		// 11.5 Undeclared class
+		ArrayList<SymbolLocalVarParamEntry> localVars = new ArrayList<>();
+		for (int i = 0; i < node.getSymbolTable().getSymEntries().size(); i++) {
+			if (node.getSymbolTable().getSymEntries().get(i) instanceof SymbolLocalVarParamEntry) {
+				if (((SymbolLocalVarParamEntry)node.getSymbolTable().getSymEntries().get(i)).getName().equals("local")) {
+					localVars.add((SymbolLocalVarParamEntry)node.getSymbolTable().getSymEntries().get(i));
+				}
+			}
+		}
+		for (int i = localVars.size() - 1; i >= 0; i--) {
+			if (localVars.get(i).getType().contains("integer") || localVars.get(i).getType().contains("float")) {
+				localVars.remove(i);
+			}
+		}
+		
+		Node prog = node.getParent();
+		ArrayList<SymbolClassEntry> classes = new ArrayList<>();
+		for (int i = 0; i < prog.getSymbolTable().getSymEntries().size(); i++) {
+			if (prog.getSymbolTable().getSymEntries().get(i) instanceof SymbolClassEntry) {
+				classes.add((SymbolClassEntry)prog.getSymbolTable().getSymEntries().get(i));
+			}
+		}
+		for (int i = 0; i < localVars.size(); i++) {
+			boolean classFound = false;
+			for (int j = 0; j < classes.size(); j++) {
+				if (localVars.get(i).getType().equals(classes.get(j).getName())) {
+					classFound = true;
+				}
+			}
+			if (!classFound) {
+				try {
+					errorWriter.write("ERROR 11.5:  Undeclared class at line: " + localVars.get(i).getLine());
+					errorWriter.write(System.getProperty( "line.separator" ));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
 	public void visit(ProgNode node) {}
 	public void visit(ReadNode node) {}
 	public void visit(VariableNode node) {}
@@ -319,32 +359,97 @@ public class SemanticErrorVisitor2 implements Visitor {
 	public void visit(IdNestTempNode node) {}
 	public void visit(AssignStatNode node) {}
 	public void visit(FunctionCallNode node) {
-		// 11.4 Undeclared/undefined free function
 		String name = node.getChildren().get(1).getLexeme();
 		int line = node.getChildren().get(1).getLoc();	
-		Node prog = node;
-		while (prog.getParent().getType() != "PROG") {
+		
+		// 11.3 Undeclared member function
+		if (node.getChildren().get(0).getChildren().size() != 0) {
+			int size = node.getChildren().get(0).getChildren().size();
+			if (node.getChildren().get(0).getChildren().get(size - 1).getChildren().get(1).getType().equals("INDICE")) {
+				String var = node.getChildren().get(0).getChildren().get(size - 1).getChildren().get(0).getLexeme();
+				String className = "";
+				Node funcDef = node;
+				while (funcDef.getParent().getType() != "FUNCDEF") {
+					funcDef = funcDef.getParent();
+				}
+				funcDef = funcDef.getParent();
+				boolean isFound = false;
+				for (int i = 0; i < funcDef.getSymbolTable().getSymEntries().size(); i++) {
+					if (((SymbolLocalVarParamEntry)funcDef.getSymbolTable().getSymEntries().get(i)).getId().equals(var)) {
+						isFound = true;
+						className = className + ((SymbolLocalVarParamEntry)funcDef.getSymbolTable().getSymEntries().get(i)).getType();
+					}
+				}
+				if (isFound) {
+					Node prog = node;
+					while (prog.getParent().getType() != "PROG") {
+						prog = prog.getParent();
+					}
+					prog = prog.getParent();
+					boolean isMemberFunc = false;
+					boolean isInClass = false;
+					for (int i = 0; i < prog.getSymbolTable().getSymEntries().size(); i++) {
+						if (prog.getSymbolTable().getSymEntries().get(i) instanceof SymbolClassEntry) {
+							if (((SymbolClassEntry)prog.getSymbolTable().getSymEntries().get(i)).getName().equals(className)) {
+								isInClass = true;
+								SymbolClassEntry classEntry = (SymbolClassEntry)prog.getSymbolTable().getSymEntries().get(i);
+								for (int j = 0; j < classEntry.getSymTable().getSymEntries().size(); j++) {
+									if (classEntry.getSymTable().getSymEntries().get(j) instanceof SymbolMemberFunctionDeclEntry) {
+										if (((SymbolMemberFunctionDeclEntry)classEntry.getSymTable().getSymEntries().get(j)).getId().equals(name)) {
+											isMemberFunc = true;
+										}
+									}
+								}
+							}
+						}
+					}
+					if (!isInClass) {
+						
+					} else if (!isMemberFunc){
+						try {
+							errorWriter.write("ERROR 11.3:  Undeclared member function at line: " + line);
+							errorWriter.write(System.getProperty( "line.separator" ));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				} else {
+					try {
+						errorWriter.write("ERROR 11.1:  Undeclared variable/data member at line: " + line);
+						errorWriter.write(System.getProperty( "line.separator" ));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} else {
+		
+		// 11.4 Undeclared/undefined free function
+
+			Node prog = node;
+			while (prog.getParent().getType() != "PROG") {
+				prog = prog.getParent();
+			}
 			prog = prog.getParent();
-		}
-		prog = prog.getParent();
-		ArrayList<SymbolFreeFunctionEntry> functions = new ArrayList<>();
-		for (int i = 0; i < prog.getSymbolTable().getSymEntries().size(); i++) {
-			if (prog.getSymbolTable().getSymEntries().get(i) instanceof SymbolFreeFunctionEntry) {
-				functions.add((SymbolFreeFunctionEntry) prog.getSymbolTable().getSymEntries().get(i));
+			ArrayList<SymbolFreeFunctionEntry> functions = new ArrayList<>();
+			for (int i = 0; i < prog.getSymbolTable().getSymEntries().size(); i++) {
+				if (prog.getSymbolTable().getSymEntries().get(i) instanceof SymbolFreeFunctionEntry) {
+					functions.add((SymbolFreeFunctionEntry) prog.getSymbolTable().getSymEntries().get(i));
+				}
 			}
-		}
-		boolean isDefined = false;
-		for (int i = 0; i < functions.size(); i++) {
-			if (functions.get(i).getName().equals(name)) {
-				isDefined = true;
+			boolean isDefined = false;
+			for (int i = 0; i < functions.size(); i++) {
+				if (functions.get(i).getName().equals(name)) {
+					isDefined = true;
+				}
 			}
-		}
-		if (!isDefined) {
-			try {
-				errorWriter.write("ERROR 11.4:  Undeclared/Undefined free function at line: " + line);
-				errorWriter.write(System.getProperty( "line.separator" ));
-			} catch (IOException e) {
-				e.printStackTrace();
+			if (!isDefined) {
+				try {
+					errorWriter.write("ERROR 11.4:  Undeclared/Undefined free function at line: " + line);
+					errorWriter.write(System.getProperty( "line.separator" ));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

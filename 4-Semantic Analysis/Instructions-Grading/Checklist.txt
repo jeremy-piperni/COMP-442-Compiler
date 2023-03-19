@@ -24,13 +24,16 @@
 9.3 || WARNING Overriden member function
 10.1 |X| Type error in expression
 10.2 |X| Type error in assignment statement
-10.3 || Type error in return statement
+10.3 |X| Type error in return statement
 11.1 |X| Undeclared local variable
 11.2.1, 11.2.3 |X| Undeclared data member
-11.3 || Undeclared member function
-11.4 || Undeclared/undefined free function
+11.3 |X| Undeclared member function
+11.4 |X| Undeclared/undefined free function
 11.5 || Undeclared class
-12. ||
+12.1 || Function call with wrong number of parameters
+12.2 || Function call with wrong type of parameters
+13.1 || Use of array with wrong number of dimensions
 13.2 || Array index is not an integer
-14. ||
-15. ||
+13.3 || Array parameter using wrong number of dimensions
+14.1 || Circular class dependency
+15.1 || "." operator used on non-class type
