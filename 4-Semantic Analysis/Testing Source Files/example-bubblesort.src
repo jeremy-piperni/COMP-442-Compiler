@@ -5,6 +5,7 @@ function bubbleSort(arr: integer[], size: integer) => void
   localvar i    : integer;
   localvar j    : integer;
   localvar temp : integer; 
+	localvar yo : float[];
   n = size;
   i = 0;
   j = 0;

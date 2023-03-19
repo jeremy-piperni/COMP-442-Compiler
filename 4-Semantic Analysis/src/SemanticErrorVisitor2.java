@@ -29,12 +29,105 @@ public class SemanticErrorVisitor2 implements Visitor {
 	public void visit(NotNode node) {}
 	public void visit(SignNode node) {}
 	public void visit(LocalVarDeclNode node) {}
-	public void visit(RelExprNode node) {}
+	public void visit(RelExprNode node) {
+		// 10.1 Type error in expression for Relative op in If/While
+		if (node.getParent().getType().equals("IF") || node.getParent().getType().equals("WHILE")) {
+			ArrayList<Node> terminals = new ArrayList<>();
+			findTerminals(node,terminals);
+			if (terminals.size() > 1) {
+				int line = terminals.get(0).getLoc();
+				for (int i = 0; i < terminals.size(); i++) {
+					if (terminals.get(i).getType().equals("id")) {
+						String lexeme = terminals.get(i).getLexeme();
+						Node function = node;
+						while (!function.getParent().getType().equals("FUNCDEF")) {
+							function = function.getParent();
+						}
+						function = function.getParent();
+						if (function.getSymEntry() instanceof SymbolMemberFunctionDefEntry) {
+							for (int j = 0; j < function.getSymbolTable().getSymEntries().size(); j++) {
+								if (((SymbolLocalVarParamEntry)function.getSymbolTable().getSymEntries().get(j)).getId().equals(lexeme)) {
+									terminals.get(i).setExpressionType(((SymbolLocalVarParamEntry)function.getSymbolTable().getSymEntries().get(j)).getType());
+								}
+							}
+							String functionName = ((SymbolMemberFunctionDefEntry)function.getSymEntry()).getName();
+							ArrayList<SymbolClassEntry> classes = new ArrayList<>();
+							Node prog = function.getParent();
+							for (int j = 0; j < prog.getSymbolTable().getSymEntries().size(); j++) {
+								if (prog.getSymbolTable().getSymEntries().get(j) instanceof SymbolClassEntry) {
+									classes.add((SymbolClassEntry)prog.getSymbolTable().getSymEntries().get(j));
+								}
+							}
+							for (int j = 0; j < classes.size(); j++) {
+								if (functionName.equals(classes.get(j).getName())) {
+									for (int k = 0; k < classes.get(j).getSymTable().getSymEntries().size(); k++) {
+										if (classes.get(j).getSymTable().getSymEntries().get(k) instanceof SymbolClassDataEntry) {
+											if (((SymbolClassDataEntry)classes.get(j).getSymTable().getSymEntries().get(k)).getId().equals(lexeme)) {
+												terminals.get(i).setExpressionType(((SymbolClassDataEntry)classes.get(j).getSymTable().getSymEntries().get(k)).getType());
+											}
+										}
+									}
+								}
+							}
+						} else {
+							for (int j = 0; j < function.getSymbolTable().getSymEntries().size(); j++) {
+								if (((SymbolLocalVarParamEntry)function.getSymbolTable().getSymEntries().get(j)).getId().equals(lexeme)) {
+									terminals.get(i).setExpressionType(((SymbolLocalVarParamEntry)function.getSymbolTable().getSymEntries().get(j)).getType());
+								}
+							}
+						}
+					} else if (terminals.get(i).getType().equals("intlit")) {
+						terminals.get(i).setExpressionType("integer");
+					} else {
+						terminals.get(i).setExpressionType("float");
+					}
+				}
+
+				ArrayList<String> expressionTypes = new ArrayList<>();
+				for (int i = 0; i < terminals.size(); i++) {
+					expressionTypes.add(terminals.get(i).getExpressionType());
+				}
+				
+				ArrayList<String> arrayTypes = new ArrayList<>();
+				for (int i = expressionTypes.size() - 1; i >= 0; i--) {
+					if (!expressionTypes.contains(null)) {
+						if (expressionTypes.get(i).contains("[")) {
+							//expressionTypes.set(i, expressionTypes.get(i).replace("[", "").replace("]", ""));
+							arrayTypes.add(expressionTypes.get(i));
+							expressionTypes.remove(i);
+						}
+					}
+				}
+				
+				boolean ifNoTypeError = expressionTypes.stream().distinct().count() <= 1;
+				if (!ifNoTypeError) {
+					if (expressionTypes.contains(null)) {
+						try {
+							errorWriter.write("ERROR 11.2:  Undeclared variable/data member at line: " + line);
+							errorWriter.write(System.getProperty( "line.separator" ));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					try {
+						errorWriter.write("ERROR 10.1:  Type error in expression at line: " + line);
+						errorWriter.write(System.getProperty( "line.separator" ));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			terminals.clear();
+		}
+	}
 	public void visit(ExprNode node) {
 		// 10.1 Type error in expression
 		ArrayList<Node> terminals = new ArrayList<>();
+		boolean errorFound = false;
+		String exprType = "";
 		findTerminals(node,terminals);
-		if (terminals.size() > 1) {
+		if (terminals.size() > 0) {
 			int line = terminals.get(0).getLoc();
 			for (int i = 0; i < terminals.size(); i++) {
 				if (terminals.get(i).getType().equals("id")) {
@@ -112,8 +205,76 @@ public class SemanticErrorVisitor2 implements Visitor {
 				try {
 					errorWriter.write("ERROR 10.1:  Type error in expression at line: " + line);
 					errorWriter.write(System.getProperty( "line.separator" ));
+					errorFound = true;
 				} catch (IOException e) {
 					e.printStackTrace();
+				}
+			} else {
+				if (arrayTypes.size() == 0) {
+					exprType = exprType + expressionTypes.get(0);
+				} else if (arrayTypes.size() == 1) {
+					exprType = exprType + arrayTypes.get(0);
+				} else {
+					boolean ifNoTypeErrorArray = arrayTypes.stream().distinct().count() <= 1;
+					if (!ifNoTypeErrorArray) {
+						try {
+							errorWriter.write("ERROR 10.1:  Type error in expression at line: " + line);
+							errorWriter.write(System.getProperty( "line.separator" ));
+							errorFound = true;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else {
+						exprType = exprType + arrayTypes.get(0);
+					}
+					
+				}
+			}
+			
+		}
+		
+		// 10.2 Type error in assignment statement
+		if (!errorFound) {
+			if (node.getParent().getType().equals("ASSIGNSTAT")) {
+				Node variable = node.getParent().getLeftChild();
+				String variableLexeme = variable.getChildren().get(1).getLexeme();
+				int line = variable.getChildren().get(1).getLoc();
+				Node function = node;
+				while (!function.getParent().getType().equals("FUNCDEF")) {
+					function = function.getParent();
+				}
+				function = function.getParent();
+				boolean found = false;
+				for (int i = 0; i < function.getSymbolTable().getSymEntries().size(); i++) {
+					if (((SymbolLocalVarParamEntry)function.getSymbolTable().getSymEntries().get(i)).getId().equals(variableLexeme)) {
+						found = true;
+						String variableType = ((SymbolLocalVarParamEntry)function.getSymbolTable().getSymEntries().get(i)).getType();
+						exprType = exprType.replaceAll("\\[\\d+\\]", "");
+						exprType = exprType.replaceAll("\\[", "").replaceAll("\\]", "");
+						variableType = variableType.replaceAll("\\[\\d+\\]", "");
+						variableType = variableType.replaceAll("\\[", "").replaceAll("\\]", "");
+						if (!variableType.equals(exprType)) {
+							System.out.println(variableType + ", " + exprType);
+							try {
+								errorWriter.write("ERROR 10.2:  Type error in assignment statement at line: " + line);
+								errorWriter.write(System.getProperty( "line.separator" ));
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+				if (!found) {
+					if (node.getParent().getLeftChild().getLeftChild().getLeftChild().getChildren().size() != 0) {
+						if (!node.getParent().getLeftChild().getLeftChild().getLeftChild().getChildren().get(0).getLexeme().equals("self")) {
+							try {
+								errorWriter.write("ERROR 11.2:  Undeclared variable/data member at line: " + line);
+								errorWriter.write(System.getProperty( "line.separator" ));
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					}
 				}
 			}
 		}
