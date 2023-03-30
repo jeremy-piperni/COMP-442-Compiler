@@ -1,0 +1,55 @@
+PROG
+| FUNCDEF
+| | FUNCHEAD
+| | | id
+| | | FPARAMS
+| | | type
+| | FUNCBODY
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | ADDOP
+| | | | | | | intlit
+| | | | | | | MULTOP
+| | | | | | | | intlit
+| | | | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | ADDOP
+| | | | | | | VARIABLE
+| | | | | | | | IDNEST
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | | VARIABLE
+| | | | | | | | IDNEST
+| | | | | | | | id
+| | | | | | | | INDICE

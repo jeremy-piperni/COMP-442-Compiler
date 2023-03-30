@@ -1,0 +1,405 @@
+PROG
+| FUNCDEF
+| | FUNCHEAD
+| | | id
+| | | FPARAMS
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | | | EMPTYARRAYSIZE
+| | | | FPARAMSTAILLIST
+| | | | | FPARAMSTAIL
+| | | | | | id
+| | | | | | type
+| | | | | | ARRAYSIZE
+| | | type
+| | FUNCBODY
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | WHILE
+| | | | | RELEXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | RELOP
+| | | | | | ADDOP
+| | | | | | | VARIABLE
+| | | | | | | | IDNEST
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | | intlit
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | ASSIGNSTAT
+| | | | | | | | VARIABLE
+| | | | | | | | | IDNEST
+| | | | | | | | | id
+| | | | | | | | | INDICE
+| | | | | | | | EXPR
+| | | | | | | | | intlit
+| | | | | | STATEMENT
+| | | | | | | WHILE
+| | | | | | | | RELEXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | | | | | RELOP
+| | | | | | | | | ADDOP
+| | | | | | | | | | ADDOP
+| | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | id
+| | | | | | | | | | | | INDICE
+| | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | id
+| | | | | | | | | | | | INDICE
+| | | | | | | | | | intlit
+| | | | | | | | STATBLOCK
+| | | | | | | | | STATEMENT
+| | | | | | | | | | IF
+| | | | | | | | | | | RELEXPR
+| | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | id
+| | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | RELOP
+| | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | id
+| | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | ADDOP
+| | | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | | intlit
+| | | | | | | | | | | STATBLOCK
+| | | | | | | | | | | | STATEMENT
+| | | | | | | | | | | | | ASSIGNSTAT
+| | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | EXPR
+| | | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | STATEMENT
+| | | | | | | | | | | | | ASSIGNSTAT
+| | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | EXPR
+| | | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | | | | ADDOP
+| | | | | | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | | | | | intlit
+| | | | | | | | | | | | STATEMENT
+| | | | | | | | | | | | | ASSIGNSTAT
+| | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | | | ADDOP
+| | | | | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | | | | | intlit
+| | | | | | | | | | | | | | EXPR
+| | | | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | STATEMENT
+| | | | | | | | | STATEMENT
+| | | | | | | | | | ASSIGNSTAT
+| | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | id
+| | | | | | | | | | | | INDICE
+| | | | | | | | | | | EXPR
+| | | | | | | | | | | | ADDOP
+| | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | intlit
+| | | | | | STATEMENT
+| | | | | | | ASSIGNSTAT
+| | | | | | | | VARIABLE
+| | | | | | | | | IDNEST
+| | | | | | | | | id
+| | | | | | | | | INDICE
+| | | | | | | | EXPR
+| | | | | | | | | ADDOP
+| | | | | | | | | | VARIABLE
+| | | | | | | | | | | IDNEST
+| | | | | | | | | | | id
+| | | | | | | | | | | INDICE
+| | | | | | | | | | intlit
+| FUNCDEF
+| | FUNCHEAD
+| | | id
+| | | FPARAMS
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | | | EMPTYARRAYSIZE
+| | | | FPARAMSTAILLIST
+| | | | | FPARAMSTAIL
+| | | | | | id
+| | | | | | type
+| | | | | | ARRAYSIZE
+| | | type
+| | FUNCBODY
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | WHILE
+| | | | | RELEXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | RELOP
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | WRITE
+| | | | | | | | EXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | id
+| | | | | | | | | | | | INDICE
+| | | | | | STATEMENT
+| | | | | | | ASSIGNSTAT
+| | | | | | | | VARIABLE
+| | | | | | | | | IDNEST
+| | | | | | | | | id
+| | | | | | | | | INDICE
+| | | | | | | | EXPR
+| | | | | | | | | ADDOP
+| | | | | | | | | | VARIABLE
+| | | | | | | | | | | IDNEST
+| | | | | | | | | | | id
+| | | | | | | | | | | INDICE
+| | | | | | | | | | intlit
+| FUNCDEF
+| | FUNCHEAD
+| | | id
+| | | FPARAMS
+| | | type
+| | FUNCBODY
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | FUNCTIONCALL
+| | | | | IDNEST
+| | | | | id
+| | | | | APARAMS
+| | | | | | EXPR
+| | | | | | | VARIABLE
+| | | | | | | | IDNEST
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | EXPRTAILLIST
+| | | | | | | EXPR
+| | | | | | | | intlit
+| | | STATEMENT
+| | | | FUNCTIONCALL
+| | | | | IDNEST
+| | | | | id
+| | | | | APARAMS
+| | | | | | EXPR
+| | | | | | | VARIABLE
+| | | | | | | | IDNEST
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | EXPRTAILLIST
+| | | | | | | EXPR
+| | | | | | | | intlit
+| | | STATEMENT
+| | | | FUNCTIONCALL
+| | | | | IDNEST
+| | | | | id
+| | | | | APARAMS
+| | | | | | EXPR
+| | | | | | | VARIABLE
+| | | | | | | | IDNEST
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | EXPRTAILLIST
+| | | | | | | EXPR
+| | | | | | | | intlit

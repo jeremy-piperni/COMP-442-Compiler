@@ -1,0 +1,46 @@
+ERROR 6.2:  Undefined member function declaration at line: 4
+ERROR 6.2:  Undefined member function declaration at line: 8
+ERROR 6.2:  Undefined member function declaration at line: 24
+ERROR 6.1:  Undeclared member function definition at line: 81
+ERROR 6.1:  Undeclared member function definition at line: 90
+ERROR 8.1:  Multiply declared class at line: 6
+ERROR 8.2:  Multiply declared free function at line: 100
+WARNING 9.1:  Overloaded free function at line: 101
+WARNING 9.1:  Overloaded free function at line: 101
+WARNING 9.2:  Overloaded member function at line: 8
+ERROR 8.3:  Multiply declared data member in class at line: 13
+ERROR 8.4:  Multiply declared identifier in function at line: 114
+ERROR 10.3:  Type error in return statement at line: 49
+ERROR 11.1:  Undeclared variable/data member at line: 56
+ERROR 11.1:  Undeclared variable/data member at line: 57
+ERROR 10.3:  Type error in return statement at line: 58
+ERROR 10.1:  Type error in expression at line: 65
+ERROR 11.1:  Undeclared variable/data member at line: 76
+ERROR 10.1:  Type error in expression at line: 76
+ERROR 11.1:  Undeclared variable/data member at line: 77
+ERROR 10.1:  Type error in expression at line: 77
+ERROR 11.1:  Undeclared variable/data member at line: 84
+ERROR 10.1:  Type error in expression at line: 84
+ERROR 11.1:  Undeclared variable/data member at line: 85
+ERROR 11.1:  Undeclared variable/data member at line: 86
+ERROR 10.3:  Type error in return statement at line: 87
+ERROR 11.1:  Undeclared variable/data member at line: 93
+ERROR 11.1:  Undeclared variable/data member at line: 94
+ERROR 11.1:  Undeclared variable/data member at line: 95
+ERROR 10.3:  Type error in return statement at line: 96
+ERROR 11.5:  Undeclared class at line: 109
+ERROR 10.2:  Type error in assignment statement at line: 117
+ERROR 11.3:  Undeclared member function at line: 117
+ERROR 10.2:  Type error in assignment statement at line: 118
+ERROR 11.3:  Undeclared member function at line: 118
+ERROR 11.1:  Undeclared variable/data member at line: 119
+ERROR 10.2:  Type error in assignment statement at line: 120
+ERROR 10.2:  Type error in assignment statement at line: 120
+ERROR 11.3:  Undeclared member function at line: 120
+ERROR 11.4:  Undeclared/Undefined free function at line: 121
+ERROR 10.2:  Type error in assignment statement at line: 122
+ERROR 10.2:  Type error in assignment statement at line: 122
+ERROR 11.1:  Undeclared variable/data member at line: 128
+ERROR 10.2:  Type error in assignment statement at line: 129
+ERROR 10.2:  Type error in assignment statement at line: 129
+ERROR 10.1:  Type error in expression at line: 130

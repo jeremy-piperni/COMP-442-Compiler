@@ -1,0 +1,107 @@
+PROG
+| FUNCDEF
+| | FUNCHEAD
+| | | id
+| | | FPARAMS
+| | | type
+| | FUNCBODY
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | ADDOP
+| | | | | | | intlit
+| | | | | | | MULTOP
+| | | | | | | | intlit
+| | | | | | | | intlit
+| | | STATEMENT
+| | | | READ
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | STATEMENT
+| | | | IF
+| | | | | RELEXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | RELOP
+| | | | | | ADDOP
+| | | | | | | VARIABLE
+| | | | | | | | IDNEST
+| | | | | | | | id
+| | | | | | | | INDICE
+| | | | | | | intlit
+| | | | | STATEMENT
+| | | | | | WRITE
+| | | | | | | EXPR
+| | | | | | | | ADDOP
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | | | | | intlit
+| | | | | STATEMENT
+| | | | | | WRITE
+| | | | | | | EXPR
+| | | | | | | | ADDOP
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | WHILE
+| | | | | RELEXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | RELOP
+| | | | | | intlit
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | WRITE
+| | | | | | | | EXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | | STATEMENT
+| | | | | | | ASSIGNSTAT
+| | | | | | | | VARIABLE
+| | | | | | | | | IDNEST
+| | | | | | | | | id
+| | | | | | | | | INDICE
+| | | | | | | | EXPR
+| | | | | | | | | ADDOP
+| | | | | | | | | | VARIABLE
+| | | | | | | | | | | IDNEST
+| | | | | | | | | | | id
+| | | | | | | | | | | INDICE
+| | | | | | | | | | intlit
