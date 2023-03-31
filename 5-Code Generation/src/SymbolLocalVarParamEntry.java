@@ -8,6 +8,20 @@ public class SymbolLocalVarParamEntry extends SymbolTableEntry {
 	private int line;
 	private int scopeSize;
 	private int scopeOffset;
+	private String value;
+	
+	public SymbolLocalVarParamEntry(String name, String id, String type, int line, String value) {
+		this.name = name;
+		this.id = id;
+		this.type = type;
+		this.line = line;
+		if (type.equals("integer")) {
+			scopeSize = 4;
+		} else if (type.equals("float")) {
+			scopeSize = 8;
+		}
+		this.value = value;
+	}
 	
 	public SymbolLocalVarParamEntry(String name, String id, String type, int line) {
 		this.name = name;
@@ -65,5 +79,9 @@ public class SymbolLocalVarParamEntry extends SymbolTableEntry {
 	
 	public void setScopeOffset(int scopeOffset) {
 		this.scopeOffset = scopeOffset;
+	}
+
+	public String getValue() {
+		return value;
 	}
 }

@@ -24,11 +24,7 @@ PROG
 | | | | | | id
 | | | | | | INDICE
 | | | | | EXPR
-| | | | | | ADDOP
-| | | | | | | intlit
-| | | | | | | MULTOP
-| | | | | | | | intlit
-| | | | | | | | intlit
+| | | | | | intlit
 | | | STATEMENT
 | | | | ASSIGNSTAT
 | | | | | VARIABLE
@@ -38,18 +34,25 @@ PROG
 | | | | | EXPR
 | | | | | | intlit
 | | | STATEMENT
-| | | | ASSIGNSTAT
+| | | | READ
 | | | | | VARIABLE
 | | | | | | IDNEST
 | | | | | | id
 | | | | | | INDICE
+| | | STATEMENT
+| | | | WRITE
 | | | | | EXPR
 | | | | | | ADDOP
 | | | | | | | VARIABLE
 | | | | | | | | IDNEST
 | | | | | | | | id
 | | | | | | | | INDICE
-| | | | | | | VARIABLE
-| | | | | | | | IDNEST
-| | | | | | | | id
-| | | | | | | | INDICE
+| | | | | | | MULTOP
+| | | | | | | | VARIABLE
+| | | | | | | | | IDNEST
+| | | | | | | | | id
+| | | | | | | | | INDICE
+| | | | | | | | VARIABLE
+| | | | | | | | | IDNEST
+| | | | | | | | | id
+| | | | | | | | | INDICE

@@ -1,10 +1,26 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
-public class MemAllocVisitor1 implements Visitor {
-	private String tempVarValue = "t1";
+public class CodeGenerationVisitor implements Visitor {
+	private Stack<String> registerPool = new Stack<>();
+	private String moonExecCode = "";
+	private String moonDataCode = "";
 	
-	public void visit(Node node) {}
+	public void visit(Node node) {
+		if (node.getType().equals("intlit")) {
+			moonDataCode = moonDataCode + node.getMoonVarName() + "   res 4\n";
+			String localRegister = registerPool.pop();
+			
+			moonExecCode = moonExecCode + "     addi " + localRegister + ",r0," + node.getLexeme() +"\n";
+			moonExecCode = moonExecCode + "     sw "+ node.getMoonVarName() + "(r0)," + localRegister + "\n";
+			
+			
+			registerPool.push(localRegister);
+		}
+	}
+	
 	public void visit(EpsilonNode node) {}
+	
 	public void visit(ArraySizeNode node) {
 		ArrayList<Node> childList = node.getChildren();
 		for (int i = 0; i < childList.size(); i++) {
@@ -13,6 +29,7 @@ public class MemAllocVisitor1 implements Visitor {
 	}
 	
 	public void visit(EmptyArraySizeNode node) {}
+	
 	public void visit(FParamsTailNode node) {
 		ArrayList<Node> childList = node.getChildren();
 		for (int i = 0; i < childList.size(); i++) {
@@ -77,15 +94,6 @@ public class MemAllocVisitor1 implements Visitor {
 	}
 	
 	public void visit(ClassDeclNode node) {
-		int scopeSize = 0;
-		ArrayList<SymbolTableEntry> entries = node.getSymEntry().getSymTable().getSymEntries();
-		for (int i = 0; i < entries.size(); i++) {
-			if (entries.get(i) instanceof SymbolClassDataEntry) {
-				scopeSize = scopeSize + ((SymbolClassDataEntry)entries.get(i)).getScopeSize();
-			}
-		}
-		node.getSymbolTable().setScopeSize(scopeSize);
-		
 		ArrayList<Node> childList = node.getChildren();
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
@@ -100,63 +108,81 @@ public class MemAllocVisitor1 implements Visitor {
 	}
 	
 	public void visit(AddOpNode node) {
-		String type = "";
-
-		Node expr = node;
-		ArrayList<Node> terminals = new ArrayList<>();
-		findTerminals(expr,terminals);
-		type = type + terminals.get(0).getExpressionType();
-		if (type.equals("integer")) {
-			node.setMoonSize(4);
-		} else if (type.equals("float")) {
-			node.setMoonSize(8);
-		}
-		
-		Node func = node;
-		while (!func.getParent().getType().equals("FUNCDEF")) {
-			func = func.getParent();
-		}
-		func = func.getParent();
-		SymbolLocalVarParamEntry tempVar = new SymbolLocalVarParamEntry("tempVar",tempVarValue,type,node.getLoc(),node.getLexeme());
-		node.setMoonVarName(tempVarValue);
-		String tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
-		tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
-		func.getSymbolTable().getSymEntries().add(tempVar);
-		
 		ArrayList<Node> childList = node.getChildren();
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
+		String localReg1 = registerPool.pop();
+		String localReg2 = registerPool.pop();
+		String localReg3 = registerPool.pop();
+		String leftName;
+		String rightName;
+		
+		if (node.getChildren().get(0).getType().equals("VARIABLE")) {
+			leftName = node.getChildren().get(0).getChildren().get(1).getLexeme();
+		} else {
+			leftName = node.getChildren().get(0).getMoonVarName();
+		}
+		
+		if (node.getChildren().get(1).getType().equals("VARIABLE")) {
+			rightName = node.getChildren().get(1).getChildren().get(1).getLexeme();
+		} else {
+			rightName = node.getChildren().get(1).getMoonVarName();
+		}
+		
+		moonDataCode = moonDataCode + node.getMoonVarName() + "   res " + node.getMoonSize() + "\n";
+		moonExecCode = moonExecCode + "     lw " + localReg1 + "," + leftName + "(r0)\n";
+		moonExecCode = moonExecCode + "     lw " + localReg2 + "," + rightName + "(r0)\n";
+		if (node.getLexeme().equals("+")) {
+			moonExecCode = moonExecCode + "     add " + localReg3 + "," + localReg1 + "," + localReg2 + "\n";
+		} else {
+			moonExecCode = moonExecCode + "     sub " + localReg3 + "," + localReg1 + "," + localReg2 + "\n";
+		}
+		moonExecCode = moonExecCode + "     sw " + node.getMoonVarName() + "(r0)," + localReg3 + "\n";
+		
+		registerPool.push(localReg3);
+		registerPool.push(localReg2);
+		registerPool.push(localReg1);
 	}
 	
 	public void visit(MultOpNode node) {
-		String type = "";
-
-		Node expr = node;
-		ArrayList<Node> terminals = new ArrayList<>();
-		findTerminals(expr,terminals);
-		type = type + terminals.get(0).getExpressionType();
-		if (type.equals("integer")) {
-			node.setMoonSize(4);
-		} else if (type.equals("float")) {
-			node.setMoonSize(8);
-		}
-		
-		Node func = node;
-		while (!func.getParent().getType().equals("FUNCDEF")) {
-			func = func.getParent();
-		}
-		func = func.getParent();
-		SymbolLocalVarParamEntry tempVar = new SymbolLocalVarParamEntry("tempVar",tempVarValue,type,node.getLoc(),node.getLexeme());
-		node.setMoonVarName(tempVarValue);
-		String tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
-		tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
-		func.getSymbolTable().getSymEntries().add(tempVar);
-		
 		ArrayList<Node> childList = node.getChildren();
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
+		String localReg1 = registerPool.pop();
+		String localReg2 = registerPool.pop();
+		String localReg3 = registerPool.pop();
+		String leftName;
+		String rightName;
+		
+		if (node.getChildren().get(0).getType().equals("VARIABLE")) {
+			leftName = node.getChildren().get(0).getChildren().get(1).getLexeme();
+		} else {
+			leftName = node.getChildren().get(0).getMoonVarName();
+		}
+		
+		if (node.getChildren().get(1).getType().equals("VARIABLE")) {
+			rightName = node.getChildren().get(1).getChildren().get(1).getLexeme();
+		} else {
+			rightName = node.getChildren().get(1).getMoonVarName();
+		}
+		
+		moonDataCode = moonDataCode + node.getMoonVarName() + "   res " + node.getMoonSize() + "\n";
+		moonExecCode = moonExecCode + "     lw " + localReg1 + "," + leftName + "(r0)\n";
+		moonExecCode = moonExecCode + "     lw " + localReg2 + "," + rightName + "(r0)\n";
+		if (node.getLexeme().equals("*")) {
+			moonExecCode = moonExecCode + "     mul " + localReg3 + "," + localReg1 + "," + localReg2 + "\n";
+		} else {
+			moonExecCode = moonExecCode + "     div " + localReg3 + "," + localReg1 + "," + localReg2 + "\n";
+		}
+		moonExecCode = moonExecCode + "     sw " + node.getMoonVarName() + "(r0)," + localReg3 + "\n";
+		
+		registerPool.push(localReg3);
+		registerPool.push(localReg2);
+		registerPool.push(localReg1);
 	}
 	
 	public void visit(RelOpNode node) {
@@ -185,6 +211,13 @@ public class MemAllocVisitor1 implements Visitor {
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
+		String id = node.getChildren().get(0).getLexeme();
+		String type = node.getChildren().get(1).getLexeme();
+		if (type.equals("integer")) {
+			moonDataCode = moonDataCode + id + "    res 4\n"; 
+		}
+		
 	}
 	
 	public void visit(RelExprNode node) {
@@ -195,33 +228,11 @@ public class MemAllocVisitor1 implements Visitor {
 	}
 	
 	public void visit(ExprNode node) {
-		ArrayList<Node> terminals = new ArrayList<>();
-		findTerminals(node,terminals);
-		Node func = node;
-		while (!func.getParent().getType().equals("FUNCDEF")) {
-			func = func.getParent();
-		}
-		func = func.getParent();
-		for (int i = 0; i < terminals.size(); i++) {
-			if (terminals.get(i).getType().equals("intlit")) {
-				SymbolLocalVarParamEntry tempVar = new SymbolLocalVarParamEntry("intVal",tempVarValue,"integer",node.getLoc(),terminals.get(i).getLexeme());
-				terminals.get(i).setMoonVarName(tempVarValue);
-				String tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
-				tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
-				func.getSymbolTable().getSymEntries().add(tempVar);
-			} else if (terminals.get(i).getType().equals("floatlit")) {
-				SymbolLocalVarParamEntry tempVar = new SymbolLocalVarParamEntry("floatVal",tempVarValue,"float",node.getLoc(),terminals.get(i).getLexeme());
-				terminals.get(i).setMoonVarName(tempVarValue);
-				String tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
-				tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
-				func.getSymbolTable().getSymEntries().add(tempVar);
-			}
-		}
-		
 		ArrayList<Node> childList = node.getChildren();
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
 	}
 	
 	public void visit(ExprTailListNode node) {
@@ -243,6 +254,21 @@ public class MemAllocVisitor1 implements Visitor {
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
+		String localRegister = registerPool.pop();
+		if (node.getChildren().get(0).getChildren().get(0).getType().equals("VARIABLE")) {
+			moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(0).getChildren().get(0).getChildren().get(1).getLexeme() + "(r0)\n";
+		} else {
+			moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(0).getChildren().get(0).getMoonVarName() + "(r0)\n";
+		}
+		moonExecCode = moonExecCode + "     sw -8(r14)," + localRegister + "\n";
+		moonExecCode = moonExecCode + "     addi " + localRegister + ",r0, buf\n";
+		moonExecCode = moonExecCode + "     sw -12(r14)," + localRegister + "\n";
+		moonExecCode = moonExecCode + "     jl r15, intstr\n";	
+		moonExecCode = moonExecCode + "     sw -8(r14),r13\n";
+		moonExecCode = moonExecCode + "     jl r15, putstr\n";
+		
+		registerPool.push(localRegister);
 	}
 	
 	public void visit(ReturnNode node) {
@@ -267,19 +293,22 @@ public class MemAllocVisitor1 implements Visitor {
 	}
 	
 	public void visit(FuncDefNode node) {
-		ArrayList<Node> childList = node.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(this);
-		}
-		int scopeSize = 0;
-		int tempScopeSize = 0;
-		for (int i = 0; i < node.getSymbolTable().getSymEntries().size(); i++) {
-			((SymbolLocalVarParamEntry)node.getSymbolTable().getSymEntries().get(i)).setScopeOffset(scopeSize);
-			tempScopeSize = ((SymbolLocalVarParamEntry)node.getSymbolTable().getSymEntries().get(i)).getScopeSize();
-			scopeSize = scopeSize + tempScopeSize;
-		}
-		if (node.getSymEntry() instanceof SymbolFreeFunctionEntry) {
-			(node.getSymbolTable()).setScopeSize(scopeSize);
+		if (node.getSymbolTable().getName().equals("::main")) {
+			moonExecCode = moonExecCode + "entry\n";
+			moonExecCode = moonExecCode + "     addi r14,r0,topaddr\n";
+			ArrayList<Node> childList = node.getChildren();
+			for (int i = 0; i < childList.size(); i++) {
+				childList.get(i).accept2(this);
+			}
+			moonDataCode = moonDataCode + "buf  res 20\n";
+			moonExecCode = moonExecCode + "     %required to end program\n";
+			moonExecCode = moonExecCode + "     getc r0\n";
+			moonExecCode = moonExecCode + "hlt\n\n";
+		} else {
+			ArrayList<Node> childList = node.getChildren();
+			for (int i = 0; i < childList.size(); i++) {
+				childList.get(i).accept2(this);
+			}
 		}
 		
 	}
@@ -296,6 +325,17 @@ public class MemAllocVisitor1 implements Visitor {
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
+		String localRegister = registerPool.pop();
+		String name = node.getChildren().get(0).getChildren().get(1).getLexeme();
+		
+		moonExecCode = moonExecCode + "     addi " + localRegister + ",r0,buf\n";
+		moonExecCode = moonExecCode + "     sw -8(r14)," + localRegister + "\n";
+		moonExecCode = moonExecCode + "     jl r15,getstr\n";
+		moonExecCode = moonExecCode + "     jl r15,strint\n";
+		moonExecCode = moonExecCode + "     sw " + name + "(r0),r13\n";
+		
+		registerPool.push(localRegister);
 	}
 	
 	public void visit(VariableNode node) {
@@ -331,6 +371,11 @@ public class MemAllocVisitor1 implements Visitor {
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		String localRegister = registerPool.pop();
+		moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(1).getChildren().get(0).getMoonVarName() + "(r0)\n";
+		moonExecCode = moonExecCode + "     sw " + node.getChildren().get(0).getChildren().get(1).getLexeme() + "(r0)," + localRegister + "\n";
+		
+		registerPool.push(localRegister);
 	}
 	
 	public void visit(FunctionCallNode node) {
@@ -360,19 +405,28 @@ public class MemAllocVisitor1 implements Visitor {
 			childList.get(i).accept2(this);
 		}
 	}
-	
-	public void findTerminals(Node node, ArrayList<Node> terminals) {
-		if (node.getChildren().size() != 0) {
-			for (int i = 0; i < node.getChildren().size(); i++) {
-				if (!(node.getChildren().get(i).getType().equals("FUNCTIONCALL"))) {
-					findTerminals(node.getChildren().get(i), terminals);
-				}
-			}
-		} else {
-			if (node.getType().equals("intlit") || node.getType().equals("floatlit") || node.getType().equals("id")) {
-				terminals.add(node);
-			}
-		}
-	}
 
+	public void populateRegisterPool() {
+		registerPool.add("r12");
+		registerPool.add("r11");
+		registerPool.add("r10");
+		registerPool.add("r9");
+		registerPool.add("r9");
+		registerPool.add("r7");
+		registerPool.add("r6");
+		registerPool.add("r5");
+		registerPool.add("r4");
+		registerPool.add("r3");
+		registerPool.add("r2");
+		registerPool.add("r1");
+	}
+	
+	public String getMoonExecCode() {
+		return moonExecCode;
+	}
+	
+	public String getMoonDataCode() {
+		return moonDataCode;
+	}
+	
 }

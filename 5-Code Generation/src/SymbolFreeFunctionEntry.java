@@ -84,4 +84,5 @@ public class SymbolFreeFunctionEntry extends SymbolTableEntry {
 	public int getLine() {
 		return line;
 	}
+
 }

@@ -16,6 +16,7 @@ public class parser {
 	private FileWriter ASTWriter;
 	private FileWriter semanticErrorWriter;
 	private FileWriter symbolTableWriter;
+	private FileWriter moonCode;
 	private Token token;
 	private Token prevToken;
 	private Stack<Node> semStack = new Stack<Node>();
@@ -32,6 +33,7 @@ public class parser {
 			ASTWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outast");
 			semanticErrorWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outsemanticerrors");
 			symbolTableWriter = new FileWriter("Generated Output Files/" + fileName2[0] + ".outsymboltables");
+			moonCode = new FileWriter("moon/source/" + fileName2[0] + ".moon");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -198,7 +200,17 @@ public class parser {
 			semStack.peek().accept(Visitor3);
 			semStack.peek().accept(Visitor4);
 			semStack.peek().accept(Visitor5);
+			
 			semStack.peek().accept2(Visitor6);
+			CodeGenerationVisitor Visitor7 = new CodeGenerationVisitor();
+			Visitor7.populateRegisterPool();
+			semStack.peek().accept2(Visitor7);
+			try {
+				moonCode.write(Visitor7.getMoonExecCode());
+				moonCode.write(Visitor7.getMoonDataCode());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 			semStack.peek().getSymbolTable().Print(symbolTableWriter);
 			
@@ -212,6 +224,7 @@ public class parser {
 			ASTWriter.close();
 			semanticErrorWriter.close();
 			symbolTableWriter.close();
+			moonCode.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

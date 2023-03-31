@@ -11,13 +11,14 @@ public class Node {
 	private SymbolTableEntry symEntry;
 	private String expressionType;
 	private String moonVarName;
+	private int moonSize;
 	
 	public Node() {
 		token = new Token(null,null,0);
 	}
 	
 	public void accept(Visitor visitor) {
-			visitor.visit(this);
+		visitor.visit(this);
 	}
 	
 	public void accept2(Visitor visitor) {
@@ -160,6 +161,14 @@ public class Node {
 	public void setMoonVarName(String moonVarName) {
 		this.moonVarName = moonVarName;
 	}
+
+	public int getMoonSize() {
+		return moonSize;
+	}
+
+	public void setMoonSize(int moonSize) {
+		this.moonSize = moonSize;
+	}
 }
 
 class EpsilonNode extends Node {
@@ -186,10 +195,6 @@ class ArraySizeNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -218,10 +223,6 @@ class FParamsTailNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -238,10 +239,6 @@ class FParamsTailListNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -258,10 +255,6 @@ class FParamsNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -278,10 +271,6 @@ class MemberFuncDeclNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -298,10 +287,6 @@ class MemberVarDeclNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -318,10 +303,6 @@ class MemberDeclNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -338,10 +319,6 @@ class MemberDeclListNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -358,10 +335,6 @@ class InheritanceListTailNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -378,10 +351,6 @@ class InheritanceListNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -398,10 +367,6 @@ class ClassDeclNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -418,10 +383,6 @@ class FuncHeadNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -438,10 +399,6 @@ class AddOpNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -458,10 +415,6 @@ class MultOpNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -478,10 +431,6 @@ class RelOpNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -498,10 +447,6 @@ class NotNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -518,10 +463,6 @@ class SignNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -538,10 +479,6 @@ class LocalVarDeclNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -558,10 +495,6 @@ class RelExprNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -578,10 +511,6 @@ class ExprNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -598,10 +527,6 @@ class ExprTailListNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -618,10 +543,6 @@ class AParamsNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -638,10 +559,6 @@ class WriteNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -658,10 +575,6 @@ class ReturnNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -678,10 +591,6 @@ class StatementNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -698,10 +607,6 @@ class FuncBodyNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -718,10 +623,6 @@ class FuncDefNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -738,10 +639,6 @@ class ProgNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -758,10 +655,6 @@ class ReadNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -778,10 +671,6 @@ class VariableNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -798,10 +687,6 @@ class IndiceNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -818,10 +703,6 @@ class IdNestNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -838,10 +719,6 @@ class IdNestTempNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -858,10 +735,6 @@ class AssignStatNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -878,10 +751,6 @@ class FunctionCallNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -898,10 +767,6 @@ class StatBlockNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -918,10 +783,6 @@ class IfNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }
@@ -938,10 +799,6 @@ class WhileNode extends Node {
 		}
 	}
 	public void accept2(Visitor visitor) {
-		ArrayList<Node> childList = this.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(visitor);
-		}
 		visitor.visit(this);
 	}
 }

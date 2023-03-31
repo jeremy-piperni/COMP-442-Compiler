@@ -1,10 +1,10 @@
 function main() => void  
 {
-  localvar x: integer;                             
-  localvar y: integer;                             
-  localvar z: integer;                          
-  y = 1 + 2 * 3;                                   
-  x = 2;
-  z = x + y;
-
+localvar x: integer;
+localvar y: integer;
+localvar z: integer;
+x = 3;
+y = 12;
+read(z);
+ write(x + y / z);
 }
