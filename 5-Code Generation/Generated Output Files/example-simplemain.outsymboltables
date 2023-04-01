@@ -8,22 +8,22 @@
 |    | local     | x     | integer     | 4     | 0
 |    | local     | y     | integer     | 4     | 4
 |    | local     | z     | integer     | 4     | 8
-|    | intVal     | t1     | integer     | 4     | 12
-|    | intVal     | t2     | integer     | 4     | 16
+|    | tempVar     | t1     | integer     | 4     | 12
+|    | tempVar     | t2     | integer     | 4     | 16
 |    | intVal     | t3     | integer     | 4     | 20
-|    | tempVar     | t4     | integer     | 4     | 24
-|    | tempVar     | t5     | integer     | 4     | 28
+|    | intVal     | t4     | integer     | 4     | 24
+|    | intVal     | t5     | integer     | 4     | 28
 |    | tempVar     | t6     | integer     | 4     | 32
-|    | intVal     | t7     | integer     | 4     | 36
-|    | tempVar     | t8     | integer     | 4     | 40
-|    | intVal     | t9     | integer     | 4     | 44
-|    | tempVar     | t10     | integer     | 4     | 48
-|    | intVal     | t11     | integer     | 4     | 52
-|    | tempVar     | t12     | integer     | 4     | 56
+|    | tempVar     | t7     | integer     | 4     | 36
+|    | intVal     | t8     | integer     | 4     | 40
+|    | tempVar     | t9     | integer     | 4     | 44
+|    | intVal     | t10     | integer     | 4     | 48
+|    | tempVar     | t11     | integer     | 4     | 52
+|    | intVal     | t12     | integer     | 4     | 56
 |    | intVal     | t13     | integer     | 4     | 60
 |    | tempVar     | t14     | integer     | 4     | 64
 |    | intVal     | t15     | integer     | 4     | 68
-|    | intVal     | t16     | integer     | 4     | 72
-|    | tempVar     | t17     | integer     | 4     | 76
+|    | tempVar     | t16     | integer     | 4     | 72
+|    | intVal     | t17     | integer     | 4     | 76
 |    =====================================================================================
 ==========================================================================================

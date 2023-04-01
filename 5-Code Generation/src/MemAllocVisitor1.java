@@ -77,6 +77,11 @@ public class MemAllocVisitor1 implements Visitor {
 	}
 	
 	public void visit(ClassDeclNode node) {
+		ArrayList<Node> childList = node.getChildren();
+		for (int i = 0; i < childList.size(); i++) {
+			childList.get(i).accept2(this);
+		}
+		
 		int scopeSize = 0;
 		ArrayList<SymbolTableEntry> entries = node.getSymEntry().getSymTable().getSymEntries();
 		for (int i = 0; i < entries.size(); i++) {
@@ -86,10 +91,6 @@ public class MemAllocVisitor1 implements Visitor {
 		}
 		node.getSymbolTable().setScopeSize(scopeSize);
 		
-		ArrayList<Node> childList = node.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(this);
-		}
 	}
 	
 	public void visit(FuncHeadNode node) {
@@ -100,16 +101,23 @@ public class MemAllocVisitor1 implements Visitor {
 	}
 	
 	public void visit(AddOpNode node) {
+		ArrayList<Node> childList = node.getChildren();
+		for (int i = 0; i < childList.size(); i++) {
+			childList.get(i).accept2(this);
+		}
+		
 		String type = "";
 
 		Node expr = node;
 		ArrayList<Node> terminals = new ArrayList<>();
 		findTerminals(expr,terminals);
 		type = type + terminals.get(0).getExpressionType();
-		if (type.equals("integer")) {
+		if (type.equals("integer") || terminals.get(0).getType().equals("intlit")) {
 			node.setMoonSize(4);
-		} else if (type.equals("float")) {
+			type = "integer";
+		} else if (type.equals("float") || terminals.get(0).getType().equals("floatlit")) {
 			node.setMoonSize(8);
+			type = "float";
 		}
 		
 		Node func = node;
@@ -123,23 +131,26 @@ public class MemAllocVisitor1 implements Visitor {
 		tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
 		func.getSymbolTable().getSymEntries().add(tempVar);
 		
-		ArrayList<Node> childList = node.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(this);
-		}
 	}
 	
 	public void visit(MultOpNode node) {
+		ArrayList<Node> childList = node.getChildren();
+		for (int i = 0; i < childList.size(); i++) {
+			childList.get(i).accept2(this);
+		}
+		
 		String type = "";
 
 		Node expr = node;
 		ArrayList<Node> terminals = new ArrayList<>();
 		findTerminals(expr,terminals);
 		type = type + terminals.get(0).getExpressionType();
-		if (type.equals("integer")) {
+		if (type.equals("integer") || terminals.get(0).getType().equals("intlit")) {
 			node.setMoonSize(4);
-		} else if (type.equals("float")) {
+			type = "integer";
+		} else if (type.equals("float") || terminals.get(0).getType().equals("floatlit")) {
 			node.setMoonSize(8);
+			type = "float";
 		}
 		
 		Node func = node;
@@ -153,10 +164,6 @@ public class MemAllocVisitor1 implements Visitor {
 		tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
 		func.getSymbolTable().getSymEntries().add(tempVar);
 		
-		ArrayList<Node> childList = node.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(this);
-		}
 	}
 	
 	public void visit(RelOpNode node) {
@@ -220,6 +227,11 @@ public class MemAllocVisitor1 implements Visitor {
 	}
 	
 	public void visit(RelExprNode node) {
+		ArrayList<Node> childList = node.getChildren();
+		for (int i = 0; i < childList.size(); i++) {
+			childList.get(i).accept2(this);
+		}
+		
 		String type = "";
 
 		Node expr = node;
@@ -273,14 +285,14 @@ public class MemAllocVisitor1 implements Visitor {
 			}
 		}
 		
+	}
+	
+	public void visit(ExprNode node) {
 		ArrayList<Node> childList = node.getChildren();
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
 		
-	}
-	
-	public void visit(ExprNode node) {
 		ArrayList<Node> terminals = new ArrayList<>();
 		findTerminals(node,terminals);
 		Node func = node;
@@ -304,10 +316,6 @@ public class MemAllocVisitor1 implements Visitor {
 			}
 		}
 		
-		ArrayList<Node> childList = node.getChildren();
-		for (int i = 0; i < childList.size(); i++) {
-			childList.get(i).accept2(this);
-		}
 	}
 	
 	public void visit(ExprTailListNode node) {
@@ -396,7 +404,41 @@ public class MemAllocVisitor1 implements Visitor {
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
+		Node checkForExpr = node;
+		while (!checkForExpr.getParent().getType().equals("EXPR")) {
+			checkForExpr = checkForExpr.getParent();
+			if (!checkForExpr.getParent().getType().equals("PROG")) {
+				break;
+			}
+		}
+		if (!checkForExpr.getParent().getType().equals("EXPR")) {
+			ArrayList<Node> terminals = new ArrayList<>();
+			findTerminals(node,terminals);
+			Node func = node;
+			while (!func.getParent().getType().equals("FUNCDEF")) {
+				func = func.getParent();
+			}
+			func = func.getParent();
+			for (int i = 0; i < terminals.size(); i++) {
+				if (terminals.get(i).getType().equals("intlit")) {
+					SymbolLocalVarParamEntry tempVar = new SymbolLocalVarParamEntry("intVal",tempVarValue,"integer",node.getLoc(),terminals.get(i).getLexeme());
+					terminals.get(i).setMoonVarName(tempVarValue);
+					String tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
+					tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
+					func.getSymbolTable().getSymEntries().add(tempVar);
+				} else if (terminals.get(i).getType().equals("floatlit")) {
+					SymbolLocalVarParamEntry tempVar = new SymbolLocalVarParamEntry("floatVal",tempVarValue,"float",node.getLoc(),terminals.get(i).getLexeme());
+					terminals.get(i).setMoonVarName(tempVarValue);
+					String tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
+					tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
+					func.getSymbolTable().getSymEntries().add(tempVar);
+				}
+			}
+		}
+		
 	}
+		
 	
 	public void visit(IdNestNode node) {
 		ArrayList<Node> childList = node.getChildren();

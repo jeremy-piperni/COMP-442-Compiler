@@ -10,4 +10,33 @@ PROG
 | | | | type
 | | | | ARRAYSIZE
 | | | | | intlit
-| | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | | | intlit
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | | | intlit
+| | | STATEMENT
+| | | | WRITE
+| | | | | EXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | | | intlit

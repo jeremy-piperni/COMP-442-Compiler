@@ -15,7 +15,7 @@ public class CodeGenerationVisitor implements Visitor {
 	private String moonDataCode = "";
 	
 	public void visit(Node node) {
-		if (node.getType().equals("intlit") && !node.getParent().getType().equals("ARRAYSIZE")) {
+		if (node.getType().equals("intlit") && !node.getParent().getParent().getType().equals("LOCALVARDECL")) {
 			moonDataCode = moonDataCode + node.getMoonVarName() + "   res 4\n";
 			String localRegister = registerPool.pop();
 			
@@ -229,7 +229,7 @@ public class CodeGenerationVisitor implements Visitor {
 				moonDataCode = moonDataCode + id + "    res 8\n"; 
 			}
 		} else {
-			if (type.equals("integer")) {
+			if (type.equals("integer") || type.equals("float")) {
 				moonDataCode = moonDataCode + id + "  res " + node.getMoonSize() + "\n";
 			}
 		}
@@ -314,8 +314,21 @@ public class CodeGenerationVisitor implements Visitor {
 		}
 		
 		String localRegister = registerPool.pop();
+		String localRegister2 = registerPool.pop();
 		if (node.getChildren().get(0).getChildren().get(0).getType().equals("VARIABLE")) {
-			moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(0).getChildren().get(0).getChildren().get(1).getLexeme() + "(r0)\n";
+			if (node.getChildren().get(0).getChildren().get(0).getChildren().get(2).getChildren().size() > 0) {
+				int offset = Integer.parseInt(node.getChildren().get(0).getChildren().get(0).getChildren().get(2).getChildren().get(0).getLexeme());
+				int typeOffset;
+				if (node.getChildren().get(0).getChildren().get(0).getChildren().get(2).getChildren().get(0).getType().equals("intlit")) {
+					typeOffset = 4;
+				} else {
+					typeOffset = 8;
+				}
+				moonExecCode = moonExecCode + "     addi " + localRegister2 + ",r0," + (offset * typeOffset) +"\n";
+				moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(0).getChildren().get(0).getChildren().get(1).getLexeme() + "(" + localRegister2 + ")\n";
+			} else {
+				moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(0).getChildren().get(0).getChildren().get(1).getLexeme() + "(r0)\n";
+			}
 		} else {
 			moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(0).getChildren().get(0).getMoonVarName() + "(r0)\n";
 		}
@@ -330,6 +343,7 @@ public class CodeGenerationVisitor implements Visitor {
 		moonExecCode = moonExecCode + "     jl r15, putstr\n";
 		
 		registerPool.push(localRegister);
+		registerPool.push(localRegister2);
 	}
 	
 	public void visit(ReturnNode node) {
@@ -433,11 +447,29 @@ public class CodeGenerationVisitor implements Visitor {
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
-		String localRegister = registerPool.pop();
-		moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(1).getChildren().get(0).getMoonVarName() + "(r0)\n";
-		moonExecCode = moonExecCode + "     sw " + node.getChildren().get(0).getChildren().get(1).getLexeme() + "(r0)," + localRegister + "\n";
 		
-		registerPool.push(localRegister);
+		String localRegister = registerPool.pop();
+		
+		if (node.getChildren().get(0).getChildren().get(2).getChildren().size() > 0) {
+			String localRegister2 = registerPool.pop();
+			int offset = Integer.parseInt(node.getChildren().get(0).getChildren().get(2).getChildren().get(0).getLexeme());
+			int typeOffset;
+			if (node.getChildren().get(0).getChildren().get(2).getChildren().get(0).getType().equals("intlit")) {
+				typeOffset = 4;
+			} else {
+				typeOffset = 8;
+			}
+			moonExecCode = moonExecCode + "     addi " + localRegister2 + ",r0," + (offset * typeOffset) +"\n";
+			moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(1).getChildren().get(0).getMoonVarName() + "(r0)\n";
+			moonExecCode = moonExecCode + "     sw " + node.getChildren().get(0).getChildren().get(1).getLexeme() + "(" + localRegister2 + ")," + localRegister + "\n";
+			registerPool.push(localRegister2);
+			registerPool.push(localRegister);
+		} else {
+			moonExecCode = moonExecCode + "     lw " + localRegister + "," + node.getChildren().get(1).getChildren().get(0).getMoonVarName() + "(r0)\n";
+			moonExecCode = moonExecCode + "     sw " + node.getChildren().get(0).getChildren().get(1).getLexeme() + "(r0)," + localRegister + "\n";
+			registerPool.push(localRegister);
+		}
+		
 	}
 	
 	public void visit(FunctionCallNode node) {
