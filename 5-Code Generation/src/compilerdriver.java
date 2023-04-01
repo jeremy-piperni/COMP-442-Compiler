@@ -9,13 +9,14 @@ public class compilerdriver {
 		parser parser = new parser(lexAnalyzer);
 		parser.parse();
 		
-		/*
-		file = "Testing Source Files/example-bubblesort.src";
+		file = "Testing Source Files/example-simplemain.src";
 		lexAnalyzer = new lexicalanalyzer(file);
 		
 		parser = new parser(lexAnalyzer);
 		parser.parse();
-		file = "Testing Source Files/example-simplemain.src";
+	
+		/*
+		file = "Testing Source Files/example-bubblesort.src";
 		lexAnalyzer = new lexicalanalyzer(file);
 		
 		parser = new parser(lexAnalyzer);

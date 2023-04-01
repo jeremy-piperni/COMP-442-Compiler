@@ -185,13 +185,99 @@ public class MemAllocVisitor1 implements Visitor {
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
+		if (childList.get(2).getChildren().size() > 0) {
+			String type = childList.get(1).getLexeme();
+			int size = 1;
+			ArrayList<Node> arraySizeList = childList.get(2).getChildren();
+			for (int i = 0; i < arraySizeList.size(); i++) {
+				size = size * Integer.parseInt(arraySizeList.get(i).getLexeme());
+			}
+			if (type.equals("integer")) {
+				size = size * 4;
+			} else if (type.equals("float")) {
+				size = size * 8;
+			}
+			node.setMoonSize(size);
+			String id = childList.get(0).getLexeme();
+			Node func = node;
+			while (!func.getParent().getType().equals("FUNCDEF")) {
+				func = func.getParent();
+			}
+			func = func.getParent();
+			ArrayList<SymbolLocalVarParamEntry> localVars = new ArrayList<>();
+			for (int i = 0; i < func.getSymbolTable().getSymEntries().size(); i++) {
+				if (func.getSymbolTable().getSymEntries().get(i) instanceof SymbolLocalVarParamEntry) {
+					localVars.add(((SymbolLocalVarParamEntry)func.getSymbolTable().getSymEntries().get(i)));
+				}
+			}
+			for (int i = 0; i < localVars.size(); i++) {
+				if (localVars.get(i).getId().equals(id)) {
+					localVars.get(i).setScopeSize(size);
+				}
+			}
+		}
 	}
 	
 	public void visit(RelExprNode node) {
+		String type = "";
+
+		Node expr = node;
+		ArrayList<Node> terminals = new ArrayList<>();
+		findTerminals(expr,terminals);
+		type = type + terminals.get(0).getExpressionType();
+		if (type.equals("integer")) {
+			node.setMoonSize(4);
+		} else if (type.equals("float")) {
+			node.setMoonSize(8);
+		}
+		
+		Node func = node;
+		while (!func.getParent().getType().equals("FUNCDEF")) {
+			func = func.getParent();
+		}
+		func = func.getParent();
+		SymbolLocalVarParamEntry tempVar = new SymbolLocalVarParamEntry("tempVar",tempVarValue,type,node.getLoc(),node.getLexeme());
+		node.setMoonVarName(tempVarValue);
+		String tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
+		tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
+		func.getSymbolTable().getSymEntries().add(tempVar);
+		
+		Node checkForExpr = node;
+		while (!checkForExpr.getParent().getType().equals("EXPR")) {
+			checkForExpr = checkForExpr.getParent();
+			if (!checkForExpr.getParent().getType().equals("PROG")) {
+				break;
+			}
+		}
+		if (!checkForExpr.getParent().getType().equals("EXPR")) {
+			func = node;
+			while (!func.getParent().getType().equals("FUNCDEF")) {
+				func = func.getParent();
+			}
+			func = func.getParent();
+			for (int i = 0; i < terminals.size(); i++) {
+				if (terminals.get(i).getType().equals("intlit")) {
+					tempVar = new SymbolLocalVarParamEntry("intVal",tempVarValue,"integer",node.getLoc(),terminals.get(i).getLexeme());
+					terminals.get(i).setMoonVarName(tempVarValue);
+					tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
+					tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
+					func.getSymbolTable().getSymEntries().add(tempVar);
+				} else if (terminals.get(i).getType().equals("floatlit")) {
+					tempVar = new SymbolLocalVarParamEntry("floatVal",tempVarValue,"float",node.getLoc(),terminals.get(i).getLexeme());
+					terminals.get(i).setMoonVarName(tempVarValue);
+					tempVarValue2 = tempVarValue.substring(tempVarValue.length()-1);
+					tempVarValue = tempVarValue.substring(0,tempVarValue.length()-1) + Integer.toString(Integer.parseInt(tempVarValue2) + 1);
+					func.getSymbolTable().getSymEntries().add(tempVar);
+				}
+			}
+		}
+		
 		ArrayList<Node> childList = node.getChildren();
 		for (int i = 0; i < childList.size(); i++) {
 			childList.get(i).accept2(this);
 		}
+		
 	}
 	
 	public void visit(ExprNode node) {

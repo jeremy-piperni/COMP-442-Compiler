@@ -9,50 +9,5 @@ PROG
 | | | | id
 | | | | type
 | | | | ARRAYSIZE
-| | | LOCALVARDECL
-| | | | id
-| | | | type
-| | | | ARRAYSIZE
-| | | LOCALVARDECL
-| | | | id
-| | | | type
-| | | | ARRAYSIZE
-| | | STATEMENT
-| | | | ASSIGNSTAT
-| | | | | VARIABLE
-| | | | | | IDNEST
-| | | | | | id
-| | | | | | INDICE
-| | | | | EXPR
-| | | | | | intlit
-| | | STATEMENT
-| | | | ASSIGNSTAT
-| | | | | VARIABLE
-| | | | | | IDNEST
-| | | | | | id
-| | | | | | INDICE
-| | | | | EXPR
-| | | | | | intlit
-| | | STATEMENT
-| | | | READ
-| | | | | VARIABLE
-| | | | | | IDNEST
-| | | | | | id
-| | | | | | INDICE
-| | | STATEMENT
-| | | | WRITE
-| | | | | EXPR
-| | | | | | ADDOP
-| | | | | | | VARIABLE
-| | | | | | | | IDNEST
-| | | | | | | | id
-| | | | | | | | INDICE
-| | | | | | | MULTOP
-| | | | | | | | VARIABLE
-| | | | | | | | | IDNEST
-| | | | | | | | | id
-| | | | | | | | | INDICE
-| | | | | | | | VARIABLE
-| | | | | | | | | IDNEST
-| | | | | | | | | id
-| | | | | | | | | INDICE
+| | | | | intlit
+| | | | | intlit

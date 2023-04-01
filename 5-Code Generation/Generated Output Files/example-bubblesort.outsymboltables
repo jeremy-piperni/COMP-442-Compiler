@@ -3,28 +3,63 @@
 ==========================================================================================
 | function    | bubbleSort          | (integer[],integer):void
 |    =====================================================================================
-|    | table: ::bubbleSort          scope size: 0
+|    | table: ::bubbleSort          scope size: 96
 |    =====================================================================================
-|    | param     | arr     | integer[]
-|    | param     | size     | integer
-|    | local     | n     | integer
-|    | local     | i     | integer
-|    | local     | j     | integer
-|    | local     | temp     | integer
+|    | param     | arr     | integer[]     | 0     | 0
+|    | param     | size     | integer     | 4     | 0
+|    | local     | n     | integer     | 4     | 4
+|    | local     | i     | integer     | 4     | 8
+|    | local     | j     | integer     | 4     | 12
+|    | local     | temp     | integer     | 4     | 16
+|    | intVal     | t1     | integer     | 4     | 20
+|    | intVal     | t2     | integer     | 4     | 24
+|    | intVal     | t3     | integer     | 4     | 28
+|    | tempVar     | t4     | integer     | 4     | 32
+|    | intVal     | t5     | integer     | 4     | 36
+|    | tempVar     | t6     | integer     | 4     | 40
+|    | intVal     | t7     | integer     | 4     | 44
+|    | tempVar     | t8     | integer     | 4     | 48
+|    | intVal     | t9     | integer     | 4     | 52
+|    | tempVar     | t10     | integer     | 4     | 56
+|    | tempVar     | t11     | integer     | 4     | 60
+|    | tempVar     | t12     | integer[]     | 0     | 64
+|    | intVal     | t13     | integer     | 4     | 64
+|    | tempVar     | t14     | integer     | 4     | 68
+|    | intVal     | t15     | integer     | 4     | 72
+|    | tempVar     | t16     | integer     | 4     | 76
+|    | tempVar     | t17     | null     | 0     | 80
+|    | intVal     | t18     | integer     | 4     | 80
+|    | tempVar     | t19     | integer     | 4     | 84
+|    | intVal     | t110     | integer     | 4     | 88
+|    | tempVar     | t111     | integer     | 4     | 92
 |    =====================================================================================
 | function    | printArray          | (integer[],integer):void
 |    =====================================================================================
-|    | table: ::printArray          scope size: 0
+|    | table: ::printArray          scope size: 28
 |    =====================================================================================
-|    | param     | arr     | integer[]
-|    | param     | size     | integer
-|    | local     | n     | integer
-|    | local     | i     | integer
+|    | param     | arr     | integer[]     | 0     | 0
+|    | param     | size     | integer     | 4     | 0
+|    | local     | n     | integer     | 4     | 4
+|    | local     | i     | integer     | 4     | 8
+|    | intVal     | t112     | integer     | 4     | 12
+|    | tempVar     | t113     | integer     | 4     | 16
+|    | intVal     | t114     | integer     | 4     | 20
+|    | tempVar     | t115     | integer     | 4     | 24
 |    =====================================================================================
 | function    | main          | ():void
 |    =====================================================================================
-|    | table: ::main          scope size: 0
+|    | table: ::main          scope size: 40
 |    =====================================================================================
-|    | local     | arr     | integer[7]
+|    | local     | arr     | integer[7]     | 0     | 0
+|    | intVal     | t116     | integer     | 4     | 0
+|    | intVal     | t117     | integer     | 4     | 4
+|    | intVal     | t118     | integer     | 4     | 8
+|    | intVal     | t119     | integer     | 4     | 12
+|    | intVal     | t1110     | integer     | 4     | 16
+|    | intVal     | t1111     | integer     | 4     | 20
+|    | intVal     | t1112     | integer     | 4     | 24
+|    | intVal     | t1113     | integer     | 4     | 28
+|    | intVal     | t1114     | integer     | 4     | 32
+|    | intVal     | t1115     | integer     | 4     | 36
 |    =====================================================================================
 ==========================================================================================
