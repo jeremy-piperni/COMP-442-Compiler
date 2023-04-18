@@ -418,30 +418,4 @@ PROG
 | | | | | | | | | | | EXPRTAILLIST
 | | | | | | STATEMENT
 | | | | | | | WRITE
-| | | | | | | | EXPR
-| | | | | | | | | FUNCTIONCALL
-| | | | | | | | | | IDNEST
-| | | | | | | | | | | IDNESTTEMP
-| | | | | | | | | | | | id
-| | | | | | | | | | | | INDICE
-| | | | | | | | | | id
-| | | | | | | | | | APARAMS
-| | | | | | | | | | | EXPR
-| | | | | | | | | | | | VARIABLE
-| | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | id
-| | | | | | | | | | | | | INDICE
-| | | | | | | | | | | EXPRTAILLIST
-| | | | | | STATEMENT
-| | | | | | | ASSIGNSTAT
-| | | | | | | | VARIABLE
-| | | | | | | | | IDNEST
-| | | | | | | | | id
-| | | | | | | | | INDICE
-| | | | | | | | EXPR
-| | | | | | | | | ADDOP
-| | | | | | | | | | VARIABLE
-| | | | | | | | | | | IDNEST
-| | | | | | | | | | | id
-| | | | | | | | | | | INDICE
-| | | | | | | | | | intlit
+| | | | | | | 

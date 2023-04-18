@@ -1,0 +1,155 @@
+PROG
+| FUNCDEF
+| | FUNCHEAD
+| | | id
+| | | FPARAMS
+| | | type
+| | FUNCBODY
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | LOCALVARDECL
+| | | | id
+| | | | type
+| | | | ARRAYSIZE
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | ASSIGNSTAT
+| | | | | VARIABLE
+| | | | | | IDNEST
+| | | | | | id
+| | | | | | INDICE
+| | | | | EXPR
+| | | | | | intlit
+| | | STATEMENT
+| | | | IF
+| | | | | RELEXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | RELOP
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | WRITE
+| | | | | | | | EXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | WRITE
+| | | | | | | | EXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | STATEMENT
+| | | | IF
+| | | | | RELEXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | RELOP
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | IF
+| | | | | | | | RELEXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | | | | | RELOP
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | | | | STATBLOCK
+| | | | | | | | | STATEMENT
+| | | | | | | | | | WRITE
+| | | | | | | | | | | EXPR
+| | | | | | | | | | | | ADDOP
+| | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | INDICE
+| | | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | INDICE
+| | | | | | | | STATBLOCK
+| | | | | | | | | STATEMENT
+| | | | | | | | | | WRITE
+| | | | | | | | | | | EXPR
+| | | | | | | | | | | | VARIABLE
+| | | | | | | | | | | | | IDNEST
+| | | | | | | | | | | | | id
+| | | | | | | | | | | | | INDICE
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | WRITE
+| | | | | | | | EXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | STATEMENT
+| | | | IF
+| | | | | RELEXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | RELOP
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | WRITE
+| | | | | | | | EXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE
+| | | | | STATEMENT
+| | | STATEMENT
+| | | | IF
+| | | | | RELEXPR
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | | RELOP
+| | | | | | VARIABLE
+| | | | | | | IDNEST
+| | | | | | | id
+| | | | | | | INDICE
+| | | | | STATBLOCK
+| | | | | STATBLOCK
+| | | | | | STATEMENT
+| | | | | | | WRITE
+| | | | | | | | EXPR
+| | | | | | | | | VARIABLE
+| | | | | | | | | | IDNEST
+| | | | | | | | | | id
+| | | | | | | | | | INDICE

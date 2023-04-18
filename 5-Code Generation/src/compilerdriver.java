@@ -15,18 +15,18 @@ public class compilerdriver {
 		parser = new parser(lexAnalyzer);
 		parser.parse();
 	
-		/*
-		file = "Testing Source Files/example-bubblesort.src";
+		file = "Testing Source Files/test-arithmetic.src";
 		lexAnalyzer = new lexicalanalyzer(file);
 		
 		parser = new parser(lexAnalyzer);
 		parser.parse();
 		
-		file = "Testing Source Files/example-polynomial.src";
+		file = "Testing Source Files/test-if.src";
 		lexAnalyzer = new lexicalanalyzer(file);
 		
 		parser = new parser(lexAnalyzer);
-		parser.parse(); */
+		parser.parse();
+		
 	}
 
 }
